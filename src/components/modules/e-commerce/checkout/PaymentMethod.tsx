@@ -1,8 +1,8 @@
 import { Col, Form, Row } from 'react-bootstrap';
-import visa from 'assets/img/logos/visa.png';
-import discover from 'assets/img/logos/discover.png';
-import mastercard from 'assets/img/logos/mastercard.png';
-import american_express from 'assets/img/logos/american_express.png';
+import visa from '../../../../assets/img/logos/visa.png';
+import discover from '../../../../assets/img/logos/discover.png';
+import mastercard from '../../../../assets/img/logos/mastercard.png';
+import american_express from '../../../../assets/img/logos/american_express.png';
 import dayjs from 'dayjs';
 import localeData from 'dayjs/plugin/localeData';
 dayjs.extend(localeData);

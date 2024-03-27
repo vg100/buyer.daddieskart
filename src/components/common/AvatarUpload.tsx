@@ -1,5 +1,5 @@
 import React, { CSSProperties, ChangeEvent, useState } from 'react';
-import Avatar, { Size, Status } from 'components/base/Avatar';
+import Avatar, { Size, Status } from '../../components/base/Avatar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';

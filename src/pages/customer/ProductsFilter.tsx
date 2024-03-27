@@ -1,12 +1,12 @@
-import PhoenixOffcanvas from 'components/base/PhoenixOffcanvas';
-import Section from 'components/base/Section';
+import PhoenixOffcanvas from '../../components/base/PhoenixOffcanvas';
+import Section from '../../components/base/Section';
 import { useState } from 'react';
 import { Button, Col, Pagination, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Scrollbar from 'components/base/Scrollbar';
-import ProductFilterItems from 'components/modules/e-commerce/products-filter/ProductFilterItems';
-import ProductCard from 'components/common/ProductCard';
-import { allProducts } from 'data/e-commerce/products';
+import Scrollbar from '../../components/base/Scrollbar';
+import ProductFilterItems from '../../components/modules/e-commerce/products-filter/ProductFilterItems';
+import ProductCard from '../../components/common/ProductCard';
+import { allProducts } from '../../data/e-commerce/products';
 import {
   faChevronLeft,
   faChevronRight,

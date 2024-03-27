@@ -27,7 +27,7 @@ const EcommerceTopbar = () => {
                 <Nav.Item as="li">
                   <Nav.Link
                     as={Link}
-                    to="/apps/e-commerce/customer/cart"
+                    to="/cart"
                     className="px-2 icon-indicator icon-indicator-primary"
                   >
                     <FeatherIcon icon="shopping-cart" size={20} />

@@ -102,7 +102,7 @@ export const currencyFormat = (
 ) => {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'usd',
+    currency: 'inr',
     maximumFractionDigits: 2,
     minimumFractionDigits: 0,
     ...options

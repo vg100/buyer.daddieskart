@@ -1,17 +1,17 @@
 import { ColumnDef } from '@tanstack/react-table';
-import AdvanceTable from 'components/base/AdvanceTable';
-import { currencyFormat } from 'helpers/utils';
-import useAdvanceTable from 'hooks/useAdvanceTable';
-import AdvanceTableProvider from 'providers/AdvanceTableProvider';
+import AdvanceTable from '../../components/base/AdvanceTable';
+import { currencyFormat } from '../../helpers/utils';
+import useAdvanceTable from '../../hooks/useAdvanceTable';
+import AdvanceTableProvider from '../../providers/AdvanceTableProvider';
 import { Link } from 'react-router-dom';
-import AdvanceTableFooter from 'components/base/AdvanceTableFooter';
-import { StoreProductType, storeProducts } from 'data/e-commerce/products';
-import Rating from 'components/base/Rating';
+import AdvanceTableFooter from '../../components/base/AdvanceTableFooter';
+import { StoreProductType, storeProducts } from '../../data/e-commerce/products';
+import Rating from '../../components/base/Rating';
 import RevealDropdown, {
   RevealDropdownTrigger
-} from 'components/base/RevealDropdown';
-import MyFavoriteStores from 'components/modules/e-commerce/profile/MyFavoriteStores';
-import ActionDropdownItems from 'components/common/ActionDropdownItems';
+} from '../../components/base/RevealDropdown';
+import MyFavoriteStores from '../../components/modules/e-commerce/profile/MyFavoriteStores';
+import ActionDropdownItems from '../../components/common/ActionDropdownItems';
 
 const columns: ColumnDef<StoreProductType>[] = [
   {

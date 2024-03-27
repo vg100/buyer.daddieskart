@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Rating from 'components/base/Rating';
+import Rating from '../../components/base/Rating';
 import RevealDropdown, {
   RevealDropdownTrigger
-} from 'components/base/RevealDropdown';
-import { StoreItem as StoreItemType } from 'data/e-commerce/stores';
+} from '../../components/base/RevealDropdown';
+import { StoreItem as StoreItemType } from '../../data/e-commerce/stores';
 import { Link } from 'react-router-dom';
 import ActionDropdownItems from './ActionDropdownItems';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';

@@ -1,6 +1,6 @@
 import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Button from 'components/base/Button';
+import Button from '../../components/base/Button';
 import React from 'react';
 
 const AuthSocialButtons = ({ title }: { title: string }) => {

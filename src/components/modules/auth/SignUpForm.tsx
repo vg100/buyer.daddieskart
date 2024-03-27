@@ -1,5 +1,5 @@
-import Button from 'components/base/Button';
-import AuthSocialButtons from 'components/common/AuthSocialButtons';
+import Button from '../../../components/base/Button';
+import AuthSocialButtons from '../../../components/common/AuthSocialButtons';
 import { Col, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -67,7 +67,7 @@ const SignUpForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
         </Button>
         <div className="text-center">
           <Link
-            to={`/pages/authentication/${layout}/sign-in`}
+            to={`/sign-in`}
             className="fs-9 fw-bold"
           >
             Sign in to an existing account

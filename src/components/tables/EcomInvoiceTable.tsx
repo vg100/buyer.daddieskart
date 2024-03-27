@@ -1,4 +1,4 @@
-import Scrollbar from 'components/base/Scrollbar';
+import Scrollbar from '../../components/base/Scrollbar';
 import React from 'react';
 
 const EcomInvoiceTable = () => {

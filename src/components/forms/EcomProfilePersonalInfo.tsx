@@ -1,6 +1,6 @@
-import Button from 'components/base/Button';
+import Button from '../../components/base/Button';
 import dayjs from 'dayjs';
-import { getNumbersInRange } from 'helpers/utils';
+import { getNumbersInRange } from '../../helpers/utils';
 import { Col, Form, Row } from 'react-bootstrap';
 
 const EcomProfilePersonalInfo = () => {

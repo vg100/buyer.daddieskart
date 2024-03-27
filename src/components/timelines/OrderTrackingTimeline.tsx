@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import Timeline from 'components/base/Timeline';
-import { TimelineData } from 'data/timelineData';
+import Timeline from '../../components/base/Timeline';
+import { TimelineData } from '../../data/timelineData';
 
 const OrderTrackingTimeline = ({ data }: { data: TimelineData[] }) => {
   return (

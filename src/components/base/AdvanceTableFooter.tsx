@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Col, Pagination, Row } from 'react-bootstrap';
 import Button from './Button';
-import { useAdvanceTableContext } from 'providers/AdvanceTableProvider';
+import { useAdvanceTableContext } from '../../providers/AdvanceTableProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import usePagination from 'hooks/usePagination';
+import usePagination from '../../hooks/usePagination';
 import {
   faAngleRight,
   faChevronLeft,

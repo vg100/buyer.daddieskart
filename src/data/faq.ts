@@ -10,7 +10,7 @@ import {
   faSliders,
   faTruckFast
 } from '@fortawesome/free-solid-svg-icons';
-import { PageBreadcrumbItem } from 'components/common/PageBreadcrumb';
+import { PageBreadcrumbItem } from '../components/common/PageBreadcrumb';
 
 export const faqBreadcrumbItems: PageBreadcrumbItem[] = [
   {

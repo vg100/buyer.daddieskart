@@ -1,14 +1,14 @@
-import Logo from 'components/common/Logo';
+import Logo from '../../../components/common/Logo';
 import { Modal, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import FeatherIcon from 'feather-icons-react';
-import SearchBox from 'components/common/SearchBox';
-import Button from 'components/base/Button';
-import ThemeToggler from 'components/common/ThemeToggler';
+import SearchBox from '../../../components/common/SearchBox';
+import Button from '../../../components/base/Button';
+import ThemeToggler from '../../../components/common/ThemeToggler';
 import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
-import DropdownSearchBox from 'components/common/DropdownSearchBox';
-import SearchResult from 'components/common/SearchResult';
+import DropdownSearchBox from '../../../components/common/DropdownSearchBox';
+import SearchResult from '../../../components/common/SearchResult';
 
 const NavItem = ({
   label,

@@ -1,4 +1,4 @@
-import Button from 'components/base/Button';
+import Button from '../../../components/base/Button';
 import React from 'react';
 import { Form } from 'react-bootstrap';
 

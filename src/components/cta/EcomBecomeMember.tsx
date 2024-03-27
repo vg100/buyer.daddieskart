@@ -29,7 +29,7 @@ const EcomBecomeMember = () => {
             today!
           </h1>
           <Link
-            to="/pages/authentication/simple/sign-up"
+            to="/sign-up"
             className="btn btn-lg btn-primary px-7"
           >
             Sign up

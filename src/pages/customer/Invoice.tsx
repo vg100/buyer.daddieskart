@@ -1,12 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Button from 'components/base/Button';
-import Section from 'components/base/Section';
-import EcomInvoiceTable from 'components/tables/EcomInvoiceTable';
+import Button from '../../components/base/Button';
+import Section from '../../components/base/Section';
+import EcomInvoiceTable from '../../components/tables/EcomInvoiceTable';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
-import phoenixMart from 'assets/img/logos/phoenix-mart.png';
-import { defaultBreadcrumbItems } from 'data/commonData';
-import PageBreadcrumb from 'components/common/PageBreadcrumb';
+import phoenixMart from '../../assets/img/logos/phoenix-mart.png';
+import { defaultBreadcrumbItems } from '../../data/commonData';
+import PageBreadcrumb from '../../components/common/PageBreadcrumb';
 import {
   faBagShopping,
   faDownload,

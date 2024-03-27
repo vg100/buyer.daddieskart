@@ -1,6 +1,6 @@
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { UilTimes } from '@iconscout/react-unicons';
-import FormCollapse from 'components/common/FormCollapse';
+import FormCollapse from '../../../../components/common/FormCollapse';
 import {
   availabiltyOptions,
   brandsOptions,
@@ -11,9 +11,9 @@ import {
   displyOptions,
   warrantyOptions,
   warrantyTypeOptions
-} from 'data/e-commerce/filterOptions';
-import CheckboxItem from 'components/common/CheckboxItem';
-import Rating from 'components/base/Rating';
+} from '../../../../data/e-commerce/filterOptions';
+import CheckboxItem from '../../../../components/common/CheckboxItem';
+import Rating from '../../../../components/base/Rating';
 
 const ProductFilterItems = ({ handleClose }: { handleClose: () => void }) => {
   return (

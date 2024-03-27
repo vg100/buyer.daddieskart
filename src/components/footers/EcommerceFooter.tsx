@@ -24,14 +24,10 @@ const EcommerceFooter = () => {
           <Col xs={12} lg={4}>
             <Logo className="mb-3" />
             <p className="text-body-tertiary mb-1 fw-semibold lh-sm fs-9">
-              Phoenix is an admin dashboard template with fascinating features
-              and amazing layout. The template is responsive to all major
-              browsers and is compatible with all available devices and screen
-              sizes.
-            </p>
+            Discover your style sanctuary! From must-have essentials to statement pieces, find everything you need to redefine your fashion game. Shop now and shine brighter! Your style evolution starts here.    </p>
           </Col>
           <Col xs={6} md="auto">
-            <h5 className="fw-bolder mb-3">About Phoenix</h5>
+            <h5 className="fw-bolder mb-3">About Daddieskart</h5>
             <Stack>
               <LinkItem to="#!">Careers</LinkItem>
               <LinkItem to="#!">Affiliate Program</LinkItem>
@@ -64,7 +60,7 @@ const EcommerceFooter = () => {
             <Stack>
               <LinkItem to="#!">Help Desk</LinkItem>
               <LinkItem to="#!">Support, 24/7</LinkItem>
-              <LinkItem to="#!">Community of Phoenix</LinkItem>
+              <LinkItem to="#!">Community of DaddiesKart</LinkItem>
             </Stack>
           </Col>
           <Col xs={6} md="auto">

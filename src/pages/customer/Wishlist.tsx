@@ -1,7 +1,7 @@
-import Section from 'components/base/Section';
-import PageBreadcrumb from 'components/common/PageBreadcrumb';
-import EcomWishlistTable from 'components/tables/EcomWishlistTable';
-import { defaultBreadcrumbItems } from 'data/commonData';
+import Section from '../../components/base/Section';
+import PageBreadcrumb from '../../components/common/PageBreadcrumb';
+import EcomWishlistTable from '../../components/tables/EcomWishlistTable';
+import { defaultBreadcrumbItems } from '../../data/commonData';
 
 const Wishlist = () => {
   return (

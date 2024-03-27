@@ -36,7 +36,7 @@ const Pricing = () => {
           </Col>
           <Col md={6} className="text-center text-sm-start">
             <p>
-              Entice your customers with {process.env.REACT_APP_TITLE} admin
+              Entice your customers with {import.meta.env.REACT_APP_TITLE} admin
               dashboard. Show your best deal in this section to help customers
               choose from your best offers and place them all in one place with
               this efficient template. If you are availing more than one offer

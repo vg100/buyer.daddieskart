@@ -77,7 +77,7 @@ const EcomCartTableRow = ({ product }: { product: CartItemType }) => {
         </div>
       </td>
       <td>
-        <Link className="fw-semibold line-clamp-2" to="#!">
+        <Link className="fw-semibold line-clamp-2" to="/product-details">
           {product.name}
         </Link>
       </td>

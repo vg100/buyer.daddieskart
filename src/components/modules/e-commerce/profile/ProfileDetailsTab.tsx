@@ -7,11 +7,11 @@ import {
   faUser
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import EcomProfilePersonalInfo from 'components/forms/EcomProfilePersonalInfo';
-import EcomProfileOrdersTable from 'components/tables/EcomProfileOrdersTable';
-import EcomProfileReviewsTable from 'components/tables/EcomProfileReviewsTable';
-import EcomProfileStoresTable from 'components/tables/EcomProfileStoresTable';
-import EcomWishlistTable from 'components/tables/EcomWishlistTable';
+import EcomProfilePersonalInfo from '../../../../components/forms/EcomProfilePersonalInfo';
+import EcomProfileOrdersTable from '../../../../components/tables/EcomProfileOrdersTable';
+import EcomProfileReviewsTable from '../../../../components/tables/EcomProfileReviewsTable';
+import EcomProfileStoresTable from '../../../../components/tables/EcomProfileStoresTable';
+import EcomWishlistTable from '../../../../components/tables/EcomWishlistTable';
 import { Nav, Tab } from 'react-bootstrap';
 
 interface TabLink {

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useAdvanceTableContext } from 'providers/AdvanceTableProvider';
+import { useAdvanceTableContext } from '../../providers/AdvanceTableProvider';
 import { Table, TableProps } from 'react-bootstrap';
 import { flexRender } from '@tanstack/react-table';
 

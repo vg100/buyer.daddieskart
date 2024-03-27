@@ -1,7 +1,7 @@
 import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Button from 'components/base/Button';
-import AuthSocialButtons from 'components/common/AuthSocialButtons';
+import Button from '../../../components/base/Button';
+import AuthSocialButtons from '../../../components/common/AuthSocialButtons';
 import { Col, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -57,7 +57,7 @@ const SignInForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
         </Col>
         <Col xs="auto">
           <Link
-            to={`/pages/authentication/${layout}/forgot-password`}
+            to={`/forgot-password`}
             className="fs-9 fw-semibold"
           >
             Forgot Password?
@@ -69,7 +69,7 @@ const SignInForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
       </Button>
       <div className="text-center">
         <Link
-          to={`/pages/authentication/${layout}/sign-up`}
+          to={`/sign-up`}
           className="fs-9 fw-bold"
         >
           Create an account

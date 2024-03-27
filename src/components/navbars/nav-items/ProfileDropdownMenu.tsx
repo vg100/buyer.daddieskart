@@ -11,7 +11,8 @@ const ProfileDropdownMenu = ({ className }: { className?: string }) => {
   const [navItems] = useState([
     {
       label: 'Profile',
-      icon: 'user'
+      icon: 'user',
+      link:"/profile"
     },
     {
       label: 'Dashboard',
@@ -23,7 +24,7 @@ const ProfileDropdownMenu = ({ className }: { className?: string }) => {
     },
     {
       label: 'Settings & Privacy ',
-      icon: 'settings'
+      icon: 'settings',
     },
     {
       label: 'Help Center',
@@ -60,7 +61,7 @@ const ProfileDropdownMenu = ({ className }: { className?: string }) => {
               <Nav className="nav flex-column mb-2 pb-1">
                 {navItems.map(item => (
                   <Nav.Item key={item.label}>
-                    <Nav.Link href="#!" className="px-3">
+                    <Nav.Link href={item?.link} className="px-3">
                       <FeatherIcon
                         icon={item.icon}
                         size={16}
@@ -90,7 +91,7 @@ const ProfileDropdownMenu = ({ className }: { className?: string }) => {
           <hr />
           <div className="px-3">
             <Link
-              to="#!"
+              to="/sign-out"
               className="btn btn-phoenix-secondary d-flex flex-center w-100"
             >
               <FeatherIcon icon="log-out" className="me-2" size={16} />

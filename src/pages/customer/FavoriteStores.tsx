@@ -1,8 +1,8 @@
-import Section from 'components/base/Section';
-import PageBreadcrumb from 'components/common/PageBreadcrumb';
-import StoreItem from 'components/common/StoreItem';
-import { defaultBreadcrumbItems } from 'data/commonData';
-import { stores } from 'data/e-commerce/stores';
+import Section from '../../components/base/Section';
+import PageBreadcrumb from '../../components/common/PageBreadcrumb';
+import StoreItem from '../../components/common/StoreItem';
+import { defaultBreadcrumbItems } from '../../data/commonData';
+import { stores } from '../../data/e-commerce/stores';
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 

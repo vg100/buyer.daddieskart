@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import AvatarUpload from 'components/common/AvatarUpload';
+import AvatarUpload from '../../components/common/AvatarUpload';
 import React from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
-import team15 from 'assets/img/team/15.webp';
+import team15 from '../../assets/img/team/15.webp';
 import {
   faFacebook,
   faLinkedin,

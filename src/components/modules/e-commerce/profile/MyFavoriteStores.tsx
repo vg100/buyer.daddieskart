@@ -1,6 +1,6 @@
-import Button from 'components/base/Button';
-import StoreItem from 'components/common/StoreItem';
-import { stores } from 'data/e-commerce/stores';
+import Button from '../../../../components/base/Button';
+import StoreItem from '../../../../components/common/StoreItem';
+import { stores } from '../../../../data/e-commerce/stores';
 import { Col, Row } from 'react-bootstrap';
 
 const MyFavoriteStores = () => {

@@ -159,17 +159,17 @@ export const showcaseFaqs = [
   },
   {
     id: 3,
-    question: `Is there any Trial version of ${process.env.REACT_APP_TITLE} React?`,
-    answer: `We are sorry to inform you that there is no free or trial version of  ${process.env.REACT_APP_TITLE} React, but you would get a full refund within 10 days if the template does not match your requirement.`
+    question: `Is there any Trial version of ${import.meta.env.REACT_APP_TITLE} React?`,
+    answer: `We are sorry to inform you that there is no free or trial version of  ${import.meta.env.REACT_APP_TITLE} React, but you would get a full refund within 10 days if the template does not match your requirement.`
   },
   {
     id: 4,
     question: `Which bootstrap react framework you are using?`,
-    answer: `We are using React-Bootstrap for ${process.env.REACT_APP_TITLE} React`
+    answer: `We are using React-Bootstrap for ${import.meta.env.REACT_APP_TITLE} React`
   },
   {
     id: 5,
     question: 'Where will I get the Figma Files?',
-    answer: `You will find the Figma link in the README.md file on your downloaded copy of  ${process.env.REACT_APP_TITLE} React.`
+    answer: `You will find the Figma link in the README.md file on your downloaded copy of  ${import.meta.env.REACT_APP_TITLE} React.`
   }
 ];

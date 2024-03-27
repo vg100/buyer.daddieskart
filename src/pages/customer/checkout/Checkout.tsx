@@ -1,14 +1,14 @@
-import Button from 'components/base/Button';
-import Section from 'components/base/Section';
+import Button from '../../../components/base/Button';
+import Section from '../../../components/base/Section';
 import { Col, Form, Row } from 'react-bootstrap';
-import EcomAddressTable from 'components/tables/EcomAddressTable';
-import { shippingDetailsAddress } from 'data/e-commerce';
-import DeliveryType from 'components/modules/e-commerce/checkout/DeliveryType';
-import { PaymentMethod } from 'components/modules/e-commerce/checkout/PaymentMethod';
-import { currencyFormat } from 'helpers/utils';
-import CheckoutSummaryCard from 'components/modules/e-commerce/checkout/CheckoutSummaryCard';
-import PageBreadcrumb from 'components/common/PageBreadcrumb';
-import { defaultBreadcrumbItems } from 'data/commonData';
+import EcomAddressTable from '../../../components/tables/EcomAddressTable';
+import { shippingDetailsAddress } from '../../../data/e-commerce';
+import DeliveryType from '../../../components/modules/e-commerce/checkout/DeliveryType';
+import { PaymentMethod } from '../../../components/modules/e-commerce/checkout/PaymentMethod';
+import { currencyFormat } from '../../../helpers/utils';
+import CheckoutSummaryCard from '../../../components/modules/e-commerce/checkout/CheckoutSummaryCard';
+import PageBreadcrumb from '../../../components/common/PageBreadcrumb';
+import { defaultBreadcrumbItems } from '../../../data/commonData';
 
 const Checkout = () => {
   return (

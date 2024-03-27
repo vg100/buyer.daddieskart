@@ -1,17 +1,17 @@
 import { ColumnDef } from '@tanstack/react-table';
-import AdvanceTable from 'components/base/AdvanceTable';
-import Badge from 'components/base/Badge';
-import { CustomerOrder, customerOrders } from 'data/e-commerce';
-import { currencyFormat } from 'helpers/utils';
-import useAdvanceTable from 'hooks/useAdvanceTable';
-import AdvanceTableProvider from 'providers/AdvanceTableProvider';
+import AdvanceTable from '../../components/base/AdvanceTable';
+import Badge from '../../components/base/Badge';
+import { CustomerOrder, customerOrders } from '../../data/e-commerce';
+import { currencyFormat } from '../../helpers/utils';
+import useAdvanceTable from '../../hooks/useAdvanceTable';
+import AdvanceTableProvider from '../../providers/AdvanceTableProvider';
 import { Link } from 'react-router-dom';
 import FeatherIcon from 'feather-icons-react';
-import AdvanceTableFooter from 'components/base/AdvanceTableFooter';
+import AdvanceTableFooter from '../../components/base/AdvanceTableFooter';
 import RevealDropdown, {
   RevealDropdownTrigger
-} from 'components/base/RevealDropdown';
-import ActionDropdownItems from 'components/common/ActionDropdownItems';
+} from '../../components/base/RevealDropdown';
+import ActionDropdownItems from '../../components/common/ActionDropdownItems';
 
 const columns: ColumnDef<CustomerOrder>[] = [
   {

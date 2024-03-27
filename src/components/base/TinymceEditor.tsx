@@ -54,7 +54,7 @@ const TinymceEditor = ({
       onInit={(evt, editor) => (editorRef.current = editor)}
       value={value}
       onEditorChange={onChange}
-      apiKey={process.env.REACT_APP_TINYMCE_APIKEY}
+      apiKey={import.meta.env.REACT_APP_TINYMCE_APIKEY}
       init={{
         skin: 'oxide',
         menubar: false,

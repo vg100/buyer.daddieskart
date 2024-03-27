@@ -1,20 +1,20 @@
-import AdvanceTable from 'components/base/AdvanceTable';
-import Badge from 'components/base/Badge';
+import AdvanceTable from '../../components/base/AdvanceTable';
+import Badge from '../../components/base/Badge';
 import {
   latestReviewsTableData,
   LatestReviewsTableDataType
-} from 'data/LatestReviewsTableData';
-import useAdvanceTable from 'hooks/useAdvanceTable';
-import AdvanceTableProvider from 'providers/AdvanceTableProvider';
+} from '../../data/LatestReviewsTableData';
+import useAdvanceTable from '../../hooks/useAdvanceTable';
+import AdvanceTableProvider from '../../providers/AdvanceTableProvider';
 import { Link } from 'react-router-dom';
 import FeatherIcon from 'feather-icons-react';
-import AdvanceTableFooter from 'components/base/AdvanceTableFooter';
+import AdvanceTableFooter from '../../components/base/AdvanceTableFooter';
 import { ColumnDef } from '@tanstack/react-table';
-import Rating from 'components/base/Rating';
+import Rating from '../../components/base/Rating';
 import RevealDropdown, {
   RevealDropdownTrigger
-} from 'components/base/RevealDropdown';
-import ActionDropdownItems from 'components/common/ActionDropdownItems';
+} from '../../components/base/RevealDropdown';
+import ActionDropdownItems from '../../components/common/ActionDropdownItems';
 
 const columns: ColumnDef<LatestReviewsTableDataType>[] = [
   {

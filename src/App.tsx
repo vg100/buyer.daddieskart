@@ -6,6 +6,8 @@ import BreakpointsProvider from './providers/BreakpointsProvider'
 import SettingsPanelProvider from './providers/SettingsPanelProvider'
 import AppProvider from './providers/AppProvider'
 import ChatWidgetProvider from './providers/ChatWidgetProvider'
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
 function App() {
   return (
@@ -13,7 +15,10 @@ function App() {
     <SettingsPanelProvider>
     <ChatWidgetProvider>
     <BreakpointsProvider>
-        <RouterProvider router={router} />
+    <Provider store={store}>
+    <RouterProvider router={router} />
+    </Provider>
+
     </BreakpointsProvider>
     </ChatWidgetProvider>
     </SettingsPanelProvider>

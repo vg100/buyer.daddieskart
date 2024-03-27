@@ -1,12 +1,12 @@
 import { faKey, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Button from 'components/base/Button';
-import Section from 'components/base/Section';
-import EcoimDefaultAddressCard from 'components/cards/EcoimDefaultAddressCard';
-import EcomProfileCard from 'components/cards/EcomProfileCard';
-import PageBreadcrumb from 'components/common/PageBreadcrumb';
-import ProfileDetailsTab from 'components/modules/e-commerce/profile/ProfileDetailsTab';
-import { defaultBreadcrumbItems } from 'data/commonData';
+import Button from '../../components/base/Button';
+import Section from '../../components/base/Section';
+import EcoimDefaultAddressCard from '../../components/cards/EcoimDefaultAddressCard';
+import EcomProfileCard from '../../components/cards/EcomProfileCard';
+import PageBreadcrumb from '../../components/common/PageBreadcrumb';
+import ProfileDetailsTab from '../../components/modules/e-commerce/profile/ProfileDetailsTab';
+import { defaultBreadcrumbItems } from '../../data/commonData';
 import { Col, Row } from 'react-bootstrap';
 
 const Profile = () => {

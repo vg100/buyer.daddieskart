@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import classNames from 'classnames';
-import Button from 'components/base/Button';
+import Button from '../../../components/base/Button';
 import React, { ChangeEvent, useRef, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';

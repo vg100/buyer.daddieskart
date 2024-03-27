@@ -30,42 +30,47 @@ const initNavItems: NavItemType[] = [
   {
     id: 1,
     label: 'Home',
-    url: '/apps/e-commerce/customer/homepage'
+    url: '/'
   },
   {
     id: 2,
     label: 'My Favorite Stores',
-    url: '/apps/e-commerce/customer/favorite-stores'
+    url: '/favorite-stores'
   },
   {
     id: 3,
     label: 'Products',
-    url: '/apps/e-commerce/customer/products-filter'
+    url: '/products-filter'
   },
   {
     id: 4,
     label: 'Wishlist',
-    url: '/apps/e-commerce/customer/wishlist'
+    url: '/wishlist'
   },
   {
     id: 5,
     label: 'Shipping Info',
-    url: '/apps/e-commerce/customer/shipping-info'
+    url: '/shipping-info'
   },
   {
     id: 6,
     label: 'Be a vendor',
-    url: '/apps/e-commerce/admin/add-product'
+    url: '/shipping-info'
   },
   {
     id: 7,
     label: 'Track order',
-    url: '/apps/e-commerce/customer/order-tracking'
+    url: '/order-tracking'
   },
   {
     id: 8,
     label: 'Checkout',
-    url: '/apps/e-commerce/customer/checkout'
+    url: '/checkout'
+  },
+  {
+    id: 9,
+    label: 'Invoice',
+    url: '/invoice'
   }
 ];
 

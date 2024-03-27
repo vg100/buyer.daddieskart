@@ -1,7 +1,7 @@
-import Section from 'components/base/Section';
-import PageBreadcrumb from 'components/common/PageBreadcrumb';
-import CheckoutSummaryCard from 'components/modules/e-commerce/checkout/CheckoutSummaryCard';
-import { defaultBreadcrumbItems } from 'data/commonData';
+import Section from '../../../components/base/Section';
+import PageBreadcrumb from '../../../components/common/PageBreadcrumb';
+import CheckoutSummaryCard from '../../../components/modules/e-commerce/checkout/CheckoutSummaryCard';
+import { defaultBreadcrumbItems } from '../../../data/commonData';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 
 const ShippingInfo = () => {

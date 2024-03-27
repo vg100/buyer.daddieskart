@@ -1,7 +1,7 @@
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import Button from 'components/base/Button';
+import Button from '../../components/base/Button';
 import { PropsWithChildren, useState } from 'react';
 import { Collapse } from 'react-bootstrap';
 

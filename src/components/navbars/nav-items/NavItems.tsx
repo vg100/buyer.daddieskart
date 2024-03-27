@@ -1,16 +1,16 @@
-import Avatar from 'components/base/Avatar';
+import Avatar from '../../../components/base/Avatar';
 import { Dropdown, Modal, Nav } from 'react-bootstrap';
-import avatar57 from 'assets/img/team/40x40/57.webp';
+import avatar57 from '../../../assets/img/team/40x40/57.webp';
 import ProfileDropdownMenu from './ProfileDropdownMenu';
 import NineDotMenu from './NineDotMenu';
-import { useAppContext } from 'providers/AppProvider';
+import { useAppContext } from '../../../providers/AppProvider';
 import FeatherIcon from 'feather-icons-react';
 import { Link } from 'react-router-dom';
 import NotificationDropdownMenu from './NotificationDropdownMenu';
-import ThemeToggler from 'components/common/ThemeToggler';
+import ThemeToggler from '../../../components/common/ThemeToggler';
 import { useState } from 'react';
-import DropdownSearchBox from 'components/common/DropdownSearchBox';
-import SearchResult from 'components/common/SearchResult';
+import DropdownSearchBox from '../../../components/common/DropdownSearchBox';
+import SearchResult from '../../../components/common/SearchResult';
 import classNames from 'classnames';
 
 const NavItems = () => {

@@ -1,7 +1,7 @@
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import Button from 'components/base/Button';
+import Button from '../../../components/base/Button';
 import { Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 

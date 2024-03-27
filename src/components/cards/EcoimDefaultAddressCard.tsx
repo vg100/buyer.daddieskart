@@ -1,6 +1,6 @@
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Button from 'components/base/Button';
+import Button from '../../components/base/Button';
 import { Card } from 'react-bootstrap';
 
 const EcoimDefaultAddressCard = () => {
