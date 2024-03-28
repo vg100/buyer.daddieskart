@@ -1,4 +1,4 @@
-import { BadgeBg } from 'components/base/Badge';
+import { BadgeBg } from '../../components/base/Badge';
 
 export type TableDocData = {
   name: string;

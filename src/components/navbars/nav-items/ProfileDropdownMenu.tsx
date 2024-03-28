@@ -15,29 +15,30 @@ const ProfileDropdownMenu = ({ className }: { className?: string }) => {
       link:"/profile"
     },
     {
-      label: 'Dashboard',
+      label: 'Orders',
       icon: 'pie-chart'
     },
-    {
-      label: 'Posts & Activity',
-      icon: 'lock'
-    },
-    {
-      label: 'Settings & Privacy ',
-      icon: 'settings',
-    },
+    // {
+    //   label: 'Posts & Activity',
+    //   icon: 'lock'
+    // },
+    // {
+    //   label: 'Settings & Privacy ',
+    //   icon: 'settings',
+    // },
     {
       label: 'Help Center',
       icon: 'help-circle'
     },
-    {
-      label: 'Language',
-      icon: 'globe'
-    }
+    // {
+    //   label: 'Language',
+    //   icon: 'globe'
+    // }
   ]);
   return (
     <Dropdown.Menu
       align="end"
+      
       className={classNames(
         className,
         'navbar-top-dropdown-menu navbar-dropdown-caret py-0 dropdown-profile shadow border'
@@ -47,16 +48,16 @@ const ProfileDropdownMenu = ({ className }: { className?: string }) => {
         <Card.Body className="p-0">
           <div className="d-flex flex-column align-items-center justify-content-center gap-2 pt-4 pb-3">
             <Avatar src={avatar} size="xl" />
-            <h6 className="text-body-emphasis">Jerry Seinfield</h6>
+            <h6 className="text-body-emphasis">Hello!</h6>
           </div>
-          <div className="mb-3 mx-3">
+          {/* <div className="mb-3 mx-3">
             <Form.Control
               type="text"
               placeholder="Update your status"
               size="sm"
             />
-          </div>
-          <div style={{ height: '10rem' }}>
+          </div> */}
+          <div style={{ height: '7rem' }}>
             <Scrollbar>
               <Nav className="nav flex-column mb-2 pb-1">
                 {navItems.map(item => (
@@ -76,7 +77,7 @@ const ProfileDropdownMenu = ({ className }: { className?: string }) => {
           </div>
         </Card.Body>
         <Card.Footer className="p-0 border-top border-translucent">
-          <Nav className="nav flex-column my-3">
+          {/* <Nav className="nav flex-column my-3">
             <Nav.Item>
               <Nav.Link href="#!" className="px-3">
                 <FeatherIcon
@@ -87,15 +88,18 @@ const ProfileDropdownMenu = ({ className }: { className?: string }) => {
                 <span>Add another account</span>
               </Nav.Link>
             </Nav.Item>
-          </Nav>
-          <hr />
-          <div className="px-3">
+          </Nav> */}
+          {/* <hr /> */}
+
+          
+          <div className="px-3 my-3">
             <Link
-              to="/sign-out"
+              to={false?"/sign-out":"sign-in"}
               className="btn btn-phoenix-secondary d-flex flex-center w-100"
             >
               <FeatherIcon icon="log-out" className="me-2" size={16} />
-              Sign out
+              {false?"Log out":"Login"}
+            
             </Link>
           </div>
           <div className="my-2 text-center fw-bold fs-10 text-body-quaternary">
