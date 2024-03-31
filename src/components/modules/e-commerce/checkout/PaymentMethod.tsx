@@ -5,9 +5,11 @@ import mastercard from '../../../../assets/img/logos/mastercard.png';
 import american_express from '../../../../assets/img/logos/american_express.png';
 import dayjs from 'dayjs';
 import localeData from 'dayjs/plugin/localeData';
+import { useState } from 'react';
 dayjs.extend(localeData);
 
 export const PaymentMethod = () => {
+  const [pm, setpm] = useState("cc")
   return (
     <>
       <h3 className="mb-5">Payment Method</h3>
@@ -21,6 +23,7 @@ export const PaymentMethod = () => {
                     value="credit_card"
                     type="radio"
                     name="paymentMethod"
+                    onChange={()=>setpm("cc")}
                   />
                   <Form.Check.Label className="fs-8 text-body">
                     Credit card
@@ -42,9 +45,10 @@ export const PaymentMethod = () => {
                   value="paypal"
                   type="radio"
                   name="paymentMethod"
+                  onChange={()=>setpm("upi")}
                 />
                 <Form.Check.Label className="fs-8 text-body">
-                  Paypal
+                  UPI
                 </Form.Check.Label>
               </Form.Check>
             </Col>
@@ -54,6 +58,7 @@ export const PaymentMethod = () => {
                   type="radio"
                   value="coupon"
                   name="paymentMethod"
+                  onChange={()=>setpm("c")}
                 />
                 <Form.Check.Label className="fs-8 text-body">
                   Coupon
@@ -62,84 +67,94 @@ export const PaymentMethod = () => {
             </Col>
           </Row>
         </Col>
-        <Col md={6}>
-          <Form.Group as={Col}>
-            <Form.Label className="fs-8 text-body-highlight ps-0 text-transform-none">
-              Select card
-            </Form.Label>
-            <Form.Select className="text-body-emphasis">
-              <option>Select a card</option>
-              <option value="visa">Visa</option>
-              <option value="discover">Discover</option>
-              <option value="mastercard">Mastercard</option>
-              <option value="american-express">American Express</option>
-            </Form.Select>
-          </Form.Group>
-        </Col>
-        <Col md={6}>
-          <Form.Group>
-            <h5 className="text-body-highlight mb-2"> Card number</h5>
-            <Form.Control
-              className="text-body-emphasis"
-              type="number"
-              placeholder="Enter card number"
-            />
-          </Form.Group>
-        </Col>
-        <Col xs={12}>
-          <Form.Group as={Col}>
-            <h5 className="text-body-highlight mb-2">Full name</h5>
-            <Form.Control
-              name="full_name"
-              type="text"
-              placeholder="Type your fullname"
-            />
-          </Form.Group>
-        </Col>
-        <Col md={6}>
-          <h5 className="text-body-highlight mb-2">Expires on</h5>
-          <div className="d-flex gap-3">
-            <Form.Select className="text-body-emphasis" name="month">
-              <option>Month</option>
-              {dayjs.months().map(month => (
-                <option value={month} key={month}>
-                  {month}
-                </option>
-              ))}
-            </Form.Select>
 
-            <select className="form-select text-body-emphasis">
-              <option>Year</option>
-              <option value={2022}>2022</option>
-              <option value={2023}>2023</option>
-              <option value={2024}>2024</option>
-              <option value={2025}>2025</option>
-              <option value={2026}>2026</option>
-            </select>
-          </div>
-        </Col>
-        <Col md={6}>
-          <Form.Group as={Col}>
-            <h5 className="text-body-highlight mb-2">CVC</h5>
-            <Form.Control
-              className="text-body-emphasis input-spin-none"
-              type="number"
-              placeholder="Enter a valid CVC"
-            />
-          </Form.Group>
-        </Col>
-        <Col xs={12}>
-          <Form.Check type="checkbox" id="gridCheck" className="me-3">
-            <Form.Check.Input
-              type="checkbox"
-              value="save"
-              name="paymentMethod"
-            />
-            <Form.Check.Label className="fs-8 text-body-emphasis">
-              Save Card Details
-            </Form.Check.Label>
-          </Form.Check>
-        </Col>
+        {
+          pm == "cc" && (
+            <>
+              <Col md={6}>
+                <Form.Group as={Col}>
+                  <Form.Label className="fs-8 text-body-highlight ps-0 text-transform-none">
+                    Select card
+                  </Form.Label>
+                  <Form.Select className="text-body-emphasis">
+                    <option>Select a card</option>
+                    <option value="visa">Visa</option>
+                    <option value="discover">Discover</option>
+                    <option value="mastercard">Mastercard</option>
+                    <option value="american-express">American Express</option>
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group>
+                  <h5 className="text-body-highlight mb-2"> Card number</h5>
+                  <Form.Control
+                    className="text-body-emphasis"
+                    type="number"
+                    placeholder="Enter card number"
+                  />
+                </Form.Group>
+              </Col>
+              <Col xs={12}>
+                <Form.Group as={Col}>
+                  <h5 className="text-body-highlight mb-2">Full name</h5>
+                  <Form.Control
+                    name="full_name"
+                    type="text"
+                    placeholder="Type your fullname"
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <h5 className="text-body-highlight mb-2">Expires on</h5>
+                <div className="d-flex gap-3">
+                  <Form.Select className="text-body-emphasis" name="month">
+                    <option>Month</option>
+                    {dayjs.months().map(month => (
+                      <option value={month} key={month}>
+                        {month}
+                      </option>
+                    ))}
+                  </Form.Select>
+
+                  <select className="form-select text-body-emphasis">
+                    <option>Year</option>
+                    <option value={2022}>2022</option>
+                    <option value={2023}>2023</option>
+                    <option value={2024}>2024</option>
+                    <option value={2025}>2025</option>
+                    <option value={2026}>2026</option>
+                  </select>
+                </div>
+              </Col>
+              <Col md={6}>
+                <Form.Group as={Col}>
+                  <h5 className="text-body-highlight mb-2">CVC</h5>
+                  <Form.Control
+                    className="text-body-emphasis input-spin-none"
+                    type="number"
+                    placeholder="Enter a valid CVC"
+                  />
+                </Form.Group>
+              </Col>
+              <Col xs={12}>
+                <Form.Check type="checkbox" id="gridCheck" className="me-3">
+                  <Form.Check.Input
+                    type="checkbox"
+                    value="save"
+                    name="paymentMethod"
+                  />
+                  <Form.Check.Label className="fs-8 text-body-emphasis">
+                    Save Card Details
+                  </Form.Check.Label>
+                </Form.Check>
+              </Col>
+            </>
+          )
+        }
+
+
+
       </Row>
     </>
   );

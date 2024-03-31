@@ -58,7 +58,7 @@ const EcommerceFooter = () => {
           <Col xs={6} md="auto">
             <h5 className="fw-bolder mb-3">Customer Service</h5>
             <Stack>
-              <LinkItem to="#!">Help Desk</LinkItem>
+              <LinkItem to="/help">Help Desk</LinkItem>
               <LinkItem to="#!">Support, 24/7</LinkItem>
               <LinkItem to="#!">Community of DaddiesKart</LinkItem>
             </Stack>

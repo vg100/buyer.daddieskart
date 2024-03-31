@@ -20,6 +20,8 @@ import CardTwoFA from './pages/authentication/card/TwoFA';
 import CardLockScreen from './pages/authentication/card/LockScreen';
 import App1 from './App1';
 import Error404 from './pages/error/Error404';
+import FaqTab from './pages/faq/FaqTab';
+import ComingSoon from './pages/ComingSoon';
 
 const ecommerceRoutes: RouteObject[] = [
     {
@@ -72,10 +74,22 @@ const ecommerceRoutes: RouteObject[] = [
                     {
                         path: 'invoice',
                         element: <Invoice />
-                    }
+                    },
+
+
+                    {
+                        path: 'help',
+                        element: <FaqTab />
+                
+                    },
+                
 
                 ]
             },
+            {
+                path: 'coming-soon',
+                element: <ComingSoon />
+              },
             {
                 path: '*',
                 element: <Error404 />

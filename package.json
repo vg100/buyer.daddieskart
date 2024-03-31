@@ -24,6 +24,7 @@
     "feather-icons-react": "^0.7.0",
     "fslightbox-react": "^1.7.6",
     "is_js": "^0.9.0",
+    "lottie-react": "^2.4.0",
     "mapbox-gl": "^3.2.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",

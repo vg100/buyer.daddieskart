@@ -33,14 +33,14 @@ const OrderTracking = () => {
         </div>
         <Row className="gy-9 gx-5">
           <Col xs={12} lg={6}>
-            <Mapbox
+            {/* <Mapbox
               className="border rounded-3 min-vh-50"
               options={{
                 center: [-74.0020158, 40.7228022],
                 zoom: 15,
                 scrollZoom: false
               }}
-            />
+            /> */}
           </Col>
           <Col xs={12} lg={6}>
             <OrderTrackingTimeline data={orderTrackingTimelineData} />
