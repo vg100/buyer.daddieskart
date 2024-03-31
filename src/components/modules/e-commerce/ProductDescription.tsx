@@ -6,7 +6,7 @@ import { productColorVariants } from '../../../data/e-commerce';
 import { currencyFormat } from '../../../helpers/utils';
 import ProductGallery from '../../../components/modules/e-commerce/ProductGallery';
 import { useMemo, useState } from 'react';
-import { Col, Row, Stack } from 'react-bootstrap';
+import { Col, FormControl, InputGroup, Row, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import QuantityButtons from '../../../components/common/QuantityButtons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
@@ -99,6 +99,16 @@ const ProductDescription = () => {
           </div>
 
           <div>
+          <InputGroup className="mb-3 w-md-40">
+          <FormControl placeholder="Delivery pincode" aria-label="voucher" />
+           <Button variant="warning" className="px-4">
+            Check
+          </Button>
+          {/* <span  className="px-1 align-self-center text-primary">
+          Check
+         
+          </span> */}
+        </InputGroup>
             <div className="mb-3">
               <p className="fw-semibold mb-2 text-body">
                 Color :{' '}

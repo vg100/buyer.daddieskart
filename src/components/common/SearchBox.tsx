@@ -43,13 +43,6 @@ const SearchBox = ({
         />
         <FontAwesomeIcon icon={faSearch} className="search-box-icon" />
       </form>
-      {isExpanded && (
-        <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 1000, backgroundColor: '#fff', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', maxHeight: '200px', overflowY: 'auto' }}>
-          <div style={{ padding: '10px', borderBottom: '1px solid #eee' }} className="search-result">Search Result 1</div>
-          <div style={{ padding: '10px', borderBottom: '1px solid #eee' }} className="search-result">Search Result 2</div>
-          <div style={{ padding: '10px', borderBottom: '1px solid #eee' }} className="search-result">Search Result 3</div>
-        </div>
-      )}
     </div>
   );
 };

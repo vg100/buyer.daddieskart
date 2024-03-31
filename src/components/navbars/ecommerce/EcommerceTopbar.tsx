@@ -6,6 +6,8 @@ import NotificationDropdownMenu from '../nav-items/NotificationDropdownMenu';
 import ProfileDropdownMenu from '../nav-items/ProfileDropdownMenu';
 import SearchBox from '../../../components/common/SearchBox';
 import ThemeToggler from '../../../components/common/ThemeToggler';
+import DropdownSearchBox from '../../common/DropdownSearchBox';
+import SearchResult from '../../common/SearchResult';
 
 const EcommerceTopbar = () => {
   return (
@@ -65,13 +67,16 @@ const EcommerceTopbar = () => {
               </Nav>
             </Col>
             <Col xs={12} md={6}>
-              <SearchBox
-                placeholder="Search..."
-                className="ecommerce-search-box w-100"
+              <DropdownSearchBox
+                searchBoxClassName={"ecommerce-search-box w-100"}
+                className="navbar-top-search-box"
                 inputClassName="rounded-pill"
                 size="sm"
                 // style={{ width: '25rem' }}
-              />
+              >
+                <SearchResult />
+              </DropdownSearchBox>
+          
             </Col>
           </Row>
         </Navbar>

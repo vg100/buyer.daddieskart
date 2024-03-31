@@ -53,7 +53,7 @@ const ShowcaseNavbar = () => {
             <Button
               variant="primary"
               as={Link}
-              to={`${import.meta.env.REACT_APP_PURCHASE_LINK}`}
+              to={`${process.env.REACT_APP_PURCHASE_LINK}`}
               target="_blank"
             >
               Purchase

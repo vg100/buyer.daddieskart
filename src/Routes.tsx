@@ -18,58 +18,68 @@ import CardSignOut from './pages/authentication/card/SignOut';
 import CardResetPassword from './pages/authentication/card/ResetPassword';
 import CardTwoFA from './pages/authentication/card/TwoFA';
 import CardLockScreen from './pages/authentication/card/LockScreen';
+import App1 from './App1';
 
 const ecommerceRoutes: RouteObject[] = [
     {
-        element: <EcommerceLayout />,
+        element: <App1 />,
         children: [
             {
-                path: '/',
-                element: <Homepage />
-            },
-            {
-                path: 'product-details',
-                element: <ProductDetails />,
-            },
-            {
-                path: 'cart',
-                element: <Cart />,
-            },
-            {
-                path: 'checkout',
-                element: <Checkout />,
-            },
-            {
-                path: 'shipping-info',
-                element: <ShippingInfo />
-            },
-            {
-                path: 'profile',
-                element: <Profile />
-            },
-            {
-                path: 'products-filter',
-                element: <ProductsFilter />
-            },
-            {
-                path: 'wishlist',
-                element: <Wishlist />
-            },
-            {
-                path: 'favorite-stores',
-                element: <FavoriteStores />
-            },
-            {
-                path: 'order-tracking',
-                element: <OrderTracking />
-            },
-            {
-                path: 'invoice',
-                element: <Invoice />
+                element: <EcommerceLayout />,
+                children: [
+
+                    {
+                        path: '/',
+                        element: <Homepage />
+                    },
+                    {
+                        path: 'product-details',
+                        element: <ProductDetails />,
+                    },
+                    {
+                        path: 'cart',
+                        element: <Cart />,
+                    },
+                    {
+                        path: 'checkout',
+                        element: <Checkout />,
+                    },
+                    {
+                        path: 'shipping-info',
+                        element: <ShippingInfo />
+                    },
+                    {
+                        path: 'profile',
+                        element: <Profile />
+                    },
+                    {
+                        path: 'products-filter',
+                        element: <ProductsFilter />
+                    },
+                    {
+                        path: 'wishlist',
+                        element: <Wishlist />
+                    },
+                    {
+                        path: 'favorite-stores',
+                        element: <FavoriteStores />
+                    },
+                    {
+                        path: 'order-tracking',
+                        element: <OrderTracking />
+                    },
+                    {
+                        path: 'invoice',
+                        element: <Invoice />
+                    }
+
+                ]
             }
         ]
     }
-];
+]
+
+
 
 const signInRoutes: RouteObject[] = [
     {

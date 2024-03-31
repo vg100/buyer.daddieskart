@@ -79,7 +79,7 @@ const SettingsPanel = () => {
         <Button
           as="a"
           target="_blank"
-          href={`${import.meta.env.REACT_APP_PURCHASE_LINK}`}
+          href={`${process.env.REACT_APP_PURCHASE_LINK}`}
           className="w-100 mb-3 text-white"
           variant="primary"
         >
