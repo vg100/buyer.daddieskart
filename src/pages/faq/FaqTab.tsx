@@ -29,7 +29,7 @@ const FaqTab = () => {
   } = useFaqTabContext();
 
   return (
-    <div className="mb-9">
+    <div className="mb-9 p-10">
       <div
         className="mx-n4 mx-lg-n6 mt-n5 position-relative mb-md-9"
         style={{ height: '208px' }}
