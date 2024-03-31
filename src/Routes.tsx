@@ -19,6 +19,7 @@ import CardResetPassword from './pages/authentication/card/ResetPassword';
 import CardTwoFA from './pages/authentication/card/TwoFA';
 import CardLockScreen from './pages/authentication/card/LockScreen';
 import App1 from './App1';
+import Error404 from './pages/error/Error404';
 
 const ecommerceRoutes: RouteObject[] = [
     {
@@ -74,7 +75,11 @@ const ecommerceRoutes: RouteObject[] = [
                     }
 
                 ]
-            }
+            },
+            {
+                path: '*',
+                element: <Error404 />
+              }
         ]
     }
 ]
