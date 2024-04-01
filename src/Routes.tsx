@@ -98,6 +98,19 @@ const ecommerceRoutes: RouteObject[] = [
     }
 ]
 
+const comingSoon:RouteObject[]=[
+    {
+            element:<App1 />,
+            children:[
+                 {
+                    path: '/',
+                    element: <ComingSoon />
+                  }
+            ]
+        
+    }
+]
+
 
 
 const signInRoutes: RouteObject[] = [
@@ -137,7 +150,7 @@ const signInRoutes: RouteObject[] = [
 ];
 
 const routes: RouteObject[] = [
-    ...ecommerceRoutes,
+    ...comingSoon,
     ...signInRoutes
 ];
 

@@ -4,7 +4,7 @@ import { useFaqTabContext } from 'providers/FaqTabProvider';
 const CategoryTab = () => {
   const { setActiveKey } = useFaqTabContext();
   return (
-    <Col md={6} xl={5} xxl={4} className="faq-category-tab">
+    <Col md={6} xl={5} xxl={4} className="faq-category-tab fixed">
       <Nav
         variant="presentation"
         className="mb-2 mb-md-5 pb-3 pt-2 w-100 w-sm-75 w-md-100 mx-auto bg-body"

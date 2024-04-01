@@ -4,8 +4,13 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 dotenv.config();
-export default defineConfig({
+export default defineConfig(({mode})=>({
+  mode: mode === 'production' ? 'production' : 'development',
   plugins: [react()],
+  entry: {
+    theme: './src/assets/scss/theme.scss',
+    user: './src/assets/scss/user.scss'
+  },
   resolve: {
     alias: {
       'components': path.resolve(__dirname, 'src/components'),
@@ -23,4 +28,4 @@ export default defineConfig({
   define: {
     'process.env': process.env
   }
-});
+}));
