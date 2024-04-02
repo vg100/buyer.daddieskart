@@ -32,7 +32,7 @@ const ecommerceRoutes: RouteObject[] = [
                 children: [
 
                     {
-                        path: 'home',
+                        path: '/',
                         element: <Homepage />
                     },
                     {
@@ -150,7 +150,7 @@ const signInRoutes: RouteObject[] = [
 ];
 
 const routes: RouteObject[] = [
-    ...ecommerceRoutes,
+    // ...ecommerceRoutes,
     ...comingSoon,
     ...signInRoutes
 ];
