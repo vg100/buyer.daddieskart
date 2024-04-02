@@ -32,7 +32,7 @@ const ecommerceRoutes: RouteObject[] = [
                 children: [
 
                     {
-                        path: '/',
+                        path: '/home',
                         element: <Homepage />
                     },
                     {

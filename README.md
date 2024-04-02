@@ -1,3 +1,10 @@
+ <!-- pm2 serve dist 80 --spa -->
+  <!-- ls -l /var/www/html/
+  sudo rm -rf /var/www/html/dk
+  ls -l /var/www/html/
+  sudo cp -r dist/* /var/www/html/ -->
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
