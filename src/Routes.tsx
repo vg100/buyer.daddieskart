@@ -150,8 +150,8 @@ const signInRoutes: RouteObject[] = [
 ];
 
 const routes: RouteObject[] = [
-    ...ecommerceRoutes,
-    // ...comingSoon,
+    // ...ecommerceRoutes,
+    ...comingSoon,
     ...signInRoutes
 ];
 
