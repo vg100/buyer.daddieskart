@@ -2,11 +2,19 @@ import React from 'react';
 import Button from '../../../components/base/Button';
 import AuthSocialButtons from '../../../components/common/AuthSocialButtons';
 import { Col, Form, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { AuthRepo } from '../../../services/AuthRepositry';
+import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const SignUpForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
-  // State variables to hold form data
+  let navigate = useNavigate();
+  let dispatch = useDispatch<any>()
+  const { loading, error, userInfo } = useSelector((state: any) => state.user)
+  const redirect = '/'
   const [formData, setFormData] = React.useState({
+    number: "",
     name: '',
     email: '',
     password: '',
@@ -17,19 +25,34 @@ const SignUpForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
   // Function to handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked, type } = e.target;
+    const newValue = value.startsWith('+91') ? value.slice(3) : value;
     setFormData(prevData => ({
       ...prevData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === 'checkbox' ? checked : newValue,
     }));
   };
 
   // Function to handle form submission
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Perform form validation here (e.g., check if all required fields are filled, passwords match, etc.)
-    // If validation passes, you can submit the form data
-    console.log('Form submitted:', formData);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (formData.number.length > 10 || formData.number.length < 10) {
+      alert("number not more the 10 digits")
+      return
+    }
+   const res= await dispatch(AuthRepo.register({
+      mobile: "+91"+formData.number
+    }))
+    if(res){
+      navigate("/2FA",{ state: {mobile:"+91"+formData.number,type:"signup"} })
+    }
   };
+
+  React.useEffect(() => {
+    if (userInfo) {
+      navigate(redirect)
+    }
+  }, [navigate, userInfo, redirect])
+
 
   return (
     <>
@@ -40,8 +63,23 @@ const SignUpForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
       {/* Your social buttons and divider */}
       <Form onSubmit={handleSubmit}>
         {/* Form fields */}
-        {/* Name */}
         <Form.Group className="mb-3 text-start">
+          <Form.Label htmlFor="name">Mobile Number</Form.Label>
+          <div className="form-icon-container">
+          <Form.Control
+            id="number"
+            type="text"
+            className="form-icon-input"
+            placeholder="Enter Mobile Number"
+            name="number"
+            value={"+91" + formData.number}
+            onChange={handleInputChange}
+          />
+            <FontAwesomeIcon icon={faUser} className="text-body fs-9 form-icon" />
+          </div>
+        </Form.Group>
+        {/* Name */}
+        {/* <Form.Group className="mb-3 text-start">
           <Form.Label htmlFor="name">Name</Form.Label>
           <Form.Control
             id="name"
@@ -51,9 +89,9 @@ const SignUpForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
             value={formData.name}
             onChange={handleInputChange}
           />
-        </Form.Group>
+        </Form.Group> */}
         {/* Email */}
-        <Form.Group className="mb-3 text-start">
+        {/* <Form.Group className="mb-3 text-start">
           <Form.Label htmlFor="email">Email address</Form.Label>
           <Form.Control
             id="email"
@@ -63,9 +101,9 @@ const SignUpForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
             value={formData.email}
             onChange={handleInputChange}
           />
-        </Form.Group>
+        </Form.Group> */}
         {/* Password and Confirm Password */}
-        <Row className="g-3 mb-3">
+        {/* <Row className="g-3 mb-3">
           <Col sm={layout === 'card' ? 12 : 6} lg={6}>
             <Form.Group>
               <Form.Label htmlFor="password">Password</Form.Label>
@@ -92,9 +130,9 @@ const SignUpForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
               />
             </Form.Group>
           </Col>
-        </Row>
+        </Row> */}
         {/* Terms of service */}
-        <Form.Check type="checkbox" className="mb-3">
+        {/* <Form.Check type="checkbox" className="mb-3">
           <Form.Check.Input
             type="checkbox"
             name="termsService"
@@ -105,10 +143,11 @@ const SignUpForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
           <Form.Check.Label htmlFor="termsService" className="fs-9 text-transform-none">
             I accept the <Link to="#!">terms</Link> and <Link to="#!">privacy policy</Link>
           </Form.Check.Label>
-        </Form.Check>
+        </Form.Check> */}
         {/* Submit button */}
-        <Button variant="primary" type="submit" className="w-100 mb-3">
-          Sign up
+        <Button
+          variant="primary" type="submit" className="w-100 mb-3">
+          Continue
         </Button>
         {/* Sign in link */}
         <div className="text-center">

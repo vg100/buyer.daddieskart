@@ -1,3 +1,4 @@
+import React from 'react';
 import { RouteObject, createBrowserRouter } from 'react-router-dom';
 import Homepage from './pages/customer/Homepage';
 import ProductDetails from './pages/customer/ProductDetails';
@@ -18,99 +19,74 @@ import CardSignOut from './pages/authentication/card/SignOut';
 import CardResetPassword from './pages/authentication/card/ResetPassword';
 import CardTwoFA from './pages/authentication/card/TwoFA';
 import CardLockScreen from './pages/authentication/card/LockScreen';
-import App1 from './App1';
 import Error404 from './pages/error/Error404';
 import FaqTab from './pages/faq/FaqTab';
 import ComingSoon from './pages/ComingSoon';
+import AppLayout from './AppLayout';
+import ProtectedRoute from './navigation/ProtectedRoute';
+
 
 const ecommerceRoutes: RouteObject[] = [
     {
-        element: <App1 />,
+        element: <EcommerceLayout />,
         children: [
+
             {
-                element: <EcommerceLayout />,
-                children: [
-
-                    {
-                        path: '/',
-                        element: <Homepage />
-                    },
-                    {
-                        path: 'product-details',
-                        element: <ProductDetails />,
-                    },
-                    {
-                        path: 'cart',
-                        element: <Cart />,
-                    },
-                    {
-                        path: 'checkout',
-                        element: <Checkout />,
-                    },
-                    {
-                        path: 'shipping-info',
-                        element: <ShippingInfo />
-                    },
-                    {
-                        path: 'profile',
-                        element: <Profile />
-                    },
-                    {
-                        path: 'products-filter',
-                        element: <ProductsFilter />
-                    },
-                    {
-                        path: 'wishlist',
-                        element: <Wishlist />
-                    },
-                    {
-                        path: 'favorite-stores',
-                        element: <FavoriteStores />
-                    },
-                    {
-                        path: 'order-tracking',
-                        element: <OrderTracking />
-                    },
-                    {
-                        path: 'invoice',
-                        element: <Invoice />
-                    },
-
-
-                    {
-                        path: 'help',
-                        element: <FaqTab />
-                
-                    },
-                
-
-                ]
+                path: '/',
+                element: <Homepage />
             },
             {
-                path: 'coming-soon',
-                element: <ComingSoon />
-              },
+                path: 'product-details',
+                element: <ProductDetails />,
+            },
             {
-                path: '*',
-                element: <Error404 />
-              }
+                path: 'cart',
+                element: <ProtectedRoute  element={<Cart />}  />
+            },
+            {
+                path: 'checkout',
+                element: <Checkout />,
+            },
+            {
+                path: 'shipping-info',
+                element: <ShippingInfo />
+            },
+            {
+                path: 'profile',
+                element: <ProtectedRoute element={<Profile />} />
+            },
+            {
+                path: 'products-filter',
+                element: <ProductsFilter />
+            },
+            {
+                path: 'wishlist',
+                element: <ProtectedRoute element={<Wishlist />} />
+            },
+            {
+                path: 'favorite-stores',
+                element: <FavoriteStores />
+            },
+            {
+                path: 'order-tracking',
+                element: <OrderTracking />
+            },
+            {
+                path: 'invoice',
+                element: <Invoice />
+            },
+
+
+            {
+                path: 'help',
+                element: <FaqTab />
+
+            },
+
+
         ]
-    }
+    },
 ]
-
-const comingSoon:RouteObject[]=[
-    {
-            element:<App1 />,
-            children:[
-                 {
-                    path: '/',
-                    element: <ComingSoon />
-                  }
-            ]
-        
-    }
-]
-
 
 
 const signInRoutes: RouteObject[] = [
@@ -149,11 +125,25 @@ const signInRoutes: RouteObject[] = [
     }
 ];
 
+
 const routes: RouteObject[] = [
-    // ...ecommerceRoutes,
-    ...comingSoon,
-    ...signInRoutes
+    {
+        element: <AppLayout />,
+        children: [
+            ...ecommerceRoutes,
+            ...signInRoutes,
+            {
+                path: 'coming-soon',
+                element: <ComingSoon />
+            },
+            {
+                path: '*',
+                element: <Error404 />
+            }
+        ]
+    }
 ];
+
 
 export const router = createBrowserRouter(routes);
 

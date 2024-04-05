@@ -1,5 +1,5 @@
 
-
+import React from 'react'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './Routes'
 import BreakpointsProvider from './providers/BreakpointsProvider'
@@ -12,17 +12,16 @@ import store from './redux/store'
 function App() {
   return (
     <AppProvider>
-    <SettingsPanelProvider>
-    <ChatWidgetProvider>
-    <BreakpointsProvider>
-    <Provider store={store}>
-    <RouterProvider router={router} />
-    </Provider>
+      <SettingsPanelProvider>
+        <ChatWidgetProvider>
+          <BreakpointsProvider>
+            <Provider store={store}>
+              <RouterProvider router={router} />
+            </Provider>
+          </BreakpointsProvider>
+        </ChatWidgetProvider>
+      </SettingsPanelProvider>
 
-    </BreakpointsProvider>
-    </ChatWidgetProvider>
-    </SettingsPanelProvider>
- 
     </AppProvider>
 
   )

@@ -47,11 +47,10 @@ const AuthCardLayout = ({
                     )}
                   >
                     <h3 className="mb-3 text-body-emphasis fs-7">
-                      Phoenix Authentication
+                      Looks like you're new here!
                     </h3>
                     <p className="text-body-tertiary">
-                      Give yourself some hassle-free development process with
-                      the uniqueness of Phoenix!
+                    Sign up with your mobile number to get started
                     </p>
                     <ul className="list-unstyled mb-0 w-max-content w-md-auto mx-auto">
                       <li className="d-flex align-items-center gap-2">

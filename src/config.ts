@@ -18,7 +18,7 @@ export interface Config {
 
 export const initialConfig: Config = {
   isNavbarVerticalCollapsed: false,
-  openNavbarVertical: true, // for responsive
+  openNavbarVertical: false, // for responsive
   theme: 'light',
   navbarTopAppearance: 'default',
   navbarVerticalAppearance: 'default',

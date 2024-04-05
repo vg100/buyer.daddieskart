@@ -1,3 +1,4 @@
+import React from 'react'
 import EcomCategoryNavs from '../../components/navs/EcomCategoryNavs';
 import { Col, Container, Row } from 'react-bootstrap';
 import EcomWhopingBanner from '../../components/banners/EcomWhopingBanner';
@@ -13,8 +14,16 @@ import EcomTopDeals from '../../components/sliders/EcomTopDeals';
 import EcomTopElectronics from '../../components/sliders/EcomTopElectronics';
 import EcomBestOffers from '../../components/sliders/EcomBestOffers';
 import EcomBecomeMember from '../../components/cta/EcomBecomeMember';
+import { useDispatch } from 'react-redux';
+import { ProductRepositry } from '../../services/productRepositry';
 
 const Homepage = () => {
+  const dispatch = useDispatch<any>()
+
+  React.useEffect(() => {
+    dispatch(ProductRepositry.getTopProducts())
+  }, [])
+
   return (
     <div className="ecommerce-homepage pt-5 mb-9">
       <section className="py-0">

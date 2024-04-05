@@ -92,7 +92,7 @@ const EcomCategoryNavs = () => {
 
 const EcomCategoryNavItem = ({ category }: { category: Category }) => {
   return (
-    <Link to={category.url} className="icon-nav-item mb-3">
+    <Link to={`products-filter?category=${category.label}`||category.url} className="icon-nav-item mb-3">
       <div className={classNames(category.bgClass, 'icon-container mb-2')}>
         {category.icon}
       </div>

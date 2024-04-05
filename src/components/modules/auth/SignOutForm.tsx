@@ -4,8 +4,17 @@ import { Link } from 'react-router-dom';
 import Button from '../../../components/base/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { AuthRepo } from '../../../services/AuthRepositry';
 
 const SignOutForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
+  const dispatch: any = useDispatch()
+  useEffect(() => {
+    dispatch(AuthRepo.logout())
+  }, [])
+
+
   return (
     <div className="text-center mb-6 mx-auto">
       <img className="mb-7 d-dark-none" src={lightImg} alt="phoenix" />
@@ -21,7 +30,7 @@ const SignOutForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
         <Button
           variant="primary"
           as={Link}
-          to={`/pages/authentication/${layout}/sign-in`}
+          to={`/sign-in`}
           startIcon={<FontAwesomeIcon icon={faAngleLeft} className="me-2" />}
         >
           Go to sign in page

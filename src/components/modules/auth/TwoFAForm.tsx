@@ -3,12 +3,18 @@ import classNames from 'classnames';
 import Button from '../../../components/base/Button';
 import React, { ChangeEvent, useRef, useState } from 'react';
 import { Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { AuthRepo } from '../../../services/AuthRepositry';
 
 const totalInputLength = 6;
 
 const TwoFAForm = ({ layout }: { layout?: 'simple' | 'card' | 'split' }) => {
   const [otp, setOtp] = useState('');
+  const dispatch = useDispatch<any>()
+  const location = useLocation();
+  let navigate = useNavigate();
+
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleChange = (
@@ -36,6 +42,19 @@ const TwoFAForm = ({ layout }: { layout?: 'simple' | 'card' | 'split' }) => {
     setOtp(updatedOtp);
   };
 
+
+  const onVerifyHandler = async() => {
+   const res= await dispatch(AuthRepo.verify({
+      mobile: location?.state?.mobile,
+      otp: otp,
+      type:location?.state?.type
+    }))
+    if(res){
+        navigate("/")
+    }
+
+  }
+
   return (
     <div>
       <div className={classNames({ 'px-xxl-5': !(layout === 'split') })}>
@@ -47,7 +66,7 @@ const TwoFAForm = ({ layout }: { layout?: 'simple' | 'card' | 'split' }) => {
           <h4 className="text-body-highlight">Enter the verification code</h4>
           <p className="text-body-tertiary mb-0">
             An email containing a 6-digit verification code has been sent to the
-            email address - exa*********.com
+            phone Number - {location?.state?.mobile}
           </p>
           <p className="fs-10 mb-5">
             Don’t have access?
@@ -87,6 +106,7 @@ const TwoFAForm = ({ layout }: { layout?: 'simple' | 'card' | 'split' }) => {
               </Form.Check.Label>
             </Form.Check>
             <Button
+              onClick={onVerifyHandler}
               variant="primary"
               className="w-100 mb-5"
               type="submit"

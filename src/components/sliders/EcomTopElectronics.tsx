@@ -12,7 +12,7 @@ const EcomTopElectronics = ({ products }: { products: Product[] }) => {
     <>
       <div className="d-flex flex-between-center mb-3">
         <h3>Top Electronics</h3>
-        <Link to="/products-filter" className="btn btn-link btn-lg p-0 d-none d-md-block">
+        <Link to={`/products-filter?topelectronics=true`} className="btn btn-link btn-lg p-0 d-none d-md-block">
           Explore more
           <FontAwesomeIcon icon={faChevronRight} className="fs-9 ms-1" />
         </Link>
