@@ -130,10 +130,10 @@ const routes: RouteObject[] = [
     {
         element: <AppLayout />,
         children: [
-            // ...ecommerceRoutes,
-            // ...signInRoutes,
+            ...ecommerceRoutes,
+            ...signInRoutes,
             {
-                path: '/',
+                path: 'coming-soon',
                 element: <ComingSoon />
             },
             {
