@@ -24,7 +24,7 @@ const StoreItem = ({ store }: { store: StoreItemType }) => {
       <p className="text-body-quaternary fs-9 mb-2 fw-semibold">
         ({store.rated} people rated)
       </p>
-      <Link className="p-0 fs-9 fw-bold" to={`/products-filter?store=${store.name}`}>
+      <Link className="p-0 fs-9 fw-bold" to={`/products-filter?store=${"65f6ff277a771d4cca1c8acd"}`}>
         Visit Store
         <FontAwesomeIcon icon={faChevronRight} className="ms-1 fs-10" />
       </Link>

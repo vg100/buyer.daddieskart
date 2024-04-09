@@ -1,12 +1,18 @@
+import { useSelector } from 'react-redux';
 import Section from '../../components/base/Section';
 import EcomCartSummaryCard from '../../components/cards/EcomCartSummaryCard';
 import PageBreadcrumb from '../../components/common/PageBreadcrumb';
 import EcomCartTable from '../../components/tables/EcomCartTable';
 import { defaultBreadcrumbItems } from '../../data/commonData';
-import { cartItems } from '../../data/e-commerce/products';
+// import { cartItems } from '../../data/e-commerce/products';
 import { Col, Row } from 'react-bootstrap';
 
 const Cart = () => {
+  const { cartItems } = useSelector((state: any) => state?.cart)
+
+
+  console.log(cartItems)
+
   return (
     <div className="pt-5 mb-9">
       <Section small className="py-0">

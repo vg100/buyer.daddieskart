@@ -14,16 +14,18 @@ import EcomTopDeals from '../../components/sliders/EcomTopDeals';
 import EcomTopElectronics from '../../components/sliders/EcomTopElectronics';
 import EcomBestOffers from '../../components/sliders/EcomBestOffers';
 import EcomBecomeMember from '../../components/cta/EcomBecomeMember';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ProductRepositry } from '../../services/productRepositry';
 
 const Homepage = () => {
   const dispatch = useDispatch<any>()
-
+  const {products:pds}: any = useSelector<any>(state => state.products)
   React.useEffect(() => {
     dispatch(ProductRepositry.getTopProducts())
+    dispatch(ProductRepositry.getProducts())
   }, [])
 
+  
   return (
     <div className="ecommerce-homepage pt-5 mb-9">
       <section className="py-0">
@@ -48,7 +50,8 @@ const Homepage = () => {
           </Row>
           <Row className="g-4 mb-6">
             <Col xs={12} lg={9} xxl={10}>
-              <EcomTopDeals products={topDealsProducts} />
+              {/* <EcomTopDeals products={topDealsProducts} /> */}
+              <EcomTopDeals products={pds?.product} />
             </Col>
             <Col lg={3} xxl={2} className="d-none d-lg-block">
               <div className="h-100 position-relative rounded-3 overflow-hidden">
@@ -62,7 +65,7 @@ const Homepage = () => {
             </Col>
           </Row>
           <div className="mb-6">
-            <EcomTopElectronics products={topElectronicProducts} />
+            <EcomTopElectronics products={[...topElectronicProducts]} />
           </div>
           <div className="mb-6">
             <EcomBestOffers products={bestOfferProducts} />

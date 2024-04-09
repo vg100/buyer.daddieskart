@@ -8,9 +8,12 @@ import { currencyFormat } from '../../helpers/utils';
 import { useMemo, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { CartRepositry } from '../../services/cartRepositry';
 
 interface EcomCartTableProps {
-  products: CartItemType[];
+  // products: CartItemType[];
+  products:any
 }
 
 const EcomCartTable = ({ products }: EcomCartTableProps) => {
@@ -62,15 +65,20 @@ const EcomCartTable = ({ products }: EcomCartTableProps) => {
   );
 };
 
-const EcomCartTableRow = ({ product }: { product: CartItemType }) => {
+const EcomCartTableRow = ({ product }: { product: any }) => {
   const [quantity, setQuantity] = useState(product.quantity);
-
+  const dispatch=useDispatch<any>()
   const total = useMemo(() => {
     return product.price * quantity;
   }, [quantity]);
 
+
+const removeHandler=()=>{
+  dispatch(CartRepositry.removeCart(product._id));
+}
+
   return (
-    <tr className="cart-table-row" key={product.id}>
+    <tr className="cart-table-row" key={product._id}>
       <td className="py-0">
         <div className="border border-translucent rounded-2">
           <img src={product.image} alt={product.name} width={53} />
@@ -99,6 +107,7 @@ const EcomCartTableRow = ({ product }: { product: CartItemType }) => {
       <td className="text-end ps-3">
         <Button
           size="sm"
+          onClick={removeHandler}
           variant="link"
           className="text-body-quaternary text-body-tertiary-hover me-2"
         >

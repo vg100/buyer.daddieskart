@@ -1,24 +1,31 @@
-import {
-  UilEstate,
-  UilGift,
-  UilLamp,
-  UilMobileAndroid,
-  UilMonitor,
-  UilPalette,
-  UilPlaneDeparture,
-  UilShoppingBag,
-  UilStar,
-  UilWatchAlt,
-  UilWrench
-} from '@iconscout/react-unicons';
-import classNames from 'classnames';
-import { Link } from 'react-router-dom';
+import React from 'react'
+// import {
+//   UilEstate,
+//   UilGift,
+//   UilLamp,
+//   UilMobileAndroid,
+//   UilMonitor,
+//   UilPalette,
+//   UilPlaneDeparture,
+//   UilShoppingBag,
+//   UilStar,
+//   UilWatchAlt,
+//   UilWrench
+// }, from '@iconscout/react-unicons';
 
+
+import * as Icon from "@iconscout/react-unicons"
+import classNames from 'classnames';
+import { Link, useNavigate } from 'react-router-dom';
+import { ProductRepositry } from '../../services/productRepositry';
+import { useDispatch, useSelector } from 'react-redux';
+import { CategoryRepositry } from '../../services/categoryRepositry';
 type Category = {
   label: string;
-  icon: JSX.Element;
+  icon: any;
   url: string;
   bgClass?: string;
+  className?: any
 };
 
 const categories: Category[] = [
@@ -26,64 +33,75 @@ const categories: Category[] = [
     label: 'Deals',
     bgClass: 'bg-warning-subtle',
     url: '#!',
-    icon: <UilStar className="text-warning" size={39} />
+    className: "text-warning",
+    icon: "UilStar"
   },
   {
     label: 'Grocery',
     url: '#!',
-    icon: <UilShoppingBag size={39} />
+    icon: "UilShoppingBag"
   },
   {
     label: 'Fashion',
     url: '#!',
-    icon: <UilWatchAlt size={39} />
+    icon: "UilWatchAlt"
   },
   {
     label: 'Mobile',
     url: '#!',
-    icon: <UilMobileAndroid size={39} />
+    icon: "UilMobileAndroid"
   },
   {
     label: 'Electronics',
     url: '#!',
-    icon: <UilMonitor size={39} />
+    icon: "UilMonitor"
   },
   {
     label: 'Home',
     url: '#!',
-    icon: <UilEstate size={39} />
+    icon: "UilEstate"
   },
   {
     label: 'Dining',
     url: '#!',
-    icon: <UilLamp size={39} />
+    icon: "UilLamp"
   },
   {
     label: 'Gifts',
     url: '#!',
-    icon: <UilGift size={39} />
+    icon: "UilGift"
   },
   {
     label: 'Tools',
     url: '#!',
-    icon: <UilWrench size={39} />
+    icon:"UilWrench"
   },
   {
     label: 'Travel',
     url: '#!',
-    icon: <UilPlaneDeparture size={39} />
+    icon:"UilPlaneDeparture"
   },
   {
     label: 'Others',
     url: '#!',
-    icon: <UilPalette size={39} />
+    icon: "UilPalette"
   }
 ];
 
 const EcomCategoryNavs = () => {
+  const dispatch = useDispatch<any>()
+  const ctg: any = useSelector<any>(state => state.categories)
+
+  React.useEffect(() => {
+    (() => {
+      dispatch(CategoryRepositry.getCategories())
+    })()
+  }, [])
+
+
   return (
     <div className="d-flex justify-content-between">
-      {categories.map(category => (
+      {ctg?.categories?.map(category => (
         <EcomCategoryNavItem key={category.label} category={category} />
       ))}
     </div>
@@ -91,10 +109,21 @@ const EcomCategoryNavs = () => {
 };
 
 const EcomCategoryNavItem = ({ category }: { category: Category }) => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch<any>()
+  const navigatehandler = async (data) => {
+     return navigate(`/products-filter?category=${data._id}`)
+  }
+  const DynamicIcon = Icon[category.icon];
+
   return (
-    <Link to={`products-filter?category=${category.label}`||category.url} className="icon-nav-item mb-3">
+    <Link
+      onClick={() => navigatehandler(category)}
+
+      // to={`products-filter?category=${category.label}`||category.url} 
+      className="icon-nav-item mb-3"     >
       <div className={classNames(category.bgClass, 'icon-container mb-2')}>
-        {category.icon}
+        <DynamicIcon className={category?.className ?category?.className:""} size={39} />
       </div>
       <p className="nav-label mb-0">{category.label}</p>
     </Link>

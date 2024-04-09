@@ -1,3 +1,4 @@
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '../../../components/base/Button';
 import Rating from '../../../components/base/Rating';
@@ -7,20 +8,31 @@ import { currencyFormat } from '../../../helpers/utils';
 import ProductGallery from '../../../components/modules/e-commerce/ProductGallery';
 import { useMemo, useState } from 'react';
 import { Col, FormControl, InputGroup, Row, Stack } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import QuantityButtons from '../../../components/common/QuantityButtons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faShareAlt, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { CartRepositry } from '../../../services/cartRepositry';
 
 const ProductDescription = () => {
-  const [selectedVariantKey, setSelectedVariantKey] = useState('blue');
+  const [selectedVariantKey, setSelectedVariantKey] = useState('Blue');
   const [quantity, setQuantity] = useState(1);
-
+  const dispatch = useDispatch<any>();
+  const params = useParams();
+  const { selectedProduct } = useSelector((state: any) => state?.products)
+  // console.log(selectedProduct,'selectedProduct')
   const selectedVariant = useMemo(() => {
-    return productColorVariants.find(
-      variant => variant.id === selectedVariantKey
+    return selectedProduct?.productColorVariants?.find(
+      variant => variant.name === selectedVariantKey
     );
   }, [selectedVariantKey]);
+
+
+  // console.log(selectedVariant.images,'selectedVariant.images')
+const addtocart=()=>{
+  dispatch(CartRepositry.addItemsToCart(89));
+}
 
   return (
     <Row className="g-5 mb-5 mb-lg-8">
@@ -36,6 +48,7 @@ const ProductDescription = () => {
             Add to wishlist
           </Button>
           <Button
+            onClick={addtocart}
             variant="warning"
             size="lg"
             className="rounded-pill w-100 px-2 px-sm-4 fs--1 fs-sm-0"
@@ -57,25 +70,25 @@ const ProductDescription = () => {
               </p>
             </div>
             <h3 className="mb-3 lh-sm">
-              24" iMac® with Retina 4.5K display - Apple M1 8GB Memory - 256GB
-              SSD - w/Touch ID (Latest Model) - Blue
+              {selectedProduct.name}
             </h3>
             <div className="d-flex flex-wrap align-items-start mb-3">
               <span className="badge bg-success fs-9 rounded-pill me-2 fw-semibold">
                 #1 Best seller
               </span>
               <Link to="#!" className="fw-semibold">
-                in Phoenix sell analytics 2021
+                in {selectedProduct.seller.username}
               </Link>
             </div>
             <div className="d-flex flex-wrap align-items-center">
-              <h1 className="me-3">{currencyFormat(1349.99)}</h1>
+              <h1 className="me-3">{currencyFormat(selectedProduct.salePrice)}</h1>
               <p className="text-body-quaternary text-decoration-line-through fs-6 mb-0 me-3">
-                {currencyFormat(1499.99)}
+                {currencyFormat(selectedProduct.price)}
               </p>
-              <p className="text-warning-dark fw-bolder fs-6 mb-0">10% off</p>
+              <p className="text-warning-dark fw-bolder fs-6 mb-0">{selectedProduct.offer} off</p>
             </div>
-            <p className="text-success fw-semibold fs-7 mb-2"> In stock</p>
+            {selectedProduct.inStock && (<p className="text-success fw-semibold fs-7 mb-2"> In stock</p>)}
+
             <p className="mb-2 text-body-secondary">
               <strong className="text-body-highlight">
                 Do you want it on Saturday, July 29th?
@@ -99,16 +112,16 @@ const ProductDescription = () => {
           </div>
 
           <div>
-          <InputGroup className="mb-3 w-md-40">
-          <FormControl placeholder="Delivery pincode" aria-label="voucher" />
-           <Button variant="warning" className="px-4">
-            Check
-          </Button>
-          {/* <span  className="px-1 align-self-center text-primary">
+            <InputGroup className="mb-3 w-md-40">
+              <FormControl placeholder="Delivery pincode" aria-label="voucher" />
+              <Button variant="warning" className="px-4">
+                Check
+              </Button>
+              {/* <span  className="px-1 align-self-center text-primary">
           Check
          
           </span> */}
-        </InputGroup>
+            </InputGroup>
             <div className="mb-3">
               <p className="fw-semibold mb-2 text-body">
                 Color :{' '}

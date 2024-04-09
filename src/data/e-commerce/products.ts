@@ -42,6 +42,7 @@ export type Product = {
   wishListed?: boolean;
   offer?: string;
   dealEndTime?: string;
+  category?:string
 };
 
 export type SuggestedProductType = {
@@ -140,6 +141,7 @@ export const topDealsProducts: Product[] = [
     rated: 33,
     price: 899.99,
     salePrice: 850.99,
+    category:"mobile",
     colors: 5,
     extra: 'Stock limited',
     extraClass: 'text-body-highlight fw-bold mb-2'

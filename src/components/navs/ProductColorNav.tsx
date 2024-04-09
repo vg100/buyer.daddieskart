@@ -29,6 +29,7 @@ import orangeBack from '../../assets/img/products/details/orange_back.png';
 import orangeSide from '../../assets/img/products/details/orange_side.png';
 
 import classNames from 'classnames';
+import { useSelector } from 'react-redux';
 
 type Variant = {
   id: string;
@@ -89,17 +90,20 @@ const ProductColorNav = ({
   selectedVariantKey: string;
   setSelectedVariantKey: Dispatch<SetStateAction<string>>;
 }) => {
+
+  const {selectedProduct}=useSelector((state:any)=>state?.products)
+
   return (
     <Nav
       className="gap-2"
       activeKey={selectedVariantKey}
       onSelect={selectedKey => setSelectedVariantKey(selectedKey as string)}
     >
-      {colorVariants.map(variant => (
+      {selectedProduct?.productColorVariants?.map(variant => (
         <ProductColorNavItem
-          key={variant.id}
+          key={variant.name}
           item={variant}
-          isActive={variant.id === selectedVariantKey}
+          isActive={variant.name === selectedVariantKey}
         />
       ))}
     </Nav>
@@ -116,7 +120,7 @@ const ProductColorNavItem = ({
   return (
     <Nav.Item className="">
       <Nav.Link
-        eventKey={item.id}
+        eventKey={item.name}
         className={classNames('border rounded-1 p-0', {
           'border-primary': isActive
         })}

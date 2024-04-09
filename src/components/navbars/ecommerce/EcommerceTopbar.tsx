@@ -8,8 +8,12 @@ import SearchBox from '../../../components/common/SearchBox';
 import ThemeToggler from '../../../components/common/ThemeToggler';
 import DropdownSearchBox from '../../common/DropdownSearchBox';
 import SearchResult from '../../common/SearchResult';
+import { useSelector } from 'react-redux';
 
 const EcommerceTopbar = () => {
+  const { cartItems } = useSelector((state: any) => state?.cart)
+
+
   return (
     <div className="container-small">
       <div className="ecommerce-topbar">
@@ -33,7 +37,7 @@ const EcommerceTopbar = () => {
                     className="px-2 icon-indicator icon-indicator-primary"
                   >
                     <FeatherIcon icon="shopping-cart" size={20} />
-                    <span className="icon-indicator-number">3</span>
+                    <span className="icon-indicator-number">{cartItems?.length}</span>
                   </Nav.Link>
                 </Nav.Item>
 

@@ -18,4 +18,19 @@ export class ProductApi {
   static getTopProducts() {
     return Http.get('/products/topdeals');
   }
+  static getAllProducts(url) {
+    return Http.get(`/products${url}`);
+  }
+}
+
+export class CategoriesApi {
+  static getCategories() {
+    return Http.get('/categories');
+  }
+}
+
+export class StoreApi {
+  static getStores() {
+    return Http.get('/stores');
+  }
 }

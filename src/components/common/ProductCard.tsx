@@ -7,9 +7,18 @@ import Rating from '../../components/base/Rating';
 import { Product as ProductType } from '../../data/e-commerce/products';
 import { currencyFormat } from '../../helpers/utils';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ProductRepositry } from '../../services/productRepositry';
+import { useDispatch } from 'react-redux';
 
 const ProductCard = ({ product }: { product: ProductType }) => {
+ const dispatch=useDispatch<any>()
+ const navigate=useNavigate<any>()
+ 
+  const selectProductHandler=async ()=>{
+    await dispatch(ProductRepositry.selectedPoduct(product))
+    navigate('/product-details')
+  }
   return (
     <div className="position-relative text-decoration-none product-card h-100">
       <div className="d-flex flex-column justify-content-between h-100">
@@ -39,7 +48,9 @@ const ProductCard = ({ product }: { product: ProductType }) => {
               </Badge>
             )}
           </div>
-          <Link to="/product-details" className="stretched-link">
+          <Link 
+          onClick={selectProductHandler}
+          className="stretched-link">
             <h6 className="mb-2 lh-sm line-clamp-3 product-name">
               {product.name}
             </h6>

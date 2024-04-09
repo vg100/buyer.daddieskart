@@ -5,8 +5,10 @@ import SimilarProducts from '../../components/sliders/SimilarProducts';
 import Section from '../../components/base/Section';
 import PageBreadcrumb from '../../components/common/PageBreadcrumb';
 import { ecomBreadcrumbItems } from '../../data/commonData';
+import { useSelector } from 'react-redux';
 
 const ProductDetails = () => {
+ 
   return (
     <div className="pt-5 mb-9">
       <Section small className="py-0">

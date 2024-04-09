@@ -7,7 +7,7 @@ import Swiper from '../../components/base/Swiper';
 import { SwiperSlide } from 'swiper/react';
 import { faBolt, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-const EcomTopDeals = ({ products }: { products: Product[] }) => {
+const EcomTopDeals = ({ products }: { products: any }) => {
   return (
     <>
       <div className="d-flex flex-between-center mb-3">
@@ -48,8 +48,8 @@ const EcomTopDeals = ({ products }: { products: Product[] }) => {
           }
         }}
       >
-        {products.map(product => (
-          <SwiperSlide key={product.id}>
+        {products?.map(product => (
+          <SwiperSlide key={product?._id}>
             <ProductCard product={product} />
           </SwiperSlide>
         ))}
