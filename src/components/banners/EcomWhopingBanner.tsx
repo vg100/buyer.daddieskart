@@ -1,8 +1,12 @@
 import whoopingBannerProduct from '../../assets/img/e-commerce/whooping_banner_product.png';
 import whoopingBannerShape2 from '../../assets/img/e-commerce/whooping_banner_shape_2.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const EcomWhopingBanner = () => {
+  const navigate = useNavigate()
+  const navigatehandler = async () => {
+    return navigate(`/pf?offer=60%`)
+ }
   return (
     <div className="whooping-banner w-100 rounded-3 overflow-hidden">
       <div
@@ -30,7 +34,8 @@ const EcomWhopingBanner = () => {
           </h3>
         </div>
         <Link
-          to="#!"
+        onClick={navigatehandler}
+          // to="/pf?offer=60%"
           className="btn btn-lg btn-primary rounded-pill banner-button"
         >
           Shop Now

@@ -21,6 +21,17 @@ export class ProductApi {
   static getAllProducts(url) {
     return Http.get(`/products${url}`);
   }
+  static getProductDetail(id) {
+    return Http.get(`/products/${id}`);
+  }
+  static getProductCategoryl(category) {
+    return Http.get(`/products/category=${category}`);
+  }
+  static search(query) {
+    return Http.get(`/products/search?query=${query}`);
+  }
+  
+
 }
 
 export class CategoriesApi {
@@ -31,6 +42,6 @@ export class CategoriesApi {
 
 export class StoreApi {
   static getStores() {
-    return Http.get('/stores');
+    return Http.get('/seller');
   }
 }

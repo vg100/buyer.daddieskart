@@ -8,8 +8,12 @@ import { SearchResult as SearchResultType, searchItems } from 'data/search';
 import Scrollbar from 'components/base/Scrollbar';
 import useSearchHook from 'hooks/useSearchHook';
 import { ColumnDef } from '@tanstack/react-table';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { faClockRotateLeft, faLink } from '@fortawesome/free-solid-svg-icons';
+import { ProductApi } from '../../services/Api';
+import { useDispatch, useSelector } from 'react-redux';
+import { StoreRepositry } from '../../services/storeRepositry';
+import { SearchRepositry } from '../../services/searchRepositry';
 
 const ResultSectionHeader = ({ title }: { title: string }) => {
   return (
@@ -21,49 +25,54 @@ const ResultSectionHeader = ({ title }: { title: string }) => {
 
 const searchFields: ColumnDef<SearchResultType>[] = [
   {
-    accessorKey: 'label'
+    accessorKey: 'name'
   }
 ];
 
 const SearchResult = ({ searchValue = '' }: { searchValue?: string }) => {
-  const results = useSearchHook(searchItems, searchFields, searchValue);
 
-  const recentlySearchedItems = useMemo(
-    () => results.filter(item => item.category === 'recently_searched'),
-    [results]
-  );
 
-  const products = useMemo(
-    () => results.filter(item => item.category === 'products'),
-    [results]
-  );
+  const [products, setProducts] = React.useState<any[]>([]);
+  const dispatch = useDispatch<any>()
+  const { search } = useSelector((state: any) => state?.search)
 
-  const quickLinks = useMemo(
-    () => results.filter(item => item.category === 'quick_links'),
-    [results]
-  );
+  React.useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res:any = await ProductApi.search(searchValue)
+        // dispatch(SearchRepositry.search(searchValue))
+        setProducts(res);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
 
-  const suggestionFiles = useMemo(
-    () => results.filter(item => item.category === 'suggestion_files'),
-    [results]
-  );
+    if (searchValue.trim() !== '') {
+      fetchProducts();
+    } else {
+      setProducts([]); // Clear products if search value is empty
+    }
+  }, [searchValue]);
 
-  const members = useMemo(
-    () => results.filter(item => item.category === 'members'),
-    [results]
-  );
+  // const results = useSearchHook(products, searchFields, searchValue);
 
-  const relatedSearchedItems = useMemo(
-    () => results.filter(item => item.category === 'related_search'),
-    [results]
-  );
+  // const recentlySearchedItems = useMemo(
+  //   () => results.filter(item => item.category === 'recently_searched'),
+  //   [results]
+  // );
+
+  // const products = useMemo(
+  //   () => results.filter(item => item.category === 'products'),
+  //   [results]
+  // );
+
 
   return (
     <Scrollbar autoHeight autoHeightMax={'30rem'}>
       <h6 className="text-body-highlight fs-10 py-2 mb-0 px-3">
-        {results.length} <span className="text-body-quaternary">Results</span>{' '}
+        {products?.length} <span className="text-body-quaternary">Results</span>{' '}
       </h6>
-      {recentlySearchedItems.length > 0 && (
+      {/* {recentlySearchedItems.length > 0 && (
         <>
           <ResultSectionHeader title="Recently Searched" />
           <div className="py-2">
@@ -80,16 +89,16 @@ const SearchResult = ({ searchValue = '' }: { searchValue?: string }) => {
             ))}
           </div>
         </>
-      )}
-      {products.length > 0 && (
+      )} */}
+      {products?.length > 0 && (
         <>
           <ResultSectionHeader title="Products" />
           <div className="py-2">
-            {products.map(item => (
+            {products?.map(item => (
               <Dropdown.Item
                 as={Link}
-                to={item.url}
-                key={item.label}
+                to={`/p-d?pid=${item?._id}`}
+                key={item.name}
                 className="py-2 d-flex gap-2 align-items-center"
               >
                 <div className="file-thumbnail">
@@ -98,11 +107,11 @@ const SearchResult = ({ searchValue = '' }: { searchValue?: string }) => {
                     src={item.image}
                     height={28}
                     width={28}
-                    alt={item.label}
+                    alt={item.name}
                   />
                 </div>
                 <div className="flex-1">
-                  <h6 className="mb-0 text-body-highlight">{item.label}</h6>
+                  <h6 className="mb-0 text-body-highlight">{item?.name?.slice(0, 40)}</h6>
                   <p className="fs-10 mb-0 d-flex text-body-tertiary">
                     <span className="fw-medium text-body-tertiary text-opacity-85">
                       {item.details}

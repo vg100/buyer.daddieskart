@@ -22,7 +22,7 @@ const EcomBestInMarketBanner = () => {
               <span className="fs-7 fs-sm-6">Best in the market</span>
             </h2>
             <Link
-              to="#!"
+            to="/pf?keyword=apple"
               className="btn btn-lg btn-warning rounded-pill banner-button"
             >
               Buy Now

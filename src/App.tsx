@@ -8,6 +8,7 @@ import AppProvider from './providers/AppProvider'
 import ChatWidgetProvider from './providers/ChatWidgetProvider'
 import { Provider } from 'react-redux'
 import store from './redux/store'
+import 'animate.css/animate.min.css';
 
 function App() {
   return (

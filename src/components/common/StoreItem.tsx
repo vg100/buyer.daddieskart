@@ -15,16 +15,16 @@ const StoreItem = ({ store }: { store: StoreItemType }) => {
         className="border border-translucent d-flex flex-center rounded-3 mb-3 p-4"
         style={{ height: 180 }}
       >
-        <img className="mw-100" src={store.logo} alt={store.name} />
+        <img className="mw-100" src={store?.store?.logo} alt={store?.store.name} />
       </div>
-      <h5 className="mb-2">{store.name}</h5>
+      <h5 className="mb-2">{store?.store.name}</h5>
       <div className="mb-1 fs-9">
-        <Rating initialValue={store.rating} readonly />
+        <Rating initialValue={store?.store?.rating} readonly />
       </div>
       <p className="text-body-quaternary fs-9 mb-2 fw-semibold">
-        ({store.rated} people rated)
+        ({store?.store?.rated} people rated)
       </p>
-      <Link className="p-0 fs-9 fw-bold" to={`/products-filter?store=${"65f6ff277a771d4cca1c8acd"}`}>
+      <Link className="p-0 fs-9 fw-bold" to={`/pf?seller=${store?._id}`}>
         Visit Store
         <FontAwesomeIcon icon={faChevronRight} className="ms-1 fs-10" />
       </Link>

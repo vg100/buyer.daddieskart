@@ -8,7 +8,7 @@ import { currencyFormat } from '../../helpers/utils';
 import { useMemo, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CartRepositry } from '../../services/cartRepositry';
 
 interface EcomCartTableProps {
@@ -17,6 +17,8 @@ interface EcomCartTableProps {
 }
 
 const EcomCartTable = ({ products }: EcomCartTableProps) => {
+  const { cartItems } = useSelector((state: any) => state?.cart)
+
   return (
     <Scrollbar autoHeight autoHeightMax="100%" className="table-scrollbar">
       <Table className="phoenix-table fs-9 mb-0 border-top border-translucent">
@@ -45,8 +47,8 @@ const EcomCartTable = ({ products }: EcomCartTableProps) => {
           </tr>
         </thead>
         <tbody className="list" id="cart-table-body">
-          {products.map(product => (
-            <EcomCartTableRow product={product} key={product.id} />
+          {products?.map(product => (
+            <EcomCartTableRow product={product} key={product?._id} />
           ))}
 
           <tr className="cart-table-row">
@@ -56,7 +58,9 @@ const EcomCartTable = ({ products }: EcomCartTableProps) => {
             >
               Items subtotal :
             </td>
-            <td className="text-body-emphasis fw-bold text-end fs-8">$691</td>
+            <td className="text-body-emphasis fw-bold text-end fs-8">{currencyFormat(cartItems
+                .reduce((acc, item) => acc + item?.quantity * item?.price, 0)
+                .toFixed(2))}</td>
             <td />
           </tr>
         </tbody>
@@ -66,39 +70,44 @@ const EcomCartTable = ({ products }: EcomCartTableProps) => {
 };
 
 const EcomCartTableRow = ({ product }: { product: any }) => {
-  const [quantity, setQuantity] = useState(product.quantity);
+  // const [quantity, setQuantity] = useState(product?.quantity);
   const dispatch=useDispatch<any>()
   const total = useMemo(() => {
-    return product.price * quantity;
-  }, [quantity]);
+    return product?.price * product?.quantity;
+  }, [product?.quantity]);
 
 
 const removeHandler=()=>{
-  dispatch(CartRepositry.removeCart(product._id));
+  dispatch(CartRepositry.removeCart(product?._id));
+}
+
+const setQuantity=(data)=>{
+  dispatch(CartRepositry.upadteCart(product?._id,data));
+
 }
 
   return (
-    <tr className="cart-table-row" key={product._id}>
+    <tr className="cart-table-row" key={product?._id}>
       <td className="py-0">
         <div className="border border-translucent rounded-2">
-          <img src={product.image} alt={product.name} width={53} />
+          <img src={product?.image} alt={product?.name} width={53} />
         </div>
       </td>
       <td>
-        <Link className="fw-semibold line-clamp-2" to="/product-details">
-          {product.name}
+        <Link className="fw-semibold line-clamp-2" to={`/p-d?pid=${product?._id}`}>
+          {product?.name}
         </Link>
       </td>
-      <td className="white-space-nowrap">{product.color}</td>
+      <td className="white-space-nowrap">{product?.color}</td>
       <td className="white-space-nowrap text-body-tertiary fw-semibold">
-        {product.size}
+        {product?.size}
       </td>
-      <td className="fw-semibold text-end">{currencyFormat(product.price)}</td>
+      <td className="fw-semibold text-end">{currencyFormat(product?.price)}</td>
       <td className="fs-8 ps-5">
         <QuantityButtons
           type="secondary"
-          quantity={quantity}
-          setQuantity={setQuantity}
+          quantity={product?.quantity}
+          setQuantity={(dd)=>setQuantity(dd)}
         />
       </td>
       <td className="fw-bold text-body-highlight text-end">

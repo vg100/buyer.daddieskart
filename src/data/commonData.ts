@@ -42,15 +42,11 @@ export const days = [
 
 export const defaultBreadcrumbItems: PageBreadcrumbItem[] = [
   {
-    label: 'Page 1',
-    url: '#!'
+    label: 'Home',
+    url: '/'
   },
   {
-    label: 'Page 2',
-    url: '#!'
-  },
-  {
-    label: 'Default',
+    label: 'Cart',
     active: true
   }
 ];

@@ -112,7 +112,7 @@ const EcomCategoryNavItem = ({ category }: { category: Category }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch<any>()
   const navigatehandler = async (data) => {
-     return navigate(`/products-filter?category=${data._id}`)
+     return navigate(`/pf?category=${data._id}`)
   }
   const DynamicIcon = Icon[category.icon];
 
@@ -120,7 +120,7 @@ const EcomCategoryNavItem = ({ category }: { category: Category }) => {
     <Link
       onClick={() => navigatehandler(category)}
 
-      // to={`products-filter?category=${category.label}`||category.url} 
+      // to={`pf?category=${category.label}`||category.url} 
       className="icon-nav-item mb-3"     >
       <div className={classNames(category.bgClass, 'icon-container mb-2')}>
         <DynamicIcon className={category?.className ?category?.className:""} size={39} />

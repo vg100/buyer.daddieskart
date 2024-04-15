@@ -40,33 +40,33 @@ const initNavItems: NavItemType[] = [
   {
     id: 3,
     label: 'Products',
-    url: '/products-filter'
+    url: '/pf'
   },
   {
     id: 4,
     label: 'Wishlist',
     url: '/wishlist'
   },
-  {
-    id: 5,
-    label: 'Shipping Info',
-    url: '/shipping-info'
-  },
+  // {
+  //   id: 5,
+  //   label: 'Shipping Info',
+  //   url: '/shipping-info'
+  // },
   {
     id: 6,
     label: 'Be a vendor',
-    url: '/shipping-info'
+    url: 'http://seller.daddieskart.com/'
   },
   {
     id: 7,
     label: 'Track order',
     url: '/order-tracking'
   },
-  {
-    id: 8,
-    label: 'Checkout',
-    url: '/checkout'
-  },
+  // {
+  //   id: 8,
+  //   label: 'Checkout',
+  //   url: '/checkout'
+  // },
   {
     id: 9,
     label: 'Invoice',

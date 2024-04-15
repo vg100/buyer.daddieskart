@@ -21,7 +21,7 @@ const EcomGiftItemsBanner = () => {
         </h2>
         <Link
           className="btn btn-lg btn-primary rounded-pill banner-button"
-          to="#!"
+          to="/pf?offer=10%"
         >
           Buy Now
         </Link>

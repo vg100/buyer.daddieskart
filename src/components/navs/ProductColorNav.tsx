@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { Nav } from 'react-bootstrap';
+import React from 'react'
 import blueFront from '../../assets/img/products/details/blue_front.png';
 import blueBack from '../../assets/img/products/details/blue_back.png';
 import blueSide from '../../assets/img/products/details/blue_side.png';
@@ -91,7 +92,7 @@ const ProductColorNav = ({
   setSelectedVariantKey: Dispatch<SetStateAction<string>>;
 }) => {
 
-  const {selectedProduct}=useSelector((state:any)=>state?.products)
+  const {getProductDetail}=useSelector((state:any)=>state?.products)
 
   return (
     <Nav
@@ -99,7 +100,7 @@ const ProductColorNav = ({
       activeKey={selectedVariantKey}
       onSelect={selectedKey => setSelectedVariantKey(selectedKey as string)}
     >
-      {selectedProduct?.productColorVariants?.map(variant => (
+      {getProductDetail?.productColorVariants?.map(variant => (
         <ProductColorNavItem
           key={variant.name}
           item={variant}
@@ -120,7 +121,7 @@ const ProductColorNavItem = ({
   return (
     <Nav.Item className="">
       <Nav.Link
-        eventKey={item.name}
+        eventKey={item?.name}
         className={classNames('border rounded-1 p-0', {
           'border-primary': isActive
         })}

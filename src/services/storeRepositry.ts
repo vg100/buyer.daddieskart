@@ -1,6 +1,7 @@
 
+import { SearchActionTypes } from "../redux/searchReducer";
 import { StoreActionTypes } from "../redux/storeReducer";
-import { StoreApi } from "./Api";
+import { ProductApi, StoreApi } from "./Api";
 
 export class StoreRepositry {
 
@@ -15,5 +16,6 @@ export class StoreRepositry {
             }
         };
     }
+
 
 }

@@ -34,6 +34,9 @@ const ProductDetailsTab = () => {
           <Nav.Item>
             <Nav.Link eventKey="reviews">Ratings & reviews</Nav.Link>
           </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="chat">Chat</Nav.Link>
+          </Nav.Item>
         </Nav>
         <Row className="gx-3 gy-7">
           <Col xs={12} lg={7} xl={8}>
@@ -147,6 +150,18 @@ const ProductDetailsTab = () => {
                         <FontAwesomeIcon icon={faChevronRight} />
                       </Pagination.Next>
                     </Pagination>
+                  </Card.Body>
+                </Card>
+              </Tab.Pane>
+              <Tab.Pane eventKey="chat">
+                <Card>
+                  <Card.Header className="pb-0 border-bottom-0">
+                  
+                  </Card.Header>
+                  <Card.Body>
+             
+
+                    
                   </Card.Body>
                 </Card>
               </Tab.Pane>

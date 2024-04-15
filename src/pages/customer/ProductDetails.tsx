@@ -5,10 +5,19 @@ import SimilarProducts from '../../components/sliders/SimilarProducts';
 import Section from '../../components/base/Section';
 import PageBreadcrumb from '../../components/common/PageBreadcrumb';
 import { ecomBreadcrumbItems } from '../../data/commonData';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { ProductRepositry } from '../../services/productRepositry';
 
 const ProductDetails = () => {
- 
+  const dispatch = useDispatch<any>()
+  // const {products:pds,loading}: any = useSelector<any>(state => state.products)
+  // React.useEffect(() => {
+  //   dispatch(ProductRepositry.getProducts())
+  // }, [])
+
+
+  
   return (
     <div className="pt-5 mb-9">
       <Section small className="py-0">
@@ -23,7 +32,7 @@ const ProductDetails = () => {
       </Section>
 
       <Section className="py-0">
-        <SimilarProducts products={topElectronicProducts} />
+        <SimilarProducts category="66118934e72ec208eb44938e" products={topElectronicProducts} />
       </Section>
     </div>
   );

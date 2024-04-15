@@ -1,6 +1,6 @@
 import React from 'react'
 import EcomCategoryNavs from '../../components/navs/EcomCategoryNavs';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row, Spinner } from 'react-bootstrap';
 import EcomWhopingBanner from '../../components/banners/EcomWhopingBanner';
 import EcomGiftItemsBanner from '../../components/banners/EcomGiftItemsBanner';
 import EcomBestInMarketBanner from '../../components/banners/EcomBestInMarketBanner';
@@ -16,13 +16,13 @@ import EcomBestOffers from '../../components/sliders/EcomBestOffers';
 import EcomBecomeMember from '../../components/cta/EcomBecomeMember';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProductRepositry } from '../../services/productRepositry';
+import { Link } from 'react-router-dom';
 
 const Homepage = () => {
   const dispatch = useDispatch<any>()
-  const {products:pds}: any = useSelector<any>(state => state.products)
+  const {products:pds,loading}: any = useSelector<any>(state => state.products)
   React.useEffect(() => {
-    dispatch(ProductRepositry.getTopProducts())
-    dispatch(ProductRepositry.getProducts())
+    dispatch(ProductRepositry.getProducts({}))
   }, [])
 
   
@@ -48,14 +48,21 @@ const Homepage = () => {
               <EcomBestInMarketBanner />
             </Col>
           </Row>
-          <Row className="g-4 mb-6">
+
+          {loading ? (
+              <div className="text-center">
+                <Spinner animation="border" role="status" />
+              </div>
+          ):<>
+            <Row className="g-4 mb-6">
             <Col xs={12} lg={9} xxl={10}>
               {/* <EcomTopDeals products={topDealsProducts} /> */}
               <EcomTopDeals products={pds?.product} />
             </Col>
             <Col lg={3} xxl={2} className="d-none d-lg-block">
               <div className="h-100 position-relative rounded-3 overflow-hidden">
-                <div
+                <Link
+                  to="/pf?offer=50%"
                   className="bg-holder product-bg"
                   style={{
                     backgroundImage: `url(${ecom4})`
@@ -65,11 +72,15 @@ const Homepage = () => {
             </Col>
           </Row>
           <div className="mb-6">
-            <EcomTopElectronics products={[...topElectronicProducts]} />
+            <EcomTopElectronics products={pds?.product} />
           </div>
           <div className="mb-6">
-            <EcomBestOffers products={bestOfferProducts} />
+            <EcomBestOffers products={pds?.product} />
           </div>
+
+          </>
+}
+        
           <EcomBecomeMember />
         </Container>
       </section>

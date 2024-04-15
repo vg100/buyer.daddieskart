@@ -6,13 +6,17 @@ export interface CheckboxItemProps {
   name: string;
   label: string | ReactNode;
   value: string | number;
+  checked?: boolean;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const CheckboxItem = ({
   type = 'checkbox',
   name,
   label,
-  value
+  value,
+  checked = false,
+  onChange
 }: CheckboxItemProps) => {
   return (
     <Form.Check
@@ -24,9 +28,14 @@ const CheckboxItem = ({
         type={type}
         value={value}
         name={name}
+        checked={checked}
         className="mt-0"
+        onChange={onChange}
+      
       />
-      <Form.Check.Label className="d-block lh-sm fs-8 text-body fw-normal mb-0">
+      <Form.Check.Label 
+      style={{ pointerEvents: 'none' }} 
+      className="d-block lh-sm fs-8 text-body fw-normal mb-0">
         {label}
       </Form.Check.Label>
     </Form.Check>

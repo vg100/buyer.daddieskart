@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import Section from '../../../components/base/Section';
 import PageBreadcrumb from '../../../components/common/PageBreadcrumb';
 import CheckoutSummaryCard from '../../../components/modules/e-commerce/checkout/CheckoutSummaryCard';
@@ -5,6 +6,10 @@ import { defaultBreadcrumbItems } from '../../../data/commonData';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 
 const ShippingInfo = () => {
+  const navigate = useNavigate()
+  const navigateTocheckout = () => {
+    navigate('/checkout')
+  }
   return (
     <div className="pt-5 mb-9">
       <Section small className="py-0">
@@ -14,7 +19,7 @@ const ShippingInfo = () => {
           <Col lg={7}>
             <h3 className="mb-5">Shipping Info</h3>
             <Row className="g-4">
-              <Col xs={12}>
+              <Col md={6}>
                 <Form.Group>
                   <label className="form-label text-transform-none ps-0 fs-8 text-body-highlight">
                     Full name
@@ -22,20 +27,13 @@ const ShippingInfo = () => {
                   <Form.Control type="text" placeholder="Full name" />
                 </Form.Group>
               </Col>
-              <Col md={6}>
-                <Form.Group>
-                  <label className="form-label text-transform-none ps-0 fs-8 text-body-highlight">
-                    Email
-                  </label>
-                  <Form.Control type="email" placeholder="Email" />
-                </Form.Group>
-              </Col>
+
               <Col md={6}>
                 <Form.Group>
                   <label className="form-label text-transform-none ps-0 fs-8 text-body-highlight">
                     Phone
                   </label>
-                  <Form.Control type="tel" placeholder="+1234567890" />
+                  <Form.Control type="tel" placeholder="+91XXXXXXXXXX" />
                 </Form.Group>
               </Col>
               <Col md={12}>
@@ -43,15 +41,7 @@ const ShippingInfo = () => {
                   <label className="form-label text-transform-none ps-0 fs-8 text-body-highlight">
                     Address line 1
                   </label>
-                  <Form.Control type="text" placeholder="Address line 1" />
-                </Form.Group>
-              </Col>
-              <Col md={12}>
-                <Form.Group>
-                  <label className="form-label text-transform-none ps-0 fs-8 text-body-highlight">
-                    Address line 2
-                  </label>
-                  <Form.Control type="text" placeholder="Address line 2" />
+                  <Form.Control as="textarea" rows={4} placeholder="Address line 1" />
                 </Form.Group>
               </Col>
               <Col md={4}>
@@ -83,26 +73,44 @@ const ShippingInfo = () => {
               <Col md={4}>
                 <Form.Group>
                   <label className="form-label text-transform-none ps-0 fs-8 text-body-highlight">
-                    Zip code
+                    Pin code
                   </label>
                   <Form.Control type="text" placeholder="Zip code" />
                 </Form.Group>
               </Col>
-              <Col md={4} className="mb-3">
+              <Col md={12}>
                 <Form.Group>
-                  <label className="form-label text-transform-none ps-0 fs-8 text-body-highlight">
-                    Country
+                  <label className="form-label text-transform-none ps-0 fs-9 text-body-highlight">
+                    Address Type
                   </label>
-                  <Form.Select defaultValue="usa">
-                    <option value="usa">USA</option>
-                    <option value="uk">UK</option>
-                    <option value="aus">AUS</option>
-                    <option value="nz">NZ</option>
-                  </Form.Select>
+                  <div>
+                    <Form.Check
+                      inline
+                      type="radio"
+                      id="home"
+                      label="Home"
+                      name="addressType"
+                      value="home"
+                    // checked={addressType === 'home'}
+                    // onChange={handleAddressTypeChange}
+                    />
+                    <Form.Check
+                      inline
+                      type="radio"
+                      id="work"
+                      label="Work"
+                      name="addressType"
+                      value="work"
+                    // checked={addressType === 'work'}
+                    // onChange={handleAddressTypeChange}
+                    />
+                  </div>
                 </Form.Group>
               </Col>
               <Col xs={12}>
-                <Button className="px-8 px-sm-11 me-2" type="submit">
+                <Button
+                  onClick={navigateTocheckout}
+                  className="px-8 px-sm-11 me-2" type="submit">
                   Save
                 </Button>
                 <Button
@@ -113,10 +121,13 @@ const ShippingInfo = () => {
                   Exit Without Saving
                 </Button>
               </Col>
+
             </Row>
           </Col>
           <Col lg={5} xl={{ span: 4, offset: 1 }}>
-            <CheckoutSummaryCard />
+            <div className="position-sticky top-0">
+              <CheckoutSummaryCard />
+            </div>
           </Col>
         </Row>
       </Section>

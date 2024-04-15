@@ -4,6 +4,7 @@ export const CartActionTypes = {
     CART_ADD_ITEM: 'CART_ADD_ITEM',
     REMOVE_FROM_CART: 'REMOVE_FROM_CART',
     CART_CLEAR_ITEMS: 'CART_CLEAR_ITEMS',
+    UPDATE_QUANTITY: 'UPDATE_QUANTITY', 
 };
 
 
@@ -42,5 +43,14 @@ export class CartReducer extends BaseReducer {
             cartItems: [],
           }
     }
+    [CartActionTypes.UPDATE_QUANTITY](state: any, action: any) {
+      const { id, quantity } = action.payload;
+      return {
+          ...state,
+          cartItems: state.cartItems.map(item =>
+              item._id === id ? { ...item, quantity: quantity } : item
+          ),
+      };
+  }
 }
 

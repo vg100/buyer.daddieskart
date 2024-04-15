@@ -1,84 +1,107 @@
-import _axios, {AxiosRequestConfig} from 'axios';
-
-import { LocalStorageService } from './LocalStorage';
-
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { getEnvVariable } from '../environment';
 
 export class Http {
-  static getToken = async () => {
-    const user = await LocalStorageService.getUser();
-    return user ? user.token : null;
-  };
-  private static axios = _axios.create({
-    baseURL: "http://localhost:8000/api/v1",
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  static async get(url: any, config?: AxiosRequestConfig) {
-    try {
-      const token = await Http.getToken();
+  private static axiosInstance: AxiosInstance;
 
-      const response = await Http.axios.get(url, config);
-      if (response) {
-        return response.data;
-      }
-    } catch (e) {
-      Http.handleErrors(e);
-      return Promise.reject(e);
-    }
-  }
-  static async post(url: any, body?: object, config?: AxiosRequestConfig) {
-    try {
-   
-      const token = await Http.getToken();
-      const response = await Http.axios.post(url, body, config);
-      if (response) {
-        return response.data;
-      }
-    } catch (e) {
-      Http.handleErrors(e);
-      return Promise.reject(e);
-    }
-  }
-  static async patch(url: any, body?: object, config?: AxiosRequestConfig) {
-    try {
-      const token = await Http.getToken();
+  static initialize() {
+    Http.axiosInstance = axios.create({
+      baseURL: getEnvVariable().base_api_url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-      const response = await Http.axios.patch(url, body, config);
-      if (response) {
-        return response.data;
+    // Add request interceptor
+    Http.axiosInstance.interceptors.request.use(
+      (config: any) => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
       }
-    } catch (e) {
-      Http.handleErrors(e);
-      return Promise.reject(e);
-    }
-  }
-  static async delete(url: any, config?: AxiosRequestConfig) {
-    try {
-      const token = await Http.getToken();
+    );
 
-      const response = await Http.axios.delete(url, config);
-      if (response) {
+    // Add response interceptor
+    Http.axiosInstance.interceptors.response.use(
+      (response: AxiosResponse<any>) => {
         return response.data;
+      },
+      (error) => {
+        return Promise.reject(error);
       }
-    } catch (e) {
-      Http.handleErrors(e);
-      return Promise.reject(e);
+    );
+  }
+
+  static async get(url: string, config?: AxiosRequestConfig) {
+    try {
+      const response = await Http.axiosInstance.get(url, config);
+      return response;
+    } catch (error) {
+      return Http.handleErrors(error);
     }
   }
+
+  static async post(url: string, data?: any, config?: AxiosRequestConfig) {
+    try {
+      const response = await Http.axiosInstance.post(url, data, config);
+      return response;
+    } catch (error) {
+      return Http.handleErrors(error);
+    }
+  }
+
+  static async put(url: string, data?: any, config?: AxiosRequestConfig) {
+    try {
+      const response = await Http.axiosInstance.put(url, data, config);
+      return response;
+    } catch (error) {
+      return Http.handleErrors(error);
+    }
+  }
+
+  static async patch(url: string, data?: any, config?: AxiosRequestConfig) {
+    try {
+      const response = await Http.axiosInstance.patch(url, data, config);
+      return response;
+    } catch (error) {
+      return Http.handleErrors(error);
+    }
+  }
+
+  static async delete(url: string, config?: AxiosRequestConfig) {
+    try {
+      const response = await Http.axiosInstance.delete(url, config);
+      return response;
+    } catch (error) {
+      return Http.handleErrors(error);
+    }
+  }
+
   private static async handleErrors(error: any) {
     if (error.response) {
-      const message = error.response.data.message;
-      const errorMessage = message
-        ? message
-        : 'Something Went Wrong. Please Try Again';
-        alert(JSON.stringify(errorMessage))
-        
-         //creating log using socket.io
-        //  await Http.axios.post(`${getEnvVariable().base_api_url}/log`,errorMessage);
-    
-      } else {
-      console.log("Something Went Wrong.Please Try Again")
+      // Handle server errors
+      const { data, status } = error.response;
+      // Log or display error message
+      console.error(`Request failed with status ${status}:`, data);
+    } else if (error.request) {
+      // Handle client errors
+      // Log or display error message
+      console.error('Request made but no response received:', error.request);
+    } else {
+      // Handle other errors
+      // Log or display error message
+      console.error('Error setting up request:', error.message);
     }
+    // Return a rejected promise with the error
+    return Promise.reject(error);
   }
 }
+
+// Initialize the Http when the application starts
+Http.initialize();
+

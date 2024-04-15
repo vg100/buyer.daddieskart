@@ -36,7 +36,7 @@ const ecommerceRoutes: RouteObject[] = [
                 element: <Homepage />
             },
             {
-                path: 'product-details',
+                path: 'p-d',
                 element: <ProductDetails />,
             },
             {
@@ -56,7 +56,7 @@ const ecommerceRoutes: RouteObject[] = [
                 element: <ProtectedRoute element={<Profile />} />
             },
             {
-                path: 'products-filter',
+                path: 'pf',
                 element: <ProductsFilter />
             },
             {

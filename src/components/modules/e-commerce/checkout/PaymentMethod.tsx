@@ -9,50 +9,72 @@ import { useState } from 'react';
 dayjs.extend(localeData);
 
 export const PaymentMethod = () => {
-  const [pm, setpm] = useState("cc")
+
+  const paymentOptions = [
+    "card", "UPI", "coupan"
+  ]
+
+  const [pm, setpm] = useState("card")
   return (
     <>
       <h3 className="mb-5">Payment Method</h3>
       <Row className="g-4 mb-5">
         <Col xs={12}>
           <Row className="gx-lg-11">
-            <Col xs={12} md="auto">
-              <div className="d-flex">
-                <Form.Check type="radio" id="creditCard" className="me-3">
-                  <Form.Check.Input
-                    value="credit_card"
-                    type="radio"
-                    name="paymentMethod"
-                    onChange={()=>setpm("cc")}
-                  />
-                  <Form.Check.Label className="fs-8 text-body">
-                    Credit card
-                  </Form.Check.Label>
-                </Form.Check>
-                <img className="h-100 me-2" src={visa} alt="visa" />
-                <img className="h-100 me-2" src={discover} alt="discover" />
-                <img className="h-100 me-2" src={mastercard} alt="mastercard" />
-                <img
-                  className="h-100"
-                  src={american_express}
-                  alt="american_express"
-                />
-              </div>
-            </Col>
-            <Col xs={12} md="auto">
-              <Form.Check type="radio" id="paypal">
-                <Form.Check.Input
-                  value="paypal"
-                  type="radio"
-                  name="paymentMethod"
-                  onChange={()=>setpm("upi")}
-                />
-                <Form.Check.Label className="fs-8 text-body">
-                  UPI
-                </Form.Check.Label>
-              </Form.Check>
-            </Col>
-            <Col xs={12} md="auto">
+            {
+              paymentOptions.map((option) => {
+                if (option === 'card') {
+                  return (
+                    <Col xs={12} md="auto">
+                      <div className="d-flex">
+                        <Form.Check type="radio" id={option} className="me-3">
+                          <Form.Check.Input
+                            checked={option===pm}
+                            value={option}
+                            type="radio"
+                            name="paymentMethod"
+                            onChange={() => setpm(option)}
+                          />
+                          <Form.Check.Label className="fs-8 text-body">
+                            Credit card
+                          </Form.Check.Label>
+                        </Form.Check>
+                        <img className="h-100 me-2" src={visa} alt="visa" />
+                        <img className="h-100 me-2" src={discover} alt="discover" />
+                        <img className="h-100 me-2" src={mastercard} alt="mastercard" />
+                        <img
+                          className="h-100"
+                          src={american_express}
+                          alt="american_express"
+                        />
+                      </div>
+                    </Col>
+                  )
+                }
+
+                return (
+                  <Col xs={12} md="auto">
+                    <Form.Check type="radio" id={option}>
+                      <Form.Check.Input
+                        value={option}
+                        type="radio"
+                        name="paymentMethod"
+                        onChange={() => setpm(option)}
+                      />
+                      <Form.Check.Label className="fs-8 text-body">
+                        {option}
+                      </Form.Check.Label>
+                    </Form.Check>
+                  </Col>
+                )
+              })
+            }
+
+
+
+
+
+            {/* <Col xs={12} md="auto">
               <Form.Check type="radio" id="coupon">
                 <Form.Check.Input
                   type="radio"
@@ -64,12 +86,12 @@ export const PaymentMethod = () => {
                   Coupon
                 </Form.Check.Label>
               </Form.Check>
-            </Col>
+            </Col> */}
           </Row>
         </Col>
 
         {
-          pm == "cc" && (
+          pm == "card" && (
             <>
               <Col md={6}>
                 <Form.Group as={Col}>

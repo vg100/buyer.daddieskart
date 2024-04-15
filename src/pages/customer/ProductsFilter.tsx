@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import PhoenixOffcanvas from '../../components/base/PhoenixOffcanvas';
 import Section from '../../components/base/Section';
 import { useState } from 'react';
-import { Button, Col, Pagination, Row } from 'react-bootstrap';
+import { Button, Col, Pagination, Row, Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Scrollbar from '../../components/base/Scrollbar';
 import ProductFilterItems from '../../components/modules/e-commerce/products-filter/ProductFilterItems';
@@ -22,56 +22,29 @@ import { ProductRepositry } from '../../services/productRepositry';
 const ProductsFilter = () => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch<any>()
-  const navigation = useNavigation();
-  const params = useParams();
-  const [page, setPage] = React.useState(1)
-  const { products: pds } = useSelector((state: any) => state?.products)
+
+  const { products: pds, loading } = useSelector((state: any) => state?.products)
   const location = useLocation();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [price, setPrice] = useState([0, 200000]);
-  const queryParams: any = queryString.parse(location.search);
-  const [ratings, setRatings] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
 
+  const queryParams = useMemo(() => queryString.parse(location.search), [location.search]);
 
+  const memoizedDispatch = React.useCallback(dispatch, []);
 
-
-  // React.useEffect(() => {
-
-  //   const handleFocus = () => {
-  //     dispatch(ProductRepositry.getProducts())
-  //   };
-  //   document.addEventListener('focus', handleFocus);
-  //   return () => {
-  //     document.removeEventListener('focus', handleFocus);
-  //   };
-  // }, [dispatch, page])
-
-
-
-  const fetchProducts = React.useCallback(() => {
-    
-    dispatch(ProductRepositry.getProducts(queryParams?.keyword, queryParams?.category, price, ratings, currentPage, queryParams?.store));
-  }, [dispatch, queryParams?.keyword, queryParams?.category, price, ratings, currentPage, queryParams?.store]);
-
-  const memoizedParams = React.useMemo(() => ({
-    keyword: queryParams?.keyword,
-    category: queryParams?.category,
-    store: queryParams?.store
-  }), [queryParams?.keyword, queryParams?.category, queryParams?.store]);
 
   React.useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts, memoizedParams]);
+    memoizedDispatch(ProductRepositry.getProducts({ ...queryParams, page: currentPage }));
+  }, [memoizedDispatch, queryParams.availability, currentPage, queryParams.rating,queryParams.offer,queryParams.size]);
+
+  const pageHandler = React.useCallback((p) => setCurrentPage(p), []);
 
 
-  const pageHandler = (p) => {
-    setCurrentPage(p)
-  }
+
   return (
     <div>
       <PhoenixOffcanvas
@@ -104,46 +77,55 @@ const ProductsFilter = () => {
               style={{ top: '1rem', height: 'calc(100vh - 2rem) ' }}
             >
               <Scrollbar className="product-scrollbar">
+
                 <ProductFilterItems handleClose={handleClose} />
               </Scrollbar>
             </div>
           </Col>
           <Col lg={9} xxl={10}>
-            <Row className="gx-3 gy-6 mb-8">
-              {pds?.product?.map(product => (
-                <Col xs={12} sm={6} md={4} xxl={2} key={product.id}>
-                  <div className="product-card-container h-100">
-                    <ProductCard product={product} />
-                  </div>
-                </Col>
-              ))}
-            </Row>
 
-            <Pagination className="mb-0 justify-content-end">
-              <Pagination.Prev onClick={() => setCurrentPage((current) => current - 1)}>
-                <FontAwesomeIcon icon={faChevronLeft} />
-              </Pagination.Prev>
-              {
-                [...new Array(pds?.totalPages)].map((item: any, index) => {
-                  return (
-                    <Pagination.Item onClick={() => pageHandler(index + 1)} active={pds?.currentPage == index + 1 ? true : false}>{index + 1}</Pagination.Item>
-                  )
-                })
-              }
-              {/* <Pagination.Item>1</Pagination.Item>
-              <Pagination.Item>2</Pagination.Item>
-              <Pagination.Item>3</Pagination.Item>
-              <Pagination.Item active>4</Pagination.Item>
-              <Pagination.Item>5</Pagination.Item> */}
-              <Pagination.Next onClick={() => setCurrentPage((current) => current + 1)}>
-                <FontAwesomeIcon icon={faChevronRight} />
-              </Pagination.Next>
-            </Pagination>
+
+            {loading ? (
+              <div className="text-center mb-4">
+                <Spinner animation="border" role="status" />
+              </div>
+            ) : pds?.product?.length > 0 ? (
+              <>
+                {queryParams?.seller && (<h2 className='mb-3'>{pds?.product[0]?.seller?.store?.name}</h2>)}
+
+                <Row className="gx-3 gy-6 mb-8">
+                  {pds?.product?.map(product => (
+                    <Col xs={12} sm={6} md={4} xxl={2} key={product.id}>
+                      <div className="product-card-container h-100">
+                        <ProductCard product={product} />
+                      </div>
+                    </Col>
+                  ))}
+                </Row>
+
+                <Pagination className="mb-0 justify-content-end">
+                  <Pagination.Prev onClick={() => setCurrentPage((current) => current - 1)}>
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                  </Pagination.Prev>
+                  {[...new Array(pds?.totalPages)].map((item: any, index) => {
+                    return (
+                      <Pagination.Item key={index} onClick={() => pageHandler(index + 1)} active={pds?.currentPage == index + 1 ? true : false}>{index + 1}</Pagination.Item>
+                    )
+                  })}
+                  <Pagination.Next onClick={() => setCurrentPage((current) => current + 1)}>
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </Pagination.Next>
+                </Pagination>
+              </>
+            ) : ( // Display "No data found" message if no products are found
+              <p>No data found</p>
+            )}
           </Col>
         </Row>
       </Section>
     </div>
   );
 };
+
 
 export default ProductsFilter;

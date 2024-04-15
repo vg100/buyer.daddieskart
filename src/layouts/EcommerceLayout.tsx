@@ -5,6 +5,7 @@ import EcommerceNavbar from '../components/navbars/ecommerce/EcommerceNavbar';
 import { Outlet } from 'react-router-dom';
 import useSettingsMountEffect from '../hooks/useSettingsMountEffect';
 import ChatWidget from '../components/common/chat-widget/ChatWidget';
+import { Navbar } from 'react-bootstrap';
 
 const EcommerceLayout = () => {
   useSettingsMountEffect({

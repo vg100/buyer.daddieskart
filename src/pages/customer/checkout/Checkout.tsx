@@ -1,3 +1,4 @@
+import React from 'react';
 import Button from '../../../components/base/Button';
 import Section from '../../../components/base/Section';
 import { Col, Form, Row } from 'react-bootstrap';
@@ -27,15 +28,6 @@ const Checkout = () => {
               </div>
               <EcomAddressTable data={shippingDetailsAddress} />
               <hr className="my-6" />
-              <h3>Billing Details</h3>
-              <Form.Check type="checkbox" id="sameAsShipping" className="mb-4">
-                <Form.Check.Input type="checkbox" />
-                <Form.Check.Label className="fs-8 fw-normal">
-                  Same as shipping address
-                </Form.Check.Label>
-              </Form.Check>
-              <EcomAddressTable data={shippingDetailsAddress} />
-              <hr className="my-6" />
               <DeliveryType />
               <hr className="my-6" />
               <PaymentMethod />
@@ -56,7 +48,9 @@ const Checkout = () => {
             </form>
           </Col>
           <Col lg={5} xl={4}>
-            <CheckoutSummaryCard />
+            <div className="position-sticky top-0">
+              <CheckoutSummaryCard />
+            </div>
           </Col>
         </Row>
       </Section>

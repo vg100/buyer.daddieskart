@@ -1,18 +1,21 @@
+import { Link } from 'react-router-dom';
 import Button from '../../../../components/base/Button';
-import { cartItems } from '../../../../data/e-commerce/products';
+// import { cartItems } from '../../../../data/e-commerce/products';
 import { currencyFormat } from '../../../../helpers/utils';
 import React from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 const CheckoutSummaryCard = () => {
+  const { cartItems } = useSelector((state: any) => state?.cart)
   return (
     <Card>
       <Card.Body>
         <div className="d-flex align-items-center justify-content-between mb-4">
           <h3 className="mb-0">Summary</h3>
-          <Button variant="link" className="pe-0" type="button">
+          <Link to="/cart" className="btn btn-link p-0">
             Edit cart
-          </Button>
+          </Link>
         </div>
         <div className="border-dashed border-bottom border-translucent mb-4">
           <div className="ms-n2 mb-5">
@@ -32,12 +35,12 @@ const CheckoutSummaryCard = () => {
                   </div>
                 </Col>
                 <Col xs={2} md={3} lg={2}>
-                  <h6 className="fs-10 mb-0">x1</h6>
+                  <h6 className="fs-10 mb-0">x{item?.quantity}</h6>
                 </Col>
                 <Col xs={2} className="ps-0">
-                  <h5 className="mb-0 fw-semibold text-end">
+                  <h6 className="mb-0 fw-semibold text-end">
                     {currencyFormat(item.price * item.quantity)}
-                  </h5>
+                  </h6>
                 </Col>
               </Row>
             ))}

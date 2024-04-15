@@ -12,16 +12,17 @@ import {
 import Button from '../../components/base/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
 
-const columns: ColumnDef<WishlistProductType>[] = [
+const columns: ColumnDef<image>[] = [
   {
-    id: 'productImage',
+    id: 'image',
     accessorKey: '',
     cell: ({ row: { original } }) => {
-      const { productImage } = original;
+      const { image } = original;
       return (
         <div className="rounded-2 border border-translucent d-inline-block">
-          <img src={productImage} alt="" width={53} />
+          <img src={image} alt="" width={53} />
         </div>
       );
     },
@@ -34,9 +35,9 @@ const columns: ColumnDef<WishlistProductType>[] = [
     accessorKey: 'product',
     header: 'Products',
     cell: ({ row: { original } }) => {
-      const { product } = original;
+      const { product ,_id } = original;
       return (
-        <Link to="#!" className="fw-semibold line-clamp-1">
+        <Link to={`/p-d?pid=${_id}`} className="fw-semibold line-clamp-1">
           {product}
         </Link>
       );
@@ -97,8 +98,9 @@ const columns: ColumnDef<WishlistProductType>[] = [
 ];
 
 const EcomWishlistTable = () => {
+  const { wishlistItems } = useSelector((state:any) => state.wishlist);
   const table = useAdvanceTable({
-    data: wishlistProducts,
+    data: wishlistItems,
     columns,
     pageSize: 5,
     pagination: true,

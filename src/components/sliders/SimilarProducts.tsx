@@ -3,8 +3,14 @@ import ProductCard from '../../components/common/ProductCard';
 import Swiper from '../../components/base/Swiper';
 import { SwiperSlide } from 'swiper/react';
 import Button from '../../components/base/Button';
+import { useNavigate } from 'react-router-dom';
 
-const SimilarProducts = ({ products }: { products: Product[] }) => {
+const SimilarProducts = ({ products,category }: { products: Product[],category:any }) => {
+  const navigate=useNavigate<any>() 
+ 
+const viewAllHandler=()=>{
+  navigate(`/pf?cid=${category}`)
+}
   return (
     <>
       <div className="d-flex flex-between-center mb-3">
@@ -14,7 +20,9 @@ const SimilarProducts = ({ products }: { products: Product[] }) => {
             Essential for a better life
           </p>
         </div>
-        <Button variant="phoenix-primary" size="sm">
+        <Button 
+        onClick={viewAllHandler}
+        variant="phoenix-primary" size="sm">
           View all
         </Button>
       </div>
@@ -50,8 +58,8 @@ const SimilarProducts = ({ products }: { products: Product[] }) => {
           }
         }}
       >
-        {products.map(product => (
-          <SwiperSlide key={product.id}>
+        {products?.map(product => (
+          <SwiperSlide key={product._id}>
             <ProductCard product={product} />
           </SwiperSlide>
         ))}

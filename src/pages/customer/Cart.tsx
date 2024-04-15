@@ -17,12 +17,13 @@ const Cart = () => {
     <div className="pt-5 mb-9">
       <Section small className="py-0">
         <PageBreadcrumb items={defaultBreadcrumbItems} />
-        <h2 className="mb-6">Cart</h2>
+        <h2 className="mb-6">{`Cart (${cartItems?.length})`}</h2>
         <Row className="g-5">
           <Col xs={12} lg={8}>
             <EcomCartTable products={cartItems} />
           </Col>
           <Col xs={12} lg={4}>
+            
             <EcomCartSummaryCard />
           </Col>
         </Row>

@@ -8,31 +8,54 @@ import { currencyFormat } from '../../../helpers/utils';
 import ProductGallery from '../../../components/modules/e-commerce/ProductGallery';
 import { useMemo, useState } from 'react';
 import { Col, FormControl, InputGroup, Row, Stack } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import QuantityButtons from '../../../components/common/QuantityButtons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faShareAlt, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { CartRepositry } from '../../../services/cartRepositry';
+import { ProductRepositry } from '../../../services/productRepositry';
+import queryString from 'query-string';
+import FeatherIcon from 'feather-icons-react';
+import { WishlistReducer } from '../../../redux/wishlistReducer';
+import { WishlistRepositry } from '../../../services/wishlistRepositry';
 
 const ProductDescription = () => {
   const [selectedVariantKey, setSelectedVariantKey] = useState('Blue');
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch<any>();
   const params = useParams();
-  const { selectedProduct } = useSelector((state: any) => state?.products)
-  // console.log(selectedProduct,'selectedProduct')
+  const location = useLocation();
+  const queryParams: any = queryString.parse(location.search);
+  const { getProductDetail } = useSelector((state: any) => state?.products)
+  const { wishlistItems } = useSelector((state:any) => state.wishlist);
+
+  React.useEffect(()=>{
+    dispatch(ProductRepositry.getProductById(queryParams?.pid));
+  },[dispatch,queryParams?.pid])
+
+
   const selectedVariant = useMemo(() => {
-    return selectedProduct?.productColorVariants?.find(
+    return getProductDetail?.productColorVariants?.find(
       variant => variant.name === selectedVariantKey
     );
-  }, [selectedVariantKey]);
+  }, [getProductDetail,selectedVariantKey]);
 
 
-  // console.log(selectedVariant.images,'selectedVariant.images')
 const addtocart=()=>{
-  dispatch(CartRepositry.addItemsToCart(89));
+  dispatch(CartRepositry.addItemsToCart(getProductDetail?._id,quantity));
 }
+const itemInWishlist = wishlistItems.some((i) => i._id === queryParams?.pid);
+const addToWishlistHandler = () => {
+ 
+  if (itemInWishlist) {
+      dispatch(WishlistRepositry.removeFromWishlist(queryParams?.pid));
+    
+  } else {
+      dispatch(WishlistRepositry.addToWishlist());
+  }
+}
+console.log(wishlistItems,'wishlistItems')
 
   return (
     <Row className="g-5 mb-5 mb-lg-8">
@@ -40,12 +63,13 @@ const addtocart=()=>{
         {selectedVariant && <ProductGallery images={selectedVariant.images} />}
         <div className="d-flex">
           <Button
+            onClick={addToWishlistHandler}
             variant="outline-warning"
             size="lg"
             className="rounded-pill w-100 me-3 px-2 px-sm-4 fs--1 fs-sm-0"
           >
             <FontAwesomeIcon icon={faHeart} className="me-2" />
-            Add to wishlist
+            {itemInWishlist?"remove from wishlist":"Add to wishlist"}
           </Button>
           <Button
             onClick={addtocart}
@@ -70,24 +94,24 @@ const addtocart=()=>{
               </p>
             </div>
             <h3 className="mb-3 lh-sm">
-              {selectedProduct.name}
+              {getProductDetail?.name}
             </h3>
             <div className="d-flex flex-wrap align-items-start mb-3">
               <span className="badge bg-success fs-9 rounded-pill me-2 fw-semibold">
                 #1 Best seller
               </span>
-              <Link to="#!" className="fw-semibold">
-                in {selectedProduct.seller.username}
+              <Link to={`/pf?sid=${getProductDetail?.seller?._id}`} className="fw-semibold">
+                in {getProductDetail?.seller?.store?.name}
               </Link>
             </div>
             <div className="d-flex flex-wrap align-items-center">
-              <h1 className="me-3">{currencyFormat(selectedProduct.salePrice)}</h1>
+              <h1 className="me-3">{currencyFormat(getProductDetail?.salePrice)}</h1>
               <p className="text-body-quaternary text-decoration-line-through fs-6 mb-0 me-3">
-                {currencyFormat(selectedProduct.price)}
+                {currencyFormat(getProductDetail?.price)}
               </p>
-              <p className="text-warning-dark fw-bolder fs-6 mb-0">{selectedProduct.offer} off</p>
+              <p className="text-warning-dark fw-bolder fs-6 mb-0">{getProductDetail?.offer} off</p>
             </div>
-            {selectedProduct.inStock && (<p className="text-success fw-semibold fs-7 mb-2"> In stock</p>)}
+            {getProductDetail?.inStock && (<p className="text-success fw-semibold fs-7 mb-2"> In stock</p>)}
 
             <p className="mb-2 text-body-secondary">
               <strong className="text-body-highlight">
@@ -112,16 +136,13 @@ const addtocart=()=>{
           </div>
 
           <div>
-            <InputGroup className="mb-3 w-md-40">
+            <InputGroup className="mb-2 w-md-40">
               <FormControl placeholder="Delivery pincode" aria-label="voucher" />
               <Button variant="warning" className="px-4">
                 Check
               </Button>
-              {/* <span  className="px-1 align-self-center text-primary">
-          Check
-         
-          </span> */}
             </InputGroup>
+            <p className="text-success-dark fw-bold mb-2 mb-lg-0 fs-9"> <FeatherIcon icon="truck" className="me-1" />Get it by 16 Apr, 2024</p>
             <div className="mb-3">
               <p className="fw-semibold mb-2 text-body">
                 Color :{' '}

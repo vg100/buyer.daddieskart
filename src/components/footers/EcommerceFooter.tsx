@@ -29,8 +29,8 @@ const EcommerceFooter = () => {
           <Col xs={6} md="auto">
             <h5 className="fw-bolder mb-3">About Daddieskart</h5>
             <Stack>
-              <LinkItem to="#!">Careers</LinkItem>
-              <LinkItem to="#!">Affiliate Program</LinkItem>
+              {/* <LinkItem to="#!">Careers</LinkItem>
+              <LinkItem to="#!">Affiliate Program</LinkItem> */}
               <LinkItem to="#!">Privacy Policy</LinkItem>
               <LinkItem to="#!">Terms & Conditions</LinkItem>
             </Stack>
@@ -68,7 +68,7 @@ const EcommerceFooter = () => {
             <Stack>
               <LinkItem to="#!">Cash on Delivery</LinkItem>
               <LinkItem to="#!">Online Payment</LinkItem>
-              <LinkItem to="#!">PayPal</LinkItem>
+              {/* <LinkItem to="#!">PayPal</LinkItem> */}
               <LinkItem to="#!">Installment</LinkItem>
             </Stack>
           </Col>
