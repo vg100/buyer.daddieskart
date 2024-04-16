@@ -4,6 +4,7 @@
   ls -l /var/www/html/
   sudo cp -r dist/* /var/www/html/
   pm2 start node-aws-sample/server.js --name "node_app"
+  /etc/nginx/sites-enabled
    -->
 
 

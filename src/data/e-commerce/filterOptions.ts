@@ -26,6 +26,21 @@ export const filter = [
       name: 'color',
       label: 'Red',
       value: 'red'
+    },
+    {
+      name: 'color',
+      label: 'Green',
+      value: 'green'
+    },
+    {
+      name: 'color',
+      label: 'Orange',
+      value: 'orange'
+    },
+    {
+      name: 'color',
+      label: 'Pink',
+      value: 'pink'
     }
   ]
 },

@@ -104,7 +104,7 @@ const ProductFilterItems = ({ handleClose }: { handleClose: () => void, }) => {
       }
     });
 
-    
+
     navigation(`?${currentSearch.toString()}`);
   };
 
@@ -202,6 +202,27 @@ const ProductFilterItems = ({ handleClose }: { handleClose: () => void, }) => {
 
                         onChange={() => handleCheckboxChange("size", item.value)}
                         checked={selectedFilters.size.includes(item.value)}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </FormCollapse>
+            )
+          }
+          if (fil.label === "Color") {
+            return (
+              <FormCollapse title={`${fil?.label}${selectedFilters[fil.value]?.length > 0 ? ` (${selectedFilters[fil.value]?.length})` : ''}`} key={fil.label}>
+                <div className="d-flex flex-wrap">
+                  {fil?.filter?.map((item: any) => (
+                    <div className='ms-1'>
+                      <CheckboxItem
+                        name={item.name}
+                        value={item.value}
+                        label={item.label}
+                        key={item.value}
+
+                        onChange={() => handleCheckboxChange("color", item.value)}
+                        checked={selectedFilters.color.includes(item.value)}
                       />
                     </div>
                   ))}

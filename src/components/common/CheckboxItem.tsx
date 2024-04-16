@@ -22,7 +22,7 @@ const CheckboxItem = ({
     <Form.Check
       type={type}
       id={String(value)}
-      className="mb-0 d-flex align-items-center gap-2"
+      className="mb-0 d-flex align-items-center gap-1"
     >
       <Form.Check.Input
         type={type}
@@ -35,7 +35,7 @@ const CheckboxItem = ({
       />
       <Form.Check.Label 
       style={{ pointerEvents: 'none' }} 
-      className="d-block lh-sm fs-8 text-body fw-normal mb-0">
+      className="d-block lh-sm fs-8 text-body fw-normal mb-0 ">
         {label}
       </Form.Check.Label>
     </Form.Check>
