@@ -13,7 +13,7 @@ interface LogoProps {
 const Logo = ({ width = 27, text = true, textClass, className }: LogoProps) => {
 
   const logoStyle = {
-    fontFamily: 'Comic Sans MS, cursive',
+    fontFamily: 'Comic Sans MS',
     color: '#333',
     fontSize: '28px',
     textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
@@ -27,7 +27,6 @@ const Logo = ({ width = 27, text = true, textClass, className }: LogoProps) => {
   const comStyle = {
     fontFamily: 'Arial, sans-serif',
     fontSize: '18px',
-    color: '#666',
   };
   return (
     <div className={classNames(className, 'd-flex align-items-center')}>
@@ -35,7 +34,7 @@ const Logo = ({ width = 27, text = true, textClass, className }: LogoProps) => {
 
       {text && (
         
-          <div className={classNames(textClass, ' ms-2')} style={logoStyle}>
+          <div className={classNames(textClass, ' ms-2 ')} style={logoStyle}>
           <span style={{ fontWeight: 'bold' }}>d</span>addies
           <span style={{ color: '#FF6347', fontWeight: 'bold' }}>K</span>art
           <span style={dotStyle}>.</span>
