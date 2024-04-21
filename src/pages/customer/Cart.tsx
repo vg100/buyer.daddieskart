@@ -6,12 +6,16 @@ import EcomCartTable from '../../components/tables/EcomCartTable';
 import { defaultBreadcrumbItems } from '../../data/commonData';
 // import { cartItems } from '../../data/e-commerce/products';
 import { Col, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const { cartItems } = useSelector((state: any) => state?.cart)
+  const navigate=useNavigate<any>()
 
-
-  console.log(cartItems)
+  if(!cartItems.length){
+    navigate('/pf')
+    return;
+  }
 
   return (
     <div className="pt-5 mb-9">

@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import SpecificationTable, {
   TableRowData
 } from '../../../components/tables/SpecificationTable';
@@ -100,12 +101,21 @@ const additionalData: TableRowData[] = [
 ];
 
 const ProductSpecificationTables = () => {
+  const { getProductDetail } = useSelector((state: any) => state?.products)
+
   return (
     <>
-      <div className="mb-6">
-        <SpecificationTable title="Processor/Chipset" data={processorData} />
-      </div>
-      <div className="mb-6">
+      {
+        getProductDetail?.specifications?.map((data) => {
+          return (
+            <div className="mb-6">
+              <SpecificationTable title={data?.name} data={data?.details} />
+            </div>
+          )
+        })
+      }
+
+      {/* <div className="mb-6">
         <SpecificationTable title="Storage" data={storageData} />
       </div>
       <div className="mb-6">
@@ -116,10 +126,19 @@ const ProductSpecificationTables = () => {
           title="Additional Specifications"
           data={additionalData}
         />
-      </div>
+      </div> */}
       <div>
         <h3 className="mb-3 mt-6 ms-4 fw-bold">In The Box</h3>
-        <p className="lh-sm border-top border-translucent mb-0 py-3 px-4">
+        {
+          getProductDetail?.inBox?.map((data) => {
+            return (
+              <p className="lh-sm border-top border-translucent mb-0 py-3 px-4">
+                {data}
+              </p>
+            )
+          })
+        }
+        {/* <p className="lh-sm border-top border-translucent mb-0 py-3 px-4">
           iMac 24”
         </p>
         <p className="lh-sm border-top border-translucent mb-0 py-3 px-4">
@@ -136,7 +155,7 @@ const ProductSpecificationTables = () => {
         </p>
         <p className="lh-sm border-y border-translucent mb-0 py-3 px-4">
           USB-C to Lightning Cable
-        </p>
+        </p> */}
       </div>
     </>
   );

@@ -17,8 +17,10 @@ import {
   faChevronLeft,
   faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
 
 const ProductDetailsTab = () => {
+  const { getProductDetail } = useSelector((state: any) => state?.products)
   const [openReviewModal, setOpenReviewModal] = useState(false);
   const { lightboxProps, openLightbox } = useLightbox([product23]);
   return (
@@ -45,7 +47,9 @@ const ProductDetailsTab = () => {
                 eventKey="description"
                 className="text-body-emphasis pe-lg-6 pe-xl-12"
               >
-                <p className="mb-5">
+                <div dangerouslySetInnerHTML={{ __html: getProductDetail?.description }} />
+
+                {/* <p className="mb-5">
                   CUPERTINO, CA , The M1 CPU allows Apple to deliver an all-new
                   iMac with a lot more compact and impressively thin design. The
                   new iMac delivers tremendous performance in an
@@ -65,17 +69,17 @@ const ProductDetailsTab = () => {
                   fluid, and demanding workloads like editing 4K video and
                   working with large photos are faster than ever before thanks
                   to the power and performance of M1 and macOS Big Sur.
-                </p>
+                </p> */}
                 <Lightbox {...lightboxProps} />
-                <Link to="#!">
+           
                   <img
                     src={product23}
                     alt=""
                     className="img-fluid mb-5 rounded-3"
                     onClick={() => openLightbox(1)}
                   />
-                </Link>
-                <p className="mb-0">
+        
+                {/* <p className="mb-0">
                   The new iMac joins Apple's fantastic M1-powered Mac family,
                   which includes the MacBook Air, 13-inch MacBook Pro, and Mac
                   mini, and represents yet another step ahead in the company's
@@ -92,7 +96,9 @@ const ProductDetailsTab = () => {
                   4.5K Retina display, the greatest camera, mics, and speakers
                   ever in a Mac, and Touch ID, combined with M1's incredible
                   performance and macOS Big Sur's power."
-                </p>
+                </p> */}
+
+
               </Tab.Pane>
               <Tab.Pane eventKey="specification" className="pe-lg-6 pe-xl-12">
                 <ProductSpecificationTables />
@@ -133,8 +139,8 @@ const ProductDetailsTab = () => {
                     </Stack>
                   </Card.Header>
                   <Card.Body>
-                    {productReviews.map(review => (
-                      <ProductReview key={review.id} review={review} />
+                    {getProductDetail?.productReviews?.map(review => (
+                      <ProductReview key={review._id} review={review} />
                     ))}
 
                     <Pagination className="mb-0 justify-content-center">
@@ -156,12 +162,12 @@ const ProductDetailsTab = () => {
               <Tab.Pane eventKey="chat">
                 <Card>
                   <Card.Header className="pb-0 border-bottom-0">
-                  
+
                   </Card.Header>
                   <Card.Body>
-             
 
-                    
+
+
                   </Card.Body>
                 </Card>
               </Tab.Pane>

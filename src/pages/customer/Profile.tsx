@@ -18,7 +18,7 @@ const Profile = () => {
           <Col xs="auto">
             <h2 className="mb-0">Profile</h2>
           </Col>
-          <Col xs="auto" className="d-flex flex-wrap gap-2 gap-sm-3">
+          {/* <Col xs="auto" className="d-flex flex-wrap gap-2 gap-sm-3">
             <Button
               variant="phoenix-danger"
               startIcon={<FontAwesomeIcon className="me-2" icon={faTrashAlt} />}
@@ -31,7 +31,7 @@ const Profile = () => {
             >
               Reset password
             </Button>
-          </Col>
+          </Col> */}
         </Row>
         <Row className="g-3 mb-6">
           <Col xs={12} lg={8}>

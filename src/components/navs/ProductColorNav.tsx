@@ -36,6 +36,7 @@ type Variant = {
   id: string;
   variant: string;
   thumb: string;
+  value?:any;
   images: string[];
 };
 
@@ -102,9 +103,9 @@ const ProductColorNav = ({
     >
       {getProductDetail?.productColorVariants?.map(variant => (
         <ProductColorNavItem
-          key={variant.name}
+          key={variant.value}
           item={variant}
-          isActive={variant.name === selectedVariantKey}
+          isActive={variant.value === selectedVariantKey}
         />
       ))}
     </Nav>
@@ -121,12 +122,12 @@ const ProductColorNavItem = ({
   return (
     <Nav.Item className="">
       <Nav.Link
-        eventKey={item?.name}
+        eventKey={item?.value}
         className={classNames('border rounded-1 p-0', {
           'border-primary': isActive
         })}
       >
-        <img src={item.thumb} width={38} alt="" />
+        <img src={item.images[0]} width={38} alt="" />
       </Nav.Link>
     </Nav.Item>
   );

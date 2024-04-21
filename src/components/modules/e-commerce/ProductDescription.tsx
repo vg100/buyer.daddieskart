@@ -21,7 +21,7 @@ import { WishlistReducer } from '../../../redux/wishlistReducer';
 import { WishlistRepositry } from '../../../services/wishlistRepositry';
 
 const ProductDescription = () => {
-  const [selectedVariantKey, setSelectedVariantKey] = useState('Blue');
+  const [selectedVariantKey, setSelectedVariantKey] = useState('blue');
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch<any>();
   const params = useParams();
@@ -37,7 +37,7 @@ const ProductDescription = () => {
 
   const selectedVariant = useMemo(() => {
     return getProductDetail?.productColorVariants?.find(
-      variant => variant.name === selectedVariantKey
+      variant => variant.value === selectedVariantKey
     );
   }, [getProductDetail,selectedVariantKey]);
 
@@ -52,7 +52,7 @@ const addToWishlistHandler = () => {
       dispatch(WishlistRepositry.removeFromWishlist(queryParams?.pid));
     
   } else {
-      dispatch(WishlistRepositry.addToWishlist());
+      dispatch(WishlistRepositry.addToWishlist(queryParams?.pid));
   }
 }
 console.log(wishlistItems,'wishlistItems')
@@ -107,11 +107,14 @@ console.log(wishlistItems,'wishlistItems')
             <div className="d-flex flex-wrap align-items-center">
               <h1 className="me-3">{currencyFormat(getProductDetail?.salePrice)}</h1>
               <p className="text-body-quaternary text-decoration-line-through fs-6 mb-0 me-3">
-                {currencyFormat(getProductDetail?.price)}
+                {
+                  selectedVariant ? currencyFormat(selectedVariant?.price):currencyFormat(getProductDetail?.price)
+                }
+                {}
               </p>
               <p className="text-warning-dark fw-bolder fs-6 mb-0">{getProductDetail?.offer} off</p>
             </div>
-            {getProductDetail?.inStock && (<p className="text-success fw-semibold fs-7 mb-2"> In stock</p>)}
+           <p className="text-success fw-semibold fs-7 mb-2">{getProductDetail?.availability}</p>
 
             <p className="mb-2 text-body-secondary">
               <strong className="text-body-highlight">
@@ -147,7 +150,7 @@ console.log(wishlistItems,'wishlistItems')
               <p className="fw-semibold mb-2 text-body">
                 Color :{' '}
                 <span className="text-body-emphasis">
-                  {selectedVariant?.name}
+                  {selectedVariant?.value}
                 </span>
               </p>
               <ProductColorNav

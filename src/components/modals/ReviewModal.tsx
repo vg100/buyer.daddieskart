@@ -1,3 +1,4 @@
+import React from 'react'
 import Button from '../../components/base/Button';
 import Rating from '../../components/base/Rating';
 import { Form, Modal } from 'react-bootstrap';
@@ -8,6 +9,32 @@ interface ReviewModalProps {
 }
 
 const ReviewModal = ({ show, handleClose }: ReviewModalProps) => {
+
+
+  const [state, setState] = React.useState({
+    rate: 3.5,
+    text: ""
+  });
+
+  const handleRating = (newRating) => {
+    setState({
+      ...state,
+      rate: newRating
+    });
+  };
+
+  const handleTextChange = (e) => {
+    setState({
+      ...state,
+      text: e.target.value
+    });
+  };
+
+  const handleSubmit=()=>{
+    alert(JSON.stringify(state))
+  }
+
+
   return (
     <Modal show={show} onHide={handleClose} centered>
       <div className="p-4">
@@ -17,10 +44,12 @@ const ReviewModal = ({ show, handleClose }: ReviewModalProps) => {
             Clear
           </button>
         </div>
-        <Rating iconClass="fs-5" className="mb-3" />
+        <Rating  onClick={handleRating} iconClass="fs-5" className="mb-3" />
         <div className="mb-3">
           <h5 className="text-body-highlight mb-3">Your review</h5>
-          <Form.Control as="textarea" rows={5} />
+          <Form.Control
+          onChange={handleTextChange}
+          as="textarea" rows={5} />
         </div>
         <Dropzone
           className="mb-3"
@@ -30,16 +59,16 @@ const ReviewModal = ({ show, handleClose }: ReviewModalProps) => {
           }}
         />
         <div className="d-flex flex-between-center">
-          <Form.Check type="checkbox" id="confirmCheck" className="flex-1">
+          {/* <Form.Check type="checkbox" id="confirmCheck" className="flex-1">
             <Form.Check.Input type="checkbox" />
             <Form.Check.Label className="text-body-emphasis">
               Review anonymously
             </Form.Check.Label>
-          </Form.Check>
+          </Form.Check> */}
           <button className="btn" onClick={handleClose}>
             Close
           </button>
-          <Button className="rounded-pill">Submit</Button>
+          <Button onClick={handleSubmit} className="rounded-pill">Submit</Button>
         </div>
       </div>
     </Modal>

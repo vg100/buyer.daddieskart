@@ -15,9 +15,9 @@ const StoreItem = ({ store }: { store: StoreItemType }) => {
         className="border border-translucent d-flex flex-center rounded-3 mb-3 p-4"
         style={{ height: 180 }}
       >
-        <img className="mw-100" src={store?.store?.logo} alt={store?.store.name} />
+        <img className="mw-100" src={store?.store?.logo} alt={store?.store?.name} />
       </div>
-      <h5 className="mb-2">{store?.store.name}</h5>
+      <h5 className="mb-2">{store?.store?.name}</h5>
       <div className="mb-1 fs-9">
         <Rating initialValue={store?.store?.rating} readonly />
       </div>

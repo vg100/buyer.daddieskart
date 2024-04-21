@@ -4,6 +4,7 @@ import { Table } from 'react-bootstrap';
 
 export interface TableRowData {
   key: string;
+  title?:any;
   value: string | number | string[];
 }
 
@@ -24,8 +25,8 @@ const SpecificationTable = ({ title, data }: SpecificationTableProps) => {
           </tr>
         </thead>
         <tbody>
-          {data.map(item => (
-            <tr key={item.key}>
+          {data?.map(item => (
+            <tr key={item.title}>
               <td
                 className={classNames('bg-body-highlight', {
                   'align-middle': !Array.isArray(item.value)
@@ -39,7 +40,7 @@ const SpecificationTable = ({ title, data }: SpecificationTableProps) => {
                     }
                   )}
                 >
-                  {item.key}
+                  {item.title}
                 </h6>
               </td>
               <td className="px-5 mb-0">

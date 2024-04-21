@@ -39,12 +39,24 @@ const ProductFilterItems = ({ handleClose }: { handleClose: () => void, }) => {
     displayType: [],
     delivery: [],
     campaign: [],
+    gender:[],
     warranty: [],
     warrantyType: [],
     certification: [],
     price: { gte: '', lte: '' },
 
   });
+
+
+  // React.useEffect(() => {
+  //   const searchParams = new URLSearchParams(location.search);
+  //   const filters:any = {};
+  //   filter.forEach((fil:any) => {
+  //     const value = searchParams.get(fil.value);
+  //     filters[fil.value] = value ? value.split(',') : [];
+  //   });
+  //   setSelectedFilters(filters);
+  // }, [location.search]);
 
   const handleCheckboxChange = React.useCallback((filterCategory, value) => {
     setSelectedFilters(prevState => {
@@ -71,39 +83,24 @@ const ProductFilterItems = ({ handleClose }: { handleClose: () => void, }) => {
   }, []);
 
   const handleClearFilter = () => {
-    setSelectedFilters(prevState => ({
-      availability: [],
-      color: [],
-      seller: [],
-      offer: [],
-      size: [],
-      new_arrivals: [],
-      lifestyle: [],
-      occasion: [],
-      brands: [],
-      rating: [],
-      displayType: [],
-      delivery: [],
-      campaign: [],
-      warranty: [],
-      warrantyType: [],
-      certification: [],
-      price: { gte: '', lte: '' },
-    }));
-    navigation(`?`);
+    const clearedFilters:any = {};
+    filter.forEach((fil:any) => {
+      clearedFilters[fil.value] = [];
+    });
+    setSelectedFilters(clearedFilters);
+    navigation(`/pf`);
   };
 
   const applyFilters = (data) => {
 
     const currentSearch = new URLSearchParams(location.search);
     Object.entries(data).forEach(([key, value]) => {
-      currentSearch.delete(key);
+      // currentSearch.delete(key);
       if (Array.isArray(value) && value.length > 0) {
         const joinedValue = value.join(',');
         currentSearch.append(key, joinedValue);
       }
     });
-
 
     navigation(`?${currentSearch.toString()}`);
   };

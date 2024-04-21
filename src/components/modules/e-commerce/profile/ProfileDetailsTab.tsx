@@ -81,15 +81,15 @@ const ProfileDetailsTab = () => {
           <Tab.Pane
             key={item.id}
             eventKey={item.id}
-            // title={
-            //   <>
-            //     <FontAwesomeIcon icon={item.icon} className="me-2" />
-            //     {item.label}{' '}
-            //     {item.number && (
-            //       <span className="text-body-tertiary fw-normal">({item.number})</span>
-            //     )}
-            //   </>
-            // }
+            title={
+              <>
+                <FontAwesomeIcon icon={item.icon} className="me-2" />
+                {item.label}{' '}
+                {item.number && (
+                  <span className="text-body-tertiary fw-normal">({item.number})</span>
+                )}
+              </>
+            }
           >
             {item.content}
           </Tab.Pane>

@@ -1,6 +1,6 @@
 import Logo from '../../../components/common/Logo';
 import { Col, Dropdown, Nav, Navbar, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import FeatherIcon from 'feather-icons-react';
 import NotificationDropdownMenu from '../nav-items/NotificationDropdownMenu';
 import ProfileDropdownMenu from '../nav-items/ProfileDropdownMenu';
@@ -12,6 +12,15 @@ import { useSelector } from 'react-redux';
 
 const EcommerceTopbar = () => {
   const { cartItems } = useSelector((state: any) => state?.cart)
+  const navigate = useNavigate<any>()
+  const cartHandler = () => {
+    if(!cartItems.length) {
+      alert("Cart is empty")
+      return
+    }
+    navigate("/cart")
+  }
+
 
 
   return (
@@ -32,8 +41,9 @@ const EcommerceTopbar = () => {
 
                 <Nav.Item as="li">
                   <Nav.Link
-                    as={Link}
-                    to="/cart"
+                    // as={Link}
+                    // to="/cart"
+                    onClick={cartHandler}
                     className="px-2 icon-indicator icon-indicator-primary"
                   >
                     <FeatherIcon icon="shopping-cart" size={20} />
@@ -76,11 +86,11 @@ const EcommerceTopbar = () => {
                 className="navbar-top-search-box"
                 inputClassName="rounded-pill"
                 size="sm"
-                // style={{ width: '25rem' }}
+              // style={{ width: '25rem' }}
               >
                 <SearchResult />
               </DropdownSearchBox>
-          
+
             </Col>
           </Row>
         </Navbar>

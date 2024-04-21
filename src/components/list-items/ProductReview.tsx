@@ -22,30 +22,30 @@ const ProductReview = ({ review }: { review: ProductReviewType }) => {
     <RevealDropdownTrigger className="mb-4 hover-actions-trigger">
       <div className="d-flex justify-content-between mb-2">
         <div className="d-flex align-items-center">
-          <Rating readonly initialValue={review.star} />
+          <Rating readonly initialValue={review?.rating} />
           <h5 className="mb-0 ms-2 line-clamp-1">
             <span className="text-body-secondary me-1">by</span>
-            {review.customer}
+            {review?.user?.mobile}
           </h5>
         </div>
         <RevealDropdown>
           <ActionDropdownItems />
         </RevealDropdown>
       </div>
-      <p className="text-body-tertiary fs-9 mb-1">{review.date}</p>
+      <p className="text-body-tertiary fs-9 mb-1">{review.createdAt}</p>
       <p
         className={classNames('text-body-highlight', {
           'mb-3': review.images,
           'mb-1': !review.images
         })}
       >
-        {review.review}
+        {review.reviewText}
       </p>
       <Lightbox {...lightboxProps} />
       {review.images && (
         <div className="d-flex gap-2 flex-wrap mb-2">
-          {review.images.map((image, index) => (
-            <Link to="#!" key={image}>
+          {review?.images?.map((image, index) => (
+            <Link key={image}>
               <img
                 src={image}
                 key={image}

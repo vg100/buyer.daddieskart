@@ -39,7 +39,7 @@ const ProductsFilter = () => {
 
   React.useEffect(() => {
     memoizedDispatch(ProductRepositry.getProducts({ ...queryParams, page: currentPage }));
-  }, [memoizedDispatch, queryParams.availability, currentPage, queryParams.rating,queryParams.offer,queryParams.size]);
+  }, [memoizedDispatch, queryParams.availability, currentPage, queryParams.rating,queryParams.offer,queryParams.size,queryParams.color]);
 
   const pageHandler = React.useCallback((p) => setCurrentPage(p), []);
 
@@ -95,7 +95,7 @@ const ProductsFilter = () => {
 
                 <Row className="gx-3 gy-6 mb-8">
                   {pds?.product?.map(product => (
-                    <Col xs={12} sm={6} md={4} xxl={2} key={product.id}>
+                    <Col xs={6} sm={6} md={3} xxl={2} key={product._id}>
                       <div className="product-card-container h-100">
                         <ProductCard product={product} />
                       </div>

@@ -102,6 +102,33 @@ export const filter = [
 },
 
 {
+  label: "Gender",
+  value:"gender",
+  filter: [
+    {
+      name: 'gender',
+      label: 'Men',
+      value: 'men'
+    },
+    {
+      name: 'gender',
+      label: 'Women',
+      value: 'women'
+    },
+    {
+      name: 'gender',
+      label: 'Boys',
+      value: 'boys'
+    },
+    {
+      name: 'gender',
+      label: 'Girls',
+      value: 'girl'
+    }
+  ]
+},
+
+{
   label: "Price range",
 },
 {

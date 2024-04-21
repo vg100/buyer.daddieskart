@@ -4,7 +4,7 @@ import Button from '../../components/base/Button';
 import OrderSummaryDetails from '../../components/common/OrderSummaryDetails';
 import { currencyFormat } from '../../helpers/utils';
 import React, { useState } from 'react';
-import { Card, Form, FormControl, InputGroup,Alert } from 'react-bootstrap';
+import { Card, Form, FormControl, InputGroup,Alert, Container, Row, Col } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
