@@ -1,3 +1,4 @@
+import React from 'react'
 import EcommerceFooter from '../components/footers/EcommerceFooter';
 import Footer from '../components/footers/Footer';
 import EcommerceTopbar from '../components/navbars/ecommerce/EcommerceTopbar';
