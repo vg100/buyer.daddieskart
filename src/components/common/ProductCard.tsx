@@ -49,8 +49,11 @@ const ProductCard = ({ product }) => {
                 </>
               )}
             </Button>
+
+
+
             <img
-              src={product.image}
+              src={product.image || product?.productVariants[0]?.images[0]}
               alt=""
               className="img-fluid"
               onMouseEnter={() => setIsHovered(true)}
@@ -67,7 +70,7 @@ const ProductCard = ({ product }) => {
               </Badge>
             )}
           </div>
-          <Link onClick={selectProductHandler} className="stretched-link">
+          <Link  to={`/p-d?pid=${product?._id}`} target="_blank" rel="noopener noreferrer" className="stretched-link">
             <h6 className="mb-2 lh-sm line-clamp-3 product-name">{product.name}</h6>
           </Link>
           {product.rating && (

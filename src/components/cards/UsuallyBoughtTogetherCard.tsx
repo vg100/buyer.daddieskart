@@ -5,9 +5,11 @@ import { currencyFormat } from '../../helpers/utils';
 import { useState } from 'react';
 import { Button, Card, Form, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const ProductListItem = ({ product }: { product: SuggestedProductType }) => {
   const [checked, setChecked] = useState(product.checked);
+
   return (
     <div className="d-flex align-items-center">
       <Form.Check
@@ -19,12 +21,12 @@ const ProductListItem = ({ product }: { product: SuggestedProductType }) => {
       />
       <img
         className="border border-translucent rounded"
-        src={product.img}
+        src={product.image}
         width="53"
         alt=""
       />
       <div className="ms-2">
-        <Link className="fs-9 fw-bold line-clamp-2 mb-2" to="#!">
+        <Link className="fs-9 fw-bold line-clamp-2 mb-2" to={`/p-d?pid=${product?._id}`}>
           {product.name}
         </Link>
         <h5>{currencyFormat(product.price)}</h5>
@@ -40,19 +42,27 @@ const UsuallyBoughtTogetherCard = ({
   className?: string;
   products: SuggestedProductType[];
 }) => {
+
+  const { getProductDetail,loading } = useSelector((state: any) => state?.products)
+
+
+  if(getProductDetail?.relatedProducts?.length < 1){
+    return null
+  }
+
+
   return (
     <Card className={className}>
       <Card.Body>
         <h5 className="text-body-emphasis">Usually Bought Together</h5>
         <div className="w-75">
           <p className="text-body-tertiary fs-9 fw-bold line-clamp-1">
-            with 24" iMac® with Retina 4.5K display - Apple M1 8GB Memory -
-            256GB SSD - w/Touch ID (Latest Model) - Blue
+            {getProductDetail?.name}
           </p>
         </div>
         <Stack className="border-dashed border-y border-translucent py-4 gap-5 mb-3">
-          {products.map(product => (
-            <ProductListItem product={product} key={product.id} />
+          {getProductDetail?.relatedProducts?.map((product:any) => (
+            <ProductListItem product={product} key={product._id} />
           ))}
         </Stack>
         <div className="d-flex align-items-end justify-content-between">
@@ -63,7 +73,7 @@ const UsuallyBoughtTogetherCard = ({
             </h4>
           </div>
           <Button variant="outline-warning">
-            Add 3 items to cart
+            Add {getProductDetail?.relatedProducts?.length} items to cart
             <FontAwesomeIcon icon={faShoppingCart} className="ms-2" />
           </Button>
         </div>

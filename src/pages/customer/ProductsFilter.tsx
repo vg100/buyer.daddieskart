@@ -29,19 +29,24 @@ const ProductsFilter = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [currentPage, setCurrentPage] = useState(1);
+
 
 
   const queryParams = useMemo(() => queryString.parse(location.search), [location.search]);
-
-  const memoizedDispatch = React.useCallback(dispatch, []);
-
+  const [currentPage, setCurrentPage] = useState<any>(queryParams?.page);
 
   React.useEffect(() => {
-    memoizedDispatch(ProductRepositry.getProducts({ ...queryParams, page: currentPage }));
-  }, [memoizedDispatch, queryParams.availability, currentPage, queryParams.rating,queryParams.offer,queryParams.size,queryParams.color]);
+    dispatch(ProductRepositry.getProducts({ ...queryParams, page: currentPage }));
+}, [dispatch, queryParams, currentPage]);
 
-  const pageHandler = React.useCallback((p) => setCurrentPage(p), []);
+  const pageHandler = React.useCallback((p) => {
+    const totalPages = pds?.totalPages || 1;
+    if (p < 1 || p > totalPages) {
+      return
+    }
+    setCurrentPage(p)
+  
+  }, []);
 
 
 

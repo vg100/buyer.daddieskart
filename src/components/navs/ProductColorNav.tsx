@@ -101,12 +101,18 @@ const ProductColorNav = ({
       activeKey={selectedVariantKey}
       onSelect={selectedKey => setSelectedVariantKey(selectedKey as string)}
     >
-      {getProductDetail?.productColorVariants?.map(variant => (
-        <ProductColorNavItem
+
+
+      
+      {getProductDetail?.productVariants?.map(variant => (
+
+           <ProductColorNavItem
           key={variant.value}
           item={variant}
           isActive={variant.value === selectedVariantKey}
         />
+    
+       
       ))}
     </Nav>
   );
@@ -120,7 +126,7 @@ const ProductColorNavItem = ({
   isActive: boolean;
 }) => {
   return (
-    <Nav.Item className="">
+    <Nav.Item style={{opacity:0.2}} className="">
       <Nav.Link
         eventKey={item?.value}
         className={classNames('border rounded-1 p-0', {

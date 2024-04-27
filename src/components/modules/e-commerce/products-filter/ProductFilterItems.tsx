@@ -20,6 +20,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ProductApi } from '../../../../services/Api';
 import { ProductsActionTypes } from '../../../../redux/productReducer';
 import { useDispatch } from 'react-redux';
+import queryString from 'query-string';
 
 const ProductFilterItems = ({ handleClose }: { handleClose: () => void, }) => {
   const dispatch = useDispatch<any>()
@@ -49,13 +50,13 @@ const ProductFilterItems = ({ handleClose }: { handleClose: () => void, }) => {
 
 
   // React.useEffect(() => {
-  //   const searchParams = new URLSearchParams(location.search);
-  //   const filters:any = {};
-  //   filter.forEach((fil:any) => {
-  //     const value = searchParams.get(fil.value);
-  //     filters[fil.value] = value ? value.split(',') : [];
-  //   });
-  //   setSelectedFilters(filters);
+  //   // Parse query parameters from the URL
+  //   const parsedParams = queryString.parse(location.search);
+  //   // Update selectedFilters state with the parsed parameters
+  //   setSelectedFilters((prevFilters) => ({
+  //     ...prevFilters,
+  //     ...parsedParams,
+  //   }));
   // }, [location.search]);
 
   const handleCheckboxChange = React.useCallback((filterCategory, value) => {

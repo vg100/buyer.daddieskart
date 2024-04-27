@@ -44,6 +44,18 @@ export class ProductRepositry {
         };
     }
 
-   
+   static checkpincode(data){
+    return async (dispatch: any) => {
+        try {
+
+            const res = await ProductApi.checkpin(data)
+return res;
+          
+
+        } catch (e) {
+            return Promise.reject(e);
+        }
+    };
+   }
 
 }

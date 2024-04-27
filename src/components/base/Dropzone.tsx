@@ -83,7 +83,7 @@ const Dropzone = ({
           'dropzone-sm': size === 'sm'
         })}
       >
-        <input {...getInputProps()} />
+        <input {...getInputProps()} multiple/>
         {children ? (
           <>{children}</>
         ) : (

@@ -10,7 +10,7 @@ export class LocalStorageService {
       const response: any = await localStorage.getItem(
         LocalStorageService.USER,
       );
-      return JSON.parse(response);
+      return await JSON.parse(response);
     } catch (e) {
       console.log(e, 'error');
       return Promise.reject(e);

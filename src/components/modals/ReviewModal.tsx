@@ -3,36 +3,66 @@ import Button from '../../components/base/Button';
 import Rating from '../../components/base/Rating';
 import { Form, Modal } from 'react-bootstrap';
 import Dropzone from '../../components/base/Dropzone';
+import { ReviewRepositry } from '../../services/reviewRepositry';
+import { useDispatch, useSelector } from 'react-redux';
 interface ReviewModalProps {
   show: boolean;
   handleClose: () => void;
 }
 
 const ReviewModal = ({ show, handleClose }: ReviewModalProps) => {
-
-
+  const { getProductDetail } = useSelector((state: any) => state?.products)
+  const { error } = useSelector((state: any) => state?.reviews)
+  const dispatch = useDispatch<any>()
   const [state, setState] = React.useState({
-    rate: 3.5,
-    text: ""
+    rating: 0,
+    reviewText: "",
+    files: [],
   });
 
   const handleRating = (newRating) => {
     setState({
       ...state,
-      rate: newRating
+      rating: newRating
     });
   };
 
   const handleTextChange = (e) => {
     setState({
       ...state,
-      text: e.target.value
+      reviewText: e.target.value
     });
   };
 
-  const handleSubmit=()=>{
-    alert(JSON.stringify(state))
+  const handleFileDrop = (acceptedFiles) => {
+    console.log(acceptedFiles, 'gggg')
+
+    setState({
+      ...state,
+      files: acceptedFiles,
+    });
+  };
+
+
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append('rating', state.rating.toString());
+    formData.append('reviewText', state.reviewText);
+    formData.append('product', getProductDetail?._id);
+
+      formData.append(`images`, state.files[0]);
+    
+    
+  //   state.files.forEach((image, index) => {
+  //     formData.append(`image`, image);
+  //   });
+  //  console.log(formData,'formData')
+   
+   await dispatch(ReviewRepositry.postReview(formData))
+    handleClose()
+
   }
+
 
 
   return (
@@ -44,15 +74,18 @@ const ReviewModal = ({ show, handleClose }: ReviewModalProps) => {
             Clear
           </button>
         </div>
-        <Rating  onClick={handleRating} iconClass="fs-5" className="mb-3" />
+        <Rating onClick={handleRating} iconClass="fs-5" className="mb-3" />
+       {error?.rating && (<p>{error?.rating}</p>)}
         <div className="mb-3">
           <h5 className="text-body-highlight mb-3">Your review</h5>
           <Form.Control
-          onChange={handleTextChange}
-          as="textarea" rows={5} />
+            onChange={handleTextChange}
+            as="textarea" rows={5} />
         </div>
+        {error?.reviewText && (<p>{error?.reviewText}</p>)}
         <Dropzone
           className="mb-3"
+          onDrop={handleFileDrop}
           size="sm"
           accept={{
             'image/*': ['.png', '.gif', '.jpeg', '.jpg']

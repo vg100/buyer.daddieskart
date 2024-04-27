@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { getEnvVariable } from '../environment';
+import { LocalStorageService } from './LocalStorage';
 
 export class Http {
   private static axiosInstance: AxiosInstance;
@@ -14,10 +15,12 @@ export class Http {
 
     // Add request interceptor
     Http.axiosInstance.interceptors.request.use(
-      (config: any) => {
-        const token = localStorage.getItem('token');
+      async (config: any) => {
+        // Get user token from localStorage
+        const token = await LocalStorageService.getUser();
+        // If token exists, add it to the request headers
         if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
+          config.headers.authorization = `${token?.token}`;
         }
         return config;
       },

@@ -15,6 +15,7 @@ import ActionDropdownItems from '../../components/common/ActionDropdownItems';
 import { ProductReviewType } from '../../data/e-commerce';
 import useLightbox from '../../hooks/useLightbox';
 import { Link } from 'react-router-dom';
+import React from 'react'
 
 const ProductReview = ({ review }: { review: ProductReviewType }) => {
   const { lightboxProps, openLightbox } = useLightbox(review.images || []);
@@ -25,7 +26,7 @@ const ProductReview = ({ review }: { review: ProductReviewType }) => {
           <Rating readonly initialValue={review?.rating} />
           <h5 className="mb-0 ms-2 line-clamp-1">
             <span className="text-body-secondary me-1">by</span>
-            {review?.user?.mobile}
+            {review?.user?.name}
           </h5>
         </div>
         <RevealDropdown>
@@ -50,8 +51,8 @@ const ProductReview = ({ review }: { review: ProductReviewType }) => {
                 src={image}
                 key={image}
                 alt=""
-                className="fit-cover"
-                height={164}
+                className="fit-cover rounded"
+                height={55}
                 onClick={() => openLightbox(index + 1)}
               />
             </Link>
@@ -59,7 +60,7 @@ const ProductReview = ({ review }: { review: ProductReviewType }) => {
         </div>
       )}
 
-      {review.reply && (
+      {review.reply && review.reply.from && (
         <div className="d-flex">
           <FontAwesomeIcon
             icon={faReply}

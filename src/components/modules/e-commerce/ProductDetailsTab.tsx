@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Col, Nav, Pagination, Row, Stack, Tab } from 'react-bootstrap';
+import { Card, Col, Modal, Nav, Pagination, Row, Stack, Tab, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import product23 from '../../../assets/img/products/23.png';
 import ProductSpecificationTables from './ProductSpecificationTables';
@@ -17,12 +17,45 @@ import {
   faChevronLeft,
   faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { ReviewRepositry } from '../../../services/reviewRepositry';
 
 const ProductDetailsTab = () => {
-  const { getProductDetail } = useSelector((state: any) => state?.products)
+  const { getProductDetail, loading: productloader } = useSelector((state: any) => state?.products)
+  const { reviewslist, loading: reviewloader, reload } = useSelector((state: any) => state?.reviews)
+  
   const [openReviewModal, setOpenReviewModal] = useState(false);
-  const { lightboxProps, openLightbox } = useLightbox([product23]);
+  const [page, setPage] = useState(1);
+  const dispatch = useDispatch<any>()
+  const [showModal, setShowModal] = useState(false);
+  const { lightboxProps, openLightbox } = useLightbox(reviewslist?.images);
+
+
+  const fetchReviews = React.useCallback(() => {
+    dispatch(ReviewRepositry.getReviewById(getProductDetail?._id, page))
+  }, [dispatch, getProductDetail?._id,reload, page]);
+
+  React.useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]);
+
+
+  const totalPages = reviewslist?.totalPages || 1;
+  const pageHandler = React.useCallback((p) => {
+
+    if (p < 1 || p > totalPages) {
+      return;
+    }
+    setPage(p)
+  }, [totalPages]);
+
+
+
+  if (productloader) {
+    return null
+  }
+
+
   return (
     <>
       <Tab.Container defaultActiveKey="description">
@@ -49,56 +82,6 @@ const ProductDetailsTab = () => {
               >
                 <div dangerouslySetInnerHTML={{ __html: getProductDetail?.description }} />
 
-                {/* <p className="mb-5">
-                  CUPERTINO, CA , The M1 CPU allows Apple to deliver an all-new
-                  iMac with a lot more compact and impressively thin design. The
-                  new iMac delivers tremendous performance in an
-                  11.5-millimeter-thin design with a stunning side profile that
-                  almost vanishes. iMac includes a 24-inch 4.5K Retina display
-                  with 11.3 million pixels, 500 nits of brightness, and over a
-                  billion colors, giving a beautiful and vivid viewing
-                  experience. It is available in a variety of striking colors to
-                  match a user's own style and brighten any area. A 1080p
-                  FaceTime HD camera, studio-quality mics, and a six-speaker
-                  sound system are all included in the new iMac, making it the
-                  greatest camera and audio system ever in a Mac. Touch ID is
-                  also making its debut on the iMac, making it easier than ever
-                  to securely log in, make Apple Pay transactions, and switch
-                  user accounts with the touch of a finger. Apps launch at
-                  lightning speed, everyday chores seem astonishingly fast and
-                  fluid, and demanding workloads like editing 4K video and
-                  working with large photos are faster than ever before thanks
-                  to the power and performance of M1 and macOS Big Sur.
-                </p> */}
-                <Lightbox {...lightboxProps} />
-           
-                  <img
-                    src={product23}
-                    alt=""
-                    className="img-fluid mb-5 rounded-3"
-                    onClick={() => openLightbox(1)}
-                  />
-        
-                {/* <p className="mb-0">
-                  The new iMac joins Apple's fantastic M1-powered Mac family,
-                  which includes the MacBook Air, 13-inch MacBook Pro, and Mac
-                  mini, and represents yet another step ahead in the company's
-                  shift to Apple silicon. Customers may order iMac starting
-                  Friday, April 30. It's the most personal, powerful, capable,
-                  and enjoyable it's ever been. In the second half of May, the
-                  iMac will be available."M1 is a huge step forward for the
-                  Mac," said Greg Joswiak, Apple's senior vice president of
-                  Worldwide Marketing. "Today, we're delighted to present the
-                  all-new iMac, the first Mac developed around the
-                  groundbreaking M1 processor." "The new iMac takes everything
-                  people love about iMac to an entirely new level, with its
-                  beautiful design in seven breathtaking colors, its immersive
-                  4.5K Retina display, the greatest camera, mics, and speakers
-                  ever in a Mac, and Touch ID, combined with M1's incredible
-                  performance and macOS Big Sur's power."
-                </p> */}
-
-
               </Tab.Pane>
               <Tab.Pane eventKey="specification" className="pe-lg-6 pe-xl-12">
                 <ProductSpecificationTables />
@@ -113,20 +96,20 @@ const ProductDetailsTab = () => {
                     >
                       <div className="d-flex align-items-center flex-wrap">
                         <h2 className="fw-bolder me-3">
-                          4.9
+                          {reviewslist.rating}
                           <span className="fs-8 text-body-quaternary fw-bold">
                             /5
                           </span>
                         </h2>
                         <div className="me-3">
                           <Rating
-                            initialValue={4.5}
+                            initialValue={reviewslist.rating}
                             readonly
                             iconClass="fs-6"
                           />
                         </div>
                         <p className="text-body mb-0 fw-semibold fs-7">
-                          6548 ratings and 567 reviews
+                          {reviewslist?.totalRating} ratings and  {reviewslist?.totalTextReviews} reviews
                         </p>
                       </div>
                       <Button
@@ -138,21 +121,67 @@ const ProductDetailsTab = () => {
                       </Button>
                     </Stack>
                   </Card.Header>
+                  <Card.Body className="pb-0 border-bottom-0">
+
+
+
+
+
+                    <Lightbox {...lightboxProps} />
+                    {reviewslist?.images?.slice(0, 7).map((image, index) => (
+                      <Link onClick={index === 6 ? () => setShowModal(true) : () => openLightbox(index + 1)} key={index}>
+                        <img
+                          src={image}
+                          key={image}
+                          alt=""
+                          className="fit-cover mx-2 rounded"
+                          height={60}
+                          style={index === 6 ? { opacity: 0.2 } : {}}
+                        />
+                      </Link>
+                    ))}
+
+                    {showModal && (
+                      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+                        <Modal.Header closeButton>
+                          <Modal.Title>User Images {`(${reviewslist?.images?.length})`}</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+
+                          {reviewslist?.images?.map((image, index) => (
+                            <Link onClick={() => openLightbox(index + 1)}>
+                              <img
+                                src={image}
+                                alt=""
+                                className="fit-cover mx-2 rounded"
+                                height={60}
+                              />
+                            </Link>
+
+                          ))}
+                        </Modal.Body>
+                      </Modal>
+                    )}
+
+                  </Card.Body>
                   <Card.Body>
-                    {getProductDetail?.productReviews?.map(review => (
+                    {reviewslist?.reviews?.map(review => (
                       <ProductReview key={review._id} review={review} />
                     ))}
 
                     <Pagination className="mb-0 justify-content-center">
-                      <Pagination.Prev>
+                      <Pagination.Prev onClick={() => pageHandler(page - 1)}>
                         <FontAwesomeIcon icon={faChevronLeft} />
                       </Pagination.Prev>
-                      <Pagination.Item>1</Pagination.Item>
-                      <Pagination.Item>2</Pagination.Item>
-                      <Pagination.Item>3</Pagination.Item>
-                      <Pagination.Item active>4</Pagination.Item>
-                      <Pagination.Item>5</Pagination.Item>
-                      <Pagination.Next>
+                      {
+                        [...new Array(totalPages)].map((p: any, index: any) => {
+                          return (
+                            <Pagination.Item onClick={() => pageHandler(index + 1)} active={page === (index + 1) ? true : false}>{index + 1}</Pagination.Item>
+                          )
+                        })
+                      }
+
+                      <Pagination.Next onClick={() => pageHandler(page + 1)}>
                         <FontAwesomeIcon icon={faChevronRight} />
                       </Pagination.Next>
                     </Pagination>

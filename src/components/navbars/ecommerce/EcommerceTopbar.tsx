@@ -9,6 +9,7 @@ import ThemeToggler from '../../../components/common/ThemeToggler';
 import DropdownSearchBox from '../../common/DropdownSearchBox';
 import SearchResult from '../../common/SearchResult';
 import { useSelector } from 'react-redux';
+import React from 'react'
 
 const EcommerceTopbar = () => {
   const { cartItems } = useSelector((state: any) => state?.cart)

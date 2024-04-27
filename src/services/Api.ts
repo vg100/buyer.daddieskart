@@ -30,6 +30,9 @@ export class ProductApi {
   static search(query) {
     return Http.get(`/products/search?query=${query}`);
   }
+  static checkpin(query) {
+    return Http.get(`/products/check-pin/${query.pid}/${query.pincode}`);
+  }
   
 
 }
@@ -45,3 +48,17 @@ export class StoreApi {
     return Http.get('/seller');
   }
 }
+
+export class ReviewApi {
+  static postReview(data) {
+    return Http.post('/reviews',data,{
+      headers:{
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+  }
+  static getReviewById(id,page) {
+    return Http.get(`/reviews/${id}/${page}`);
+  }
+}
+

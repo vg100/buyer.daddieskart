@@ -8,6 +8,7 @@ import { CartReducer } from './CartReducer';
 import { StoreReducer } from './storeReducer';
 import { SearchReducer } from './searchReducer';
 import { WishlistReducer } from './wishlistReducer';
+import { ReviewsReducer } from './reviewReducer';
 
 
 const reducer = combineReducers({
@@ -18,6 +19,7 @@ const reducer = combineReducers({
     store: new StoreReducer().reducer,
     search: new SearchReducer().reducer,
     wishlist: new WishlistReducer().reducer,
+    reviews: new ReviewsReducer().reducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('user')

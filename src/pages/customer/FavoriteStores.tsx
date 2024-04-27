@@ -38,7 +38,7 @@ const FavoriteStores = () => {
           </p>
         </div>
         <Row className="gx-3 gy-5">
-          {stores?.map((store) => (
+          {stores?.map((store) => store.products && store.products.length > 0 && (
             <Col key={store.name} xs={6} sm={4} md={3} lg={2}>
               <StoreItem store={store} />
             </Col>
