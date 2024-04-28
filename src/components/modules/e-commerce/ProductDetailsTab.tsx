@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { Card, Col, Modal, Nav, Pagination, Row, Stack, Tab, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import product23 from '../../../assets/img/products/23.png';
 import ProductSpecificationTables from './ProductSpecificationTables';
 import Rating from '../../../components/base/Rating';
 import Button from '../../../components/base/Button';
-import { productReviews } from '../../../data/e-commerce';
 import ProductReview from '../../../components/list-items/ProductReview';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReviewModal from '../../../components/modals/ReviewModal';
@@ -19,11 +17,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReviewRepositry } from '../../../services/reviewRepositry';
+import { Utils } from '../../../utils/utils';
 
 const ProductDetailsTab = () => {
   const { getProductDetail, loading: productloader } = useSelector((state: any) => state?.products)
   const { reviewslist, loading: reviewloader, reload } = useSelector((state: any) => state?.reviews)
-  
+
   const [openReviewModal, setOpenReviewModal] = useState(false);
   const [page, setPage] = useState(1);
   const dispatch = useDispatch<any>()
@@ -32,11 +31,13 @@ const ProductDetailsTab = () => {
 
 
   const fetchReviews = React.useCallback(() => {
-    dispatch(ReviewRepositry.getReviewById(getProductDetail?._id, page))
-  }, [dispatch, getProductDetail?._id,reload, page]);
+    if(getProductDetail?._id){
+      dispatch(ReviewRepositry.getReviewById(getProductDetail?._id, page))
+    }
+  }, [dispatch, getProductDetail?._id, reload, page]);
 
   React.useEffect(() => {
-    fetchReviews();
+      fetchReviews();
   }, [fetchReviews]);
 
 
@@ -94,24 +95,31 @@ const ProductDetailsTab = () => {
                       direction="horizontal"
                       className="flex-wrap justify-content-between"
                     >
-                      <div className="d-flex align-items-center flex-wrap">
-                        <h2 className="fw-bolder me-3">
-                          {reviewslist.rating}
-                          <span className="fs-8 text-body-quaternary fw-bold">
-                            /5
-                          </span>
-                        </h2>
-                        <div className="me-3">
-                          <Rating
-                            initialValue={reviewslist.rating}
-                            readonly
-                            iconClass="fs-6"
-                          />
-                        </div>
-                        <p className="text-body mb-0 fw-semibold fs-7">
-                          {reviewslist?.totalRating} ratings and  {reviewslist?.totalTextReviews} reviews
-                        </p>
-                      </div>
+                      {
+                        reviewslist?.reviews?.length > 0 ? (<div className="d-flex align-items-center flex-wrap">
+                          <h2 className="fw-bolder me-3">
+                            {reviewslist.rating}
+                            <span className="fs-8 text-body-quaternary fw-bold">
+                              /5
+                            </span>
+                          </h2>
+                          <div className="me-3">
+                            <Rating
+                              initialValue={reviewslist.rating}
+                              readonly
+                              iconClass="fs-6"
+                            />
+                          </div>
+                          <p className="text-body mb-0 fw-semibold fs-7">
+                            {reviewslist?.totalRating} ratings and  {reviewslist?.totalTextReviews} reviews
+                          </p>
+                        </div>) : (
+                          <p className="text-body mb-0 fw-semibold fs-7">
+                            No reviews
+                          </p>
+                        )
+                      }
+
                       <Button
                         variant="primary"
                         className="rounded-pill"
@@ -129,16 +137,25 @@ const ProductDetailsTab = () => {
 
                     <Lightbox {...lightboxProps} />
                     {reviewslist?.images?.slice(0, 7).map((image, index) => (
-                      <Link onClick={index === 6 ? () => setShowModal(true) : () => openLightbox(index + 1)} key={index}>
-                        <img
-                          src={image}
-                          key={image}
-                          alt=""
-                          className="fit-cover mx-2 rounded"
-                          height={60}
-                          style={index === 6 ? { opacity: 0.2 } : {}}
-                        />
-                      </Link>
+                      <>
+                        <Link
+                          className='position-relative'
+                          onClick={index === 6 ? () => setShowModal(true) : () => openLightbox(index + 1)} key={index}>
+
+                          <img
+                            src={image}
+                            key={image}
+                            alt=""
+                            className="fit-cover mx-2 rounded"
+                            height={60}
+                            style={index === 6 ? { opacity: 0.2 } : {}}
+                          />
+                          {
+                            index === 6 && (<span className={"position-absolute top-50 start-50 translate-middle text-black"}>{reviewslist?.images?.length}</span>)
+                          }
+
+                        </Link>
+                      </>
                     ))}
 
                     {showModal && (
@@ -168,23 +185,28 @@ const ProductDetailsTab = () => {
                     {reviewslist?.reviews?.map(review => (
                       <ProductReview key={review._id} review={review} />
                     ))}
+                    {
+                      Utils.safeAccess(reviewslist, "reviews.length") > 0 && (<Pagination className="mb-0 justify-content-center">
+                        <Pagination.Prev onClick={() => pageHandler(page - 1)}>
+                          <FontAwesomeIcon icon={faChevronLeft} />
+                        </Pagination.Prev>
+                        {
+                          [...new Array(totalPages)].map((p: any, index: any) => {
+                            return (
+                              <Pagination.Item onClick={() => pageHandler(index + 1)} active={page === (index + 1) ? true : false}>{index + 1}</Pagination.Item>
+                            )
+                          })
+                        }
 
-                    <Pagination className="mb-0 justify-content-center">
-                      <Pagination.Prev onClick={() => pageHandler(page - 1)}>
-                        <FontAwesomeIcon icon={faChevronLeft} />
-                      </Pagination.Prev>
-                      {
-                        [...new Array(totalPages)].map((p: any, index: any) => {
-                          return (
-                            <Pagination.Item onClick={() => pageHandler(index + 1)} active={page === (index + 1) ? true : false}>{index + 1}</Pagination.Item>
-                          )
-                        })
-                      }
+                        <Pagination.Next onClick={() => pageHandler(page + 1)}>
+                          <FontAwesomeIcon icon={faChevronRight} />
+                        </Pagination.Next>
+                      </Pagination>)
+                    }
 
-                      <Pagination.Next onClick={() => pageHandler(page + 1)}>
-                        <FontAwesomeIcon icon={faChevronRight} />
-                      </Pagination.Next>
-                    </Pagination>
+
+
+
                   </Card.Body>
                 </Card>
               </Tab.Pane>

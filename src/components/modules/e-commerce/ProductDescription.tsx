@@ -20,6 +20,7 @@ import FeatherIcon from 'feather-icons-react';
 import { WishlistRepositry } from '../../../services/wishlistRepositry';
 import classNames from 'classnames';
 import moment from 'moment';
+import SizeModal from '../../modals/SizeModal';
 const ProductDescription = () => {
 
   const [quantity, setQuantity] = useState(1);
@@ -29,7 +30,7 @@ const ProductDescription = () => {
   const queryParams: any = queryString.parse(location.search);
   const { getProductDetail, loading } = useSelector((state: any) => state?.products)
   const { reviewslist, loading: reviewloader, reload } = useSelector((state: any) => state?.reviews)
-
+  const [showSizeModal, setShowSizeModal] = useState(false);
 
   const { wishlistItems } = useSelector((state: any) => state.wishlist);
   const [remainingTime, setRemainingTime] = useState('');
@@ -300,7 +301,7 @@ const ProductDescription = () => {
                       })
                     }
                   </select>
-                  <a className="ms-2 fs-9 fw-semibold" href="#!">
+                  <a onClick={()=>setShowSizeModal(true)} className="ms-2 fs-9 fw-semibold" href="#!">
                     Size chart
                   </a>
                 </div>
@@ -321,6 +322,7 @@ const ProductDescription = () => {
           </div>
         </Stack>
       </Col>
+      <SizeModal show={showSizeModal} handleClose={()=>setShowSizeModal(false)}/>
     </Row>
   );
 };

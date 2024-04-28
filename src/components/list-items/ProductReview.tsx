@@ -16,14 +16,32 @@ import { ProductReviewType } from '../../data/e-commerce';
 import useLightbox from '../../hooks/useLightbox';
 import { Link } from 'react-router-dom';
 import React from 'react'
-
-const ProductReview = ({ review }: { review: ProductReviewType }) => {
+import { Utils } from '../../utils/utils';
+import Badge from '../base/Badge';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+const ProductReview = ({ review }: { review: any }) => {
   const { lightboxProps, openLightbox } = useLightbox(review.images || []);
+
+
+const bgColor={
+  1:"danger",
+  2:"warning",
+}
+
+  
   return (
     <RevealDropdownTrigger className="mb-4 hover-actions-trigger">
       <div className="d-flex justify-content-between mb-2">
         <div className="d-flex align-items-center">
-          <Rating readonly initialValue={review?.rating} />
+        <Badge bg={bgColor[review?.rating] ||  "success"} className=' d-flex align-items-center'>
+        {review?.rating}
+        <FontAwesomeIcon
+          icon={faStar}
+          className={classNames(`fs-10`)}
+        />
+        
+       </Badge>
+          {/* <Rating readonly initialValue={review?.rating} /> */}
           <h5 className="mb-0 ms-2 line-clamp-1">
             <span className="text-body-secondary me-1">by</span>
             {review?.user?.name}
@@ -33,7 +51,7 @@ const ProductReview = ({ review }: { review: ProductReviewType }) => {
           <ActionDropdownItems />
         </RevealDropdown>
       </div>
-      <p className="text-body-tertiary fs-9 mb-1">{review.createdAt}</p>
+      <p className="text-body-tertiary fs-9 mb-1">{Utils.fromNow(review.createdAt)}</p>
       <p
         className={classNames('text-body-highlight', {
           'mb-3': review.images,

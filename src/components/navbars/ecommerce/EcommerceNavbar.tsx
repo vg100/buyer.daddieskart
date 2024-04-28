@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react'
 import { categories } from '../../../data/e-commerce';
 import { useCallback, useLayoutEffect, useRef } from 'react';
 import {
@@ -128,6 +129,8 @@ const EcommerceNavbar = () => {
         className="container-small d-flex flex-between-center flex-nowrap w-100"
         ref={containerRef}
       >
+
+     
         <Dropdown ref={otherElsRef}>
           <Dropdown.Toggle
             variant=""
@@ -180,6 +183,11 @@ const EcommerceNavbar = () => {
             </Card>
           </Dropdown.Menu>
         </Dropdown>
+
+
+     
+
+
         <Nav as="ul" className="justify-content-end align-items-center gap-5">
           {initNavItems.map((item, index) => (
             <Nav.Item

@@ -24,7 +24,7 @@ const Cart = () => {
         <h2 className="mb-6">{`Cart (${cartItems?.length})`}</h2>
         <Row className="g-5">
           <Col xs={12} lg={8}>
-            <EcomCartTable products={cartItems} />
+            <EcomCartTable cartItems={cartItems} />
           </Col>
           <Col xs={12} lg={4}>
             

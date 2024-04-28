@@ -5,7 +5,6 @@ export const WishlistActionTypes = {
     REMOVE_FROM_WISHLIST: 'REMOVE_FROM_WISHLIST',
 };
 
-
 export class WishlistReducer extends BaseReducer {
     initialState = {
         wishlistItems: []
