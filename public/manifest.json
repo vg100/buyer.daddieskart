@@ -1,6 +1,7 @@
 {
   "short_name": "DaddiesKart",
   "name": "DaddiesKart",
+  "description": "Your one-stop shop for all your parenting needs!",
   "icons": [
     {
       "src": "favicon.ico",
@@ -11,5 +12,23 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#3874ff",
-  "background_color": "#f5f7fa"
+  "background_color": "#f5f7fa",
+  "splash_pages": null,
+  "search_engines": [
+    {
+      "name": "DaddiesKart Search",
+      "query_params": "keyword",
+      "encoding": "UTF-8",
+      "template": "http://daddieskart.com/pf?keyword={searchTerms}"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Shop Now",
+      "short_name": "Shop",
+      "description": "Quickly access our online store.",
+      "url": "/pf"
+    }
+  ],
+  "categories": ["shopping", "parenting"]
 }
