@@ -33,17 +33,17 @@ const ProductsFilter = () => {
 
 
   const queryParams = useMemo(() => queryString.parse(location.search), [location.search]);
-  const [currentPage, setCurrentPage] = useState<any>(queryParams?.page);
+  const [currentPage, setCurrentPage] = useState<any>(queryParams?.page || 1 );
 
   React.useEffect(() => {
     dispatch(ProductRepositry.getProducts({ ...queryParams, page: currentPage }));
 }, [dispatch, queryParams, currentPage]);
 
   const pageHandler = React.useCallback((p) => {
-    const totalPages = pds?.totalPages || 1;
-    if (p < 1 || p > totalPages) {
-      return
-    }
+    // const totalPages = pds?.totalPages || 1;
+    // if (p < 1 || p > totalPages) {
+    //   return
+    // }
     setCurrentPage(p)
   
   }, []);

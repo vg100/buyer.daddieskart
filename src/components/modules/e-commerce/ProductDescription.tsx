@@ -36,12 +36,15 @@ const ProductDescription = () => {
   const [remainingTime, setRemainingTime] = useState('');
   const [pincode, setPincode] = React.useState('')
 
-  const [selectSize, setslectSize] = useState('m');
+  
   const [data, setData] = useState<any>(null)
   const [isloading, setIsloading] = useState<any>(false)
 
+  
   const size = ['xs', 's', 'm', 'l', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl']
-  const [selectedVariantKey, setSelectedVariantKey] = useState('m');
+
+  const [selectedVariantKey, setSelectedVariantKey] = useState('black');
+  const [selectSize, setslectSize] = useState('m');
 
 
 
@@ -51,13 +54,16 @@ const ProductDescription = () => {
 
   React.useEffect(() => {
     if (getProductDetail && getProductDetail.productVariants && getProductDetail.productVariants.length > 0) {
-      setSelectedVariantKey(getProductDetail.productVariants[0].value);
+      setSelectedVariantKey(getProductDetail.productVariants[0].color);
+      setslectSize(getProductDetail.productVariants[0].size[0]);
     }
   }, [getProductDetail]);
 
+
+
   const selectedVariant = useMemo(() => {
     return getProductDetail?.productVariants?.find(
-      variant => variant.value === selectedVariantKey
+      variant => variant?.color === selectedVariantKey
     );
   }, [getProductDetail, selectedVariantKey]);
 
@@ -250,7 +256,7 @@ const ProductDescription = () => {
               <p className="fw-semibold mb-2 text-body">
                 Color :{' '}
                 <span className="text-body-emphasis">
-                  {selectedVariant?.value}
+                  {selectedVariant?.color}
                 </span>
               </p>
 
@@ -264,9 +270,9 @@ const ProductDescription = () => {
                   <Nav.Item className="">
                     <Nav.Link
                       //  disabled={selectSize ? !variant?.size?.includes(selectSize) : undefined}
-                      eventKey={variant?.value}
+                      eventKey={variant?.color}
                       className={classNames('border rounded-1 p-0', {
-                        'border-primary': variant?.value === selectedVariantKey
+                        'border-primary': variant?.color === selectedVariantKey
                       })}
                       style={{
                         zIndex: 10,
