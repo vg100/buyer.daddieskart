@@ -23,27 +23,27 @@ const EcomBestOffers = ({ products }: { products: Product[] }) => {
         navigationPosition={{ top: '25%' }}
         breakpoints={{
           0: {
-            slidesPerView: 1,
-            spaceBetween: 16
-          },
-          450: {
             slidesPerView: 2,
             spaceBetween: 16
           },
-          576: {
+          450: {
             slidesPerView: 3,
-            spaceBetween: 20
+            spaceBetween: 16
           },
-          768: {
+          576: {
             slidesPerView: 4,
             spaceBetween: 20
           },
-          992: {
+          768: {
             slidesPerView: 5,
             spaceBetween: 20
           },
-          1200: {
+          992: {
             slidesPerView: 6,
+            spaceBetween: 20
+          },
+          1200: {
+            slidesPerView: 7,
             spaceBetween: 16
           }
         }}

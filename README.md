@@ -5,6 +5,10 @@
   sudo cp -r dist/* /var/www/html/
   pm2 start node-aws-sample/server.js --name "node_app"
   /etc/nginx/sites-enabled
+  sudo apt-get purge nginx nginx-common
+  sudo apt install nginx
+  cd /etc/nginx/sites-enabled
+  rm default
    -->
 
 

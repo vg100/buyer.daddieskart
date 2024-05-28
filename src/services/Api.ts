@@ -1,5 +1,5 @@
 
-import {Http} from './http';
+import Http from './http';
 
 export class Api {
   static login(data: any) {
@@ -9,7 +9,7 @@ export class Api {
     return Http.post('/users/register', data);
   }
   static verify(data: any) {
-    return Http.patch('/users/verify', data);
+    return Http.post('/users/verifyotp', data);
   }
 
 }
@@ -62,3 +62,20 @@ export class ReviewApi {
   }
 }
 
+export class OfferApi {
+  static createOffer(data) {
+    return Http.post(`/offer/${data.id}`,{offer:data.offer});
+  }
+  static getOffer(data) {
+    return Http.post(`/offer/`,data);
+  }
+}
+
+export class AddressApi {
+  static addAndEditAddress(data,type) {
+    return Http.post(`/users/${type}-address`,data);
+  }
+  static getAddress() {
+    return Http.get(`/users/get-address`);
+  }
+}

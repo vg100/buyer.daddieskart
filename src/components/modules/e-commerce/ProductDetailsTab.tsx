@@ -18,10 +18,15 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { ReviewRepositry } from '../../../services/reviewRepositry';
 import { Utils } from '../../../utils/utils';
+import { getEnvVariable } from '../../../environment';
+import { LocalStorageService } from '../../../services/LocalStorage';
+import { OfferRepositry } from '../../../services/offerRepositry';
 
 const ProductDetailsTab = () => {
   const { getProductDetail, loading: productloader } = useSelector((state: any) => state?.products)
   const { reviewslist, loading: reviewloader, reload } = useSelector((state: any) => state?.reviews)
+  const { offerList } = useSelector((state: any) => state?.offer)
+  const [offer, setOffer] = useState('');
 
   const [openReviewModal, setOpenReviewModal] = useState(false);
   const [page, setPage] = useState(1);
@@ -31,14 +36,25 @@ const ProductDetailsTab = () => {
 
 
   const fetchReviews = React.useCallback(() => {
-    if(getProductDetail?._id){
+    if (getProductDetail?._id) {
       dispatch(ReviewRepositry.getReviewById(getProductDetail?._id, page))
     }
   }, [dispatch, getProductDetail?._id, reload, page]);
 
+  const fetchOffers = React.useCallback(() => {
+    if (getProductDetail?._id) {
+      dispatch(OfferRepositry.getoffer({
+        product: getProductDetail?._id
+      }))
+    }
+  }, [dispatch, getProductDetail?._id, reload]);
+
   React.useEffect(() => {
-      fetchReviews();
-  }, [fetchReviews]);
+    fetchReviews();
+    fetchOffers()
+  }, [fetchReviews, fetchOffers]);
+
+
 
 
   const totalPages = reviewslist?.totalPages || 1;
@@ -57,6 +73,21 @@ const ProductDetailsTab = () => {
   }
 
 
+  const handleBargain = async () => {
+    try {
+
+      const token = await LocalStorageService.getUser();
+      await fetch(`${getEnvVariable().base_api_url}/offer/${getProductDetail?._id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', "authorization": token?.token },
+        body: JSON.stringify({ amount: 400 })
+      });
+    } catch (error) {
+      console.error('Error making offer:', error);
+    }
+  };
+
+
   return (
     <>
       <Tab.Container defaultActiveKey="description">
@@ -71,7 +102,7 @@ const ProductDetailsTab = () => {
             <Nav.Link eventKey="reviews">Ratings & reviews</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="chat">Chat</Nav.Link>
+            <Nav.Link eventKey="chat">bargaining</Nav.Link>
           </Nav.Item>
         </Nav>
         <Row className="gx-3 gy-7">
@@ -203,10 +234,6 @@ const ProductDetailsTab = () => {
                         </Pagination.Next>
                       </Pagination>)
                     }
-
-
-
-
                   </Card.Body>
                 </Card>
               </Tab.Pane>
@@ -216,8 +243,19 @@ const ProductDetailsTab = () => {
 
                   </Card.Header>
                   <Card.Body>
-
-
+                    {
+                      offerList.map((item,index) => {
+                        return (
+                          <div style={{display:"flex",justifyContent:"space-between"}}>
+                          <p>{index}{"-------->"}{item?.amount} Rs</p>
+                          <p>{item?.status}...</p>
+                          </div>
+                        )
+              
+                      })
+                    }
+                    <input type="number" value={offer} onChange={(e) => setOffer(e.target.value)} />
+                    <button onClick={handleBargain}>Make Offer</button>
 
                   </Card.Body>
                 </Card>

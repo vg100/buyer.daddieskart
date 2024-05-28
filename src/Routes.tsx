@@ -45,11 +45,11 @@ const ecommerceRoutes: RouteObject[] = [
             },
             {
                 path: 'checkout',
-                element: <Checkout />,
+                element: <ProtectedRoute element={<Checkout />} />,
             },
             {
                 path: 'shipping-info',
-                element: <ShippingInfo />
+                element:<ProtectedRoute element={<ShippingInfo />} />
             },
             {
                 path: 'profile',

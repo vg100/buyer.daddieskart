@@ -15,10 +15,10 @@ const EcommerceTopbar = () => {
   const { cartItems } = useSelector((state: any) => state?.cart)
   const navigate = useNavigate<any>()
   const cartHandler = () => {
-    if(!cartItems.length) {
-      alert("Cart is empty")
-      return
-    }
+    // if(!cartItems.length) {
+    //   alert("Cart is empty")
+    //   return
+    // }
     navigate("/cart")
   }
 
@@ -55,8 +55,8 @@ const EcommerceTopbar = () => {
                 <Nav.Item as="li">
                   <Dropdown autoClose="outside">
                     <Dropdown.Toggle
-                      as={Link}
-                      to="#!"
+                      // as={Link}
+                      // to="#!"
                       className="dropdown-caret-none nav-link icon-indicator icon-indicator-sm icon-indicator-danger"
                       variant=""
                     >
@@ -69,8 +69,8 @@ const EcommerceTopbar = () => {
                 <Nav.Item as="li">
                   <Dropdown autoClose="outside">
                     <Dropdown.Toggle
-                      as={Link}
-                      to="#!"
+                      // as={Link}
+                      // to="#!"
                       className="dropdown-caret-none nav-link lh-1"
                       variant=""
                     >

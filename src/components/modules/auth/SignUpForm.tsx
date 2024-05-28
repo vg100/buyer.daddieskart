@@ -39,12 +39,11 @@ const SignUpForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
       alert("number not more the 10 digits")
       return
     }
-   const res= await dispatch(AuthRepo.register({
-      mobile: "+91"+formData.number
+    await dispatch(AuthRepo.register({
+      mobile: "+91" + formData.number
     }))
-    if(res){
-      navigate("/2FA",{ state: {mobile:"+91"+formData.number,type:"signup"} })
-    }
+    navigate("/2FA", { state: { mobile: "+91" + formData.number, type: "signup" } })
+
   };
 
   React.useEffect(() => {
@@ -66,15 +65,15 @@ const SignUpForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
         <Form.Group className="mb-3 text-start">
           <Form.Label htmlFor="name">Mobile Number</Form.Label>
           <div className="form-icon-container">
-          <Form.Control
-            id="number"
-            type="text"
-            className="form-icon-input"
-            placeholder="Enter Mobile Number"
-            name="number"
-            value={"+91" + formData.number}
-            onChange={handleInputChange}
-          />
+            <Form.Control
+              id="number"
+              type="text"
+              className="form-icon-input"
+              placeholder="Enter Mobile Number"
+              name="number"
+              value={"+91" + formData.number}
+              onChange={handleInputChange}
+            />
             <FontAwesomeIcon icon={faUser} className="text-body fs-9 form-icon" />
           </div>
         </Form.Group>

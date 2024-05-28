@@ -21,6 +21,8 @@ import { WishlistRepositry } from '../../../services/wishlistRepositry';
 import classNames from 'classnames';
 import moment from 'moment';
 import SizeModal from '../../modals/SizeModal';
+import io from 'socket.io-client';
+const socket = io('http://localhost:8000',{ transports : ['websocket'] });
 const ProductDescription = () => {
 
   const [quantity, setQuantity] = useState(1);
@@ -39,12 +41,14 @@ const ProductDescription = () => {
   
   const [data, setData] = useState<any>(null)
   const [isloading, setIsloading] = useState<any>(false)
-
+  const [bar, setBar] = useState<any>([]);
   
   const size = ['xs', 's', 'm', 'l', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl']
 
   const [selectedVariantKey, setSelectedVariantKey] = useState('black');
   const [selectSize, setslectSize] = useState('m');
+
+
 
 
 
@@ -59,6 +63,17 @@ const ProductDescription = () => {
     }
   }, [getProductDetail]);
 
+
+  React.useEffect(() => {
+    socket.on('newOffer', (off: any) => {
+      setBar([...bar, off]);
+    });
+    return () => {
+      socket.off('newOffer');
+    };
+  }, [])
+
+  console.log(bar)
 
 
   const selectedVariant = useMemo(() => {

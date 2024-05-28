@@ -70,7 +70,7 @@ const ProductCard = ({ product }) => {
               </Badge>
             )}
           </div>
-          <Link  to={`/p-d?pid=${product?._id}`} target="_blank" rel="noopener noreferrer" className="stretched-link">
+          <Link  to={`/p-d?pid=${product?._id}`}  className="stretched-link">
             <h6 className="mb-2 lh-sm line-clamp-3 product-name">{product.name}</h6>
           </Link>
           {product.rating && (

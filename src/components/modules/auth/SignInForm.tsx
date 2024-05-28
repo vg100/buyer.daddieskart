@@ -46,7 +46,8 @@ const SignInForm = ({ layout }: { layout: 'simple' | 'card' | 'split' }) => {
       alert("number not more the 10 digits")
       return
     }
-   const res= await dispatch(AuthRepo.login({
+    
+    await dispatch(AuthRepo.login({
       mobile: "+91"+formData.number
     }))
     navigate("/")

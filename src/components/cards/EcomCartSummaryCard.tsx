@@ -10,18 +10,21 @@ import { useSelector } from 'react-redux';
 
 const EcomCartSummaryCard = () => {
   const { cartItems } = useSelector((state: any) => state?.cart)
+  const navigate = useNavigate()
   const totalPrice = cartItems
     .reduce((acc, item) => acc + item.quantity * item.price, 0)
     .toFixed(2)
-  const navigate = useNavigate()
-  const navigateTocheckout = () => {
-    navigate('/shipping-info')
-  }
+
+ 
 
 
   const [voucher, setVoucher] = useState('');
   const [error, setError] = useState('');
   const [discountAmount, setDiscountAmount] = useState(0);
+
+  const navigateTocheckout = () => {
+    navigate('/shipping-info')
+  }
 
   const handleApply = () => {
     // Reset previous error

@@ -44,14 +44,14 @@ const TwoFAForm = ({ layout }: { layout?: 'simple' | 'card' | 'split' }) => {
 
 
   const onVerifyHandler = async() => {
-   const res= await dispatch(AuthRepo.verify({
+      await dispatch(AuthRepo.verify({
       mobile: location?.state?.mobile,
       otp: otp,
       type:location?.state?.type
     }))
-    if(res){
+
         navigate("/")
-    }
+
 
   }
 

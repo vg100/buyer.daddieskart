@@ -2,11 +2,13 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { getEnvVariable } from '../environment';
 import { LocalStorageService } from './LocalStorage';
 
-export class Http {
-  private static axiosInstance: AxiosInstance;
+ class Http {
+  private axiosInstance: AxiosInstance;
+  private isRefreshing = false;
+  private refreshSubscribers: ((token: string) => void)[] = [];
 
-  static initialize() {
-    Http.axiosInstance = axios.create({
+  constructor() {
+    this.axiosInstance = axios.create({
       baseURL: getEnvVariable().base_api_url,
       headers: {
         'Content-Type': 'application/json',
@@ -14,11 +16,9 @@ export class Http {
     });
 
     // Add request interceptor
-    Http.axiosInstance.interceptors.request.use(
+    this.axiosInstance.interceptors.request.use(
       async (config: any) => {
-        // Get user token from localStorage
         const token = await LocalStorageService.getUser();
-        // If token exists, add it to the request headers
         if (token) {
           config.headers.authorization = `${token?.token}`;
         }
@@ -30,81 +30,121 @@ export class Http {
     );
 
     // Add response interceptor
-    Http.axiosInstance.interceptors.response.use(
+    this.axiosInstance.interceptors.response.use(
       (response: AxiosResponse<any>) => {
         return response.data;
       },
-      (error) => {
+      async (error) => {
+        const originalRequest = error.config;
+        if (error.response.status === 401 && !originalRequest._retry) {
+          if (!this.isRefreshing) {
+            this.isRefreshing = true;
+            originalRequest._retry = true;
+
+            try {
+              const newToken = await this.refreshToken();
+              this.isRefreshing = false;
+              this.onRefreshed(newToken);
+              return this.axiosInstance(originalRequest);
+            } catch (refreshError) {
+              this.isRefreshing = false;
+              return Promise.reject(refreshError);
+            }
+          } else {
+            return new Promise((resolve, reject) => {
+              this.subscribeTokenRefresh((token: string) => {
+                originalRequest.headers.authorization = `${token}`;
+                resolve(this.axiosInstance(originalRequest));
+              });
+            });
+          }
+        }
         return Promise.reject(error);
       }
     );
   }
 
-  static async get(url: string, config?: AxiosRequestConfig) {
+  private subscribeTokenRefresh(callback: (token: string) => void) {
+    this.refreshSubscribers.push(callback);
+  }
+
+  private onRefreshed(token: string) {
+    this.refreshSubscribers.map((callback) => callback(token));
+    this.refreshSubscribers = [];
+  }
+
+  private async refreshToken(): Promise<string> {
     try {
-      const response = await Http.axiosInstance.get(url, config);
-      return response;
+      const refreshToken = await LocalStorageService.getUser();
+      const response = await axios.post(`${getEnvVariable().base_api_url}/refresh-token`, { token: refreshToken });
+      const newToken = response.data.token;
+      await LocalStorageService.setUser({ token: newToken });
+      return newToken;
     } catch (error) {
-      return Http.handleErrors(error);
+      console.error('Failed to refresh token:', error);
+      throw error;
     }
   }
 
-  static async post(url: string, data?: any, config?: AxiosRequestConfig) {
+  async get(url: string, config?: AxiosRequestConfig) {
     try {
-      const response = await Http.axiosInstance.post(url, data, config);
+      const response = await this.axiosInstance.get(url, config);
       return response;
     } catch (error) {
-      return Http.handleErrors(error);
+      return this.handleErrors(error);
     }
   }
 
-  static async put(url: string, data?: any, config?: AxiosRequestConfig) {
+  async post(url: string, data?: any, config?: AxiosRequestConfig) {
     try {
-      const response = await Http.axiosInstance.put(url, data, config);
+      const response = await this.axiosInstance.post(url, data, config);
       return response;
     } catch (error) {
-      return Http.handleErrors(error);
+      return this.handleErrors(error);
     }
   }
 
-  static async patch(url: string, data?: any, config?: AxiosRequestConfig) {
+  async put(url: string, data?: any, config?: AxiosRequestConfig) {
     try {
-      const response = await Http.axiosInstance.patch(url, data, config);
+      const response = await this.axiosInstance.put(url, data, config);
       return response;
     } catch (error) {
-      return Http.handleErrors(error);
+      return this.handleErrors(error);
     }
   }
 
-  static async delete(url: string, config?: AxiosRequestConfig) {
+  async patch(url: string, data?: any, config?: AxiosRequestConfig) {
     try {
-      const response = await Http.axiosInstance.delete(url, config);
+      const response = await this.axiosInstance.patch(url, data, config);
       return response;
     } catch (error) {
-      return Http.handleErrors(error);
+      return this.handleErrors(error);
     }
   }
 
-  private static async handleErrors(error: any) {
+  async delete(url: string, config?: AxiosRequestConfig) {
+    try {
+      const response = await this.axiosInstance.delete(url, config);
+      return response;
+    } catch (error) {
+      return this.handleErrors(error);
+    }
+  }
+
+  private async handleErrors(error: any) {
     if (error.response) {
-      // Handle server errors
       const { data, status } = error.response;
-      // Log or display error message
+      alert(JSON.stringify(data.message));
       console.error(`Request failed with status ${status}:`, data);
     } else if (error.request) {
-      // Handle client errors
-      // Log or display error message
       console.error('Request made but no response received:', error.request);
     } else {
-      // Handle other errors
-      // Log or display error message
+      alert(JSON.stringify(error.message));
       console.error('Error setting up request:', error.message);
     }
-    // Return a rejected promise with the error
     return Promise.reject(error);
   }
 }
 
-// Initialize the Http when the application starts
-Http.initialize();
 
+export default new Http();

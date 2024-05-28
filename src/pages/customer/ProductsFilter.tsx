@@ -14,17 +14,21 @@ import {
   faChevronRight,
   faFilter
 } from '@fortawesome/free-solid-svg-icons';
-import { useLocation, useNavigation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useNavigation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProductRepositry } from '../../services/productRepositry';
+import Loader from '../../components/Loader/Loader';
 
 
 const ProductsFilter = () => {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch<any>()
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [selectedSort, setSelectedSort] = useState(new URLSearchParams(location.search).get('sort') || '');
 
   const { products: pds, loading } = useSelector((state: any) => state?.products)
-  const location = useLocation();
+
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -33,21 +37,38 @@ const ProductsFilter = () => {
 
 
   const queryParams = useMemo(() => queryString.parse(location.search), [location.search]);
-  const [currentPage, setCurrentPage] = useState<any>(queryParams?.page || 1 );
+  const [currentPage, setCurrentPage] = useState<any>(queryParams?.page || 1);
 
   React.useEffect(() => {
     dispatch(ProductRepositry.getProducts({ ...queryParams, page: currentPage }));
-}, [dispatch, queryParams, currentPage]);
+  }, [dispatch, queryParams, currentPage]);
 
   const pageHandler = React.useCallback((p) => {
-    // const totalPages = pds?.totalPages || 1;
-    // if (p < 1 || p > totalPages) {
-    //   return
-    // }
+
     setCurrentPage(p)
-  
+
   }, []);
 
+  const sortByHandler = (data) => {
+    const params = new URLSearchParams(location.search);
+    const currentSort = params.get('sort');
+    if (currentSort === data) {
+      params.delete('sort');
+    } else {
+      params.set('sort', data);
+    }
+    
+    navigate({ search: params.toString() });
+    setSelectedSort(currentSort === data ? '' : data);
+  }
+
+  const getStyle = (sortOrder) => ({
+    margin: '5px',
+    fontWeight: selectedSort === sortOrder ? 'bold' : 'normal',
+    color: selectedSort === sortOrder ? 'blue' : 'black',
+    textDecoration: selectedSort === sortOrder ? 'underline' : 'none',
+    cursor: 'pointer',
+  });
 
 
   return (
@@ -92,10 +113,20 @@ const ProductsFilter = () => {
 
             {loading ? (
               <div className="text-center mb-4">
-                <Spinner animation="border" role="status" />
+                <Loader/>
+                {/* <Spinner animation="border" role="status" /> */}
               </div>
             ) : pds?.product?.length > 0 ? (
               <>
+             <div style={{ display: 'flex', alignItems: 'center' }}>
+      <h4>Sort By</h4>
+      <p style={getStyle('popularity')} onClick={() => sortByHandler('popularity')}>Popularity</p>
+      <p style={getStyle('price_asc')} onClick={() => sortByHandler('price_asc')}>Price -- Low to High</p>
+      <p style={getStyle('price_desc')} onClick={() => sortByHandler('price_desc')}>Price -- High to Low</p>
+      <p style={getStyle('recency_desc')} onClick={() => sortByHandler('recency_desc')}>Newest First</p>
+    </div>
+                <hr />
+
                 {queryParams?.seller && (<h2 className='mb-3'>{pds?.product[0]?.seller?.store?.name}</h2>)}
 
                 <Row className="gx-3 gy-6 mb-8">

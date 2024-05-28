@@ -9,39 +9,43 @@ import { StoreReducer } from './storeReducer';
 import { SearchReducer } from './searchReducer';
 import { WishlistReducer } from './wishlistReducer';
 import { ReviewsReducer } from './reviewReducer';
+import { offerReducer } from './offerReducer';
 
 
 const reducer = combineReducers({
-    user:  new userLoginReducer().reducer,
-    categories:  new CategoriesReducer().reducer,
-    products:  new ProductsReducer().reducer,
+    user: new userLoginReducer().reducer,
+    categories: new CategoriesReducer().reducer,
+    products: new ProductsReducer().reducer,
     cart: new CartReducer().reducer,
     store: new StoreReducer().reducer,
     search: new SearchReducer().reducer,
     wishlist: new WishlistReducer().reducer,
     reviews: new ReviewsReducer().reducer,
+    offer: new offerReducer().reducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('user')
-  ? JSON.parse(localStorage.getItem('user')!)
-  : null;
+    ? JSON.parse(localStorage.getItem('user')!)
+    : null;
 
-  const cartItemsFromStorage = localStorage.getItem('cartItems')
-  ? JSON.parse(localStorage.getItem('cartItems')!)
-  : []
+const cartItemsFromStorage = localStorage.getItem('cartItems')
+    ? JSON.parse(localStorage.getItem('cartItems')!)
+    : []
 
 
-  const wishlistItemsFromStorage = localStorage.getItem('wishlistItems')
-  ? JSON.parse(localStorage.getItem('wishlistItems')!)
-  : []
+const wishlistItemsFromStorage = localStorage.getItem('wishlistItems')
+    ? JSON.parse(localStorage.getItem('wishlistItems')!)
+    : []
 
-const initialState:any = {
+    console.log(userInfoFromStorage,'store')
+
+const initialState: any = {
     user: { userInfo: userInfoFromStorage },
-    cart:{cartItems:cartItemsFromStorage},
-    wishlist:{wishlistItems:wishlistItemsFromStorage}
+    cart: { cartItems: cartItemsFromStorage },
+    wishlist: { wishlistItems: wishlistItemsFromStorage }
 }
 
-const middleware:any = [thunk]
+const middleware: any = [thunk]
 
 const store = createStore(
     reducer,

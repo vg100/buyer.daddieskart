@@ -10,8 +10,17 @@ import { currencyFormat } from '../../../helpers/utils';
 import CheckoutSummaryCard from '../../../components/modules/e-commerce/checkout/CheckoutSummaryCard';
 import PageBreadcrumb from '../../../components/common/PageBreadcrumb';
 import { defaultBreadcrumbItems } from '../../../data/commonData';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Checkout = () => {
+  const { selectaddres }:any = useSelector<any>(state => state?.user)
+  const navigate = useNavigate();
+
+
+  const payhandler=()=>{
+
+  }
   return (
     <div className="pt-5 mb-9">
       <Section small className="py-0">
@@ -22,18 +31,18 @@ const Checkout = () => {
             <form>
               <div className="d-flex align-items-end mb-4">
                 <h3 className="mb-0 me-3">Shipping Details</h3>
-                <Button variant="link" className="p-0" type="button">
+                <Button onClick={() => navigate(-1)} variant="link" className="p-0" type="button">
                   Edit
                 </Button>
               </div>
-              <EcomAddressTable data={shippingDetailsAddress} />
+              <EcomAddressTable data={selectaddres} />
               <hr className="my-6" />
               <DeliveryType />
               <hr className="my-6" />
               <PaymentMethod />
 
               <div className="d-flex flex-column flex-sm-row gap-2 mb-7 mb-lg-0">
-                <Button variant="primary" type="submit" className="w-100">
+                <Button onClick={payhandler} variant="primary" className="w-100">
                   Pay {currencyFormat(695.2)}
                 </Button>
 

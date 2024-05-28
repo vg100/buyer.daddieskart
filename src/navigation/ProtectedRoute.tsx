@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux';
 import { Route, Navigate, Routes } from 'react-router-dom';
 
 const ProtectedRoute = ({ element, ...rest }) => {
-    const { loading, error, userInfo }  = useSelector((state:any) => state.user)
+    const { loading, error, userInfo }  = useSelector((state:any) => state?.user)
+
+    return element
     return userInfo ? element : (
         <Navigate to="/sign-in" replace />
     );

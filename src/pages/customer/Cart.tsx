@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Section from '../../components/base/Section';
 import EcomCartSummaryCard from '../../components/cards/EcomCartSummaryCard';
 import PageBreadcrumb from '../../components/common/PageBreadcrumb';
@@ -7,15 +7,12 @@ import { defaultBreadcrumbItems } from '../../data/commonData';
 // import { cartItems } from '../../data/e-commerce/products';
 import { Col, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { AuthRepo } from '../../services/AuthRepositry';
 
 const Cart = () => {
   const { cartItems } = useSelector((state: any) => state?.cart)
-  const navigate=useNavigate<any>()
-
-  if(!cartItems.length){
-    navigate('/pf')
-    return;
-  }
+ 
 
   return (
     <div className="pt-5 mb-9">

@@ -21,11 +21,12 @@ const CheckoutSummaryCard = () => {
           <div className="ms-n2 mb-5">
             {cartItems.map(item => (
               <Row className="align-items-center g-3 mb-2" key={item.id}>
+               
                 <Col xs={8} md={7} lg={8}>
                   <div className="d-flex align-items-center">
                     <img
                       className="me-2 ms-1"
-                      src={item.image}
+                      src={item?.productVariants[0]?.images[0]}
                       width={40}
                       alt={item.name}
                     />

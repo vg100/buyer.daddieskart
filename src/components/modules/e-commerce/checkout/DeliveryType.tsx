@@ -23,23 +23,24 @@ const deliverOptions: DeliveryOptionsType[] = [
     label: 'Two days Shipping',
     price: 20,
     estDelivery: 'Jun 1 – Jun 10',
-    description: 'Everything faster with minimum shipping fee.'
-  },
-  {
-    id: 'standard_shipping',
-    label: 'Standard Shipping',
-    price: 10,
-    estDelivery: 'Jun 5 – Jun 20',
-    description: 'Get timely delivery with economy shipping.'
-  },
-  {
-    id: 'one_day_shipping',
-    label: 'One day Shipping',
-    price: 30,
-    estDelivery: 'Jun 1 – Jun 2',
-    description: 'Highest priority shipping at the lowest cost.',
+    description: 'Everything faster with minimum shipping fee.',
     popular: true
-  }
+  },
+  // {
+  //   id: 'standard_shipping',
+  //   label: 'Standard Shipping',
+  //   price: 10,
+  //   estDelivery: 'Jun 5 – Jun 20',
+  //   description: 'Get timely delivery with economy shipping.'
+  // },
+  // {
+  //   id: 'one_day_shipping',
+  //   label: 'One day Shipping',
+  //   price: 30,
+  //   estDelivery: 'Jun 1 – Jun 2',
+  //   description: 'Highest priority shipping at the lowest cost.',
+  //   popular: true
+  // }
 ];
 
 const DeliveryType = () => {
